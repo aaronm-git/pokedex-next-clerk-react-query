@@ -1,3 +1,5 @@
-export default function dashboard() {
-  return <h1>App route. Should be redirected to dashboard</h1>;
+import { redirect } from 'next/navigation';
+
+export default function AppPage() {
+  redirect('/app/dashboard');
 }

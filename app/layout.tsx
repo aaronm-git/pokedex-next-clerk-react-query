@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="dark">
+      <html lang="en" className="">
         <body
           className={`${pressStart2P.variable} ${jersey15Charted.variable} antialiased relative`}
         >

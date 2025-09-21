@@ -200,13 +200,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen w-full">
         <AppSidebar />
         <SidebarInset className="flex-1">
-          <header className="flex h-14 items-center gap-4 border-b px-4">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="h-6" />
-            <div className="flex-1">
-              <h1 className="text-lg font-semibold">Pokémon Trainer Hub</h1>
-            </div>
-          </header>
           <main className="flex-1 p-4">{children}</main>
         </SidebarInset>
       </div>

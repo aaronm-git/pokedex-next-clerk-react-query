@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export interface HeroProps {
   title: string;
@@ -13,7 +14,7 @@ export interface HeroProps {
   imageUrl: string;
 }
 
-export const Hero = ({
+export const Hero = async ({
   title,
   description,
   primaryButtonText,
@@ -22,6 +23,8 @@ export const Hero = ({
   secondaryButtonLink,
   imageUrl,
 }: HeroProps) => {
+  const { userId } = await auth();
+
   const getButton = (
     text: string,
     link: string,
@@ -44,7 +47,7 @@ export const Hero = ({
         asChild
         variant={buttonVariant}
       >
-        <SignUpButton fallbackRedirectUrl="/">{text}</SignUpButton>
+        <SignUpButton fallbackRedirectUrl="/app/dashboard">{text}</SignUpButton>
       </Button>
     ) : (
       <Button
@@ -79,8 +82,16 @@ export const Hero = ({
               {description}
             </p>
             <div className="flex w-full justify-center lg:justify-start gap-4">
-              {primaryButton}
-              {secondaryButton}
+              {userId ? (
+                <Button size="lg" asChild variant="default">
+                  <Link href="/app/dashboard">Dashboard</Link>
+                </Button>
+              ) : (
+                <>
+                  {primaryButton}
+                  {secondaryButton}
+                </>
+              )}
             </div>
           </div>
           <Image

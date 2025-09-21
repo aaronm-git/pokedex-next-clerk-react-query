@@ -33,7 +33,7 @@ export default function RootLayout({
           className={`${pressStart2P.variable} ${jersey15Charted.variable} antialiased relative`}
         >
           <main>{children}</main>
-          <DevTools />
+          {/* <DevTools /> */}
         </body>
       </html>
     </ClerkProvider>

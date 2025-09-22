@@ -2,6 +2,7 @@ import { Home, Search, Zap, Gamepad2, User } from "lucide-react";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app/Sidebar";
 import QueryProvider from "@/components/providers/QueryProvider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 // Navigation items for the sidebar
 const navigationItems = [
@@ -39,9 +40,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="flex min-h-screen w-full">
           <AppSidebar navigationItems={navigationItems} />
           <SidebarInset className="flex-1">
-            <main className="flex-1 p-4">{children}</main>
+            <main className="flex-1 p-4 max-h-screen">{children}</main>
           </SidebarInset>
         </div>
+        <ReactQueryDevtools initialIsOpen={false} />
       </SidebarProvider>
     </QueryProvider>
   );

@@ -91,11 +91,13 @@ export default function PokemonSearch() {
           <LoadingSearchResults />
         ) : (
           <PokemonSearchResults
-            searchTerm={searchTerm}
+            noResults={
+              searchTerm.length > 2 &&
+              searchResults?.data?.pokemonspecies.length === 0
+            }
             pokemon={searchResults?.data?.pokemonspecies ?? []}
             pokemonSprites={pokemonSprites?.data?.pokemonformsprites ?? []}
             isLoadingSprites={isLoadingSprites}
-            isFetchedResults={isFetchedResults}
           />
         )}
       </div>
@@ -112,20 +114,23 @@ function LoadingSearchResults() {
 }
 
 function PokemonSearchResults({
-  searchTerm,
+  noResults,
   pokemon,
   pokemonSprites,
   isLoadingSprites,
-  isFetchedResults,
 }: {
-  searchTerm: string;
+  noResults: boolean;
   pokemon: SearchPokemonQuery["pokemonspecies"];
   pokemonSprites: GetPokemonSpritesByIdsQuery["pokemonformsprites"];
   isLoadingSprites: boolean;
-  isFetchedResults: boolean;
 }) {
-  if (!isFetchedResults && searchTerm.length > 2) {
-    return <div className="text-center text-2xl">No results found</div>;
+  if (noResults) {
+    return (
+      <div className="text-center font-semibold text-2xl col-span-full row-span-full flex flex-col items-center gap-4 justify-center py-20">
+        <Image src="/egg.svg" alt="No results found" width={96} height={96} />
+        No Pokémon found...
+      </div>
+    );
   }
 
   return pokemon.map((pkmn) => (
@@ -150,7 +155,7 @@ function PokemonSearchResults({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p>{pkmn.generation?.name}</p>
+        <p className="uppercase">{pkmn.generation?.name}</p>
       </CardContent>
     </Card>
   ));

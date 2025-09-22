@@ -10,7 +10,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { LucideIcon, Zap } from "lucide-react";
+import { PokedexIcon } from "@/components/ui/icons/PokedexIcon";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import NavUser from "@/components/app/NavUser";
 
@@ -29,8 +30,8 @@ export function AppSidebar({
     <Sidebar>
       <SidebarHeader className="border-b">
         <div className="flex items-center gap-2 px-2 py-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Zap className="h-4 w-4" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
+            <PokedexIcon className="h-6 w-6 text-red-500" />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold">Pokédex</span>

@@ -1,5 +1,5 @@
-import { Separator } from "@/components/ui/separator";
 import { LayoutDashboard } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 export default function page() {
   return (

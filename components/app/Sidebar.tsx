@@ -1,3 +1,7 @@
+import type { LucideIcon } from "lucide-react";
+import Link from "next/link";
+import NavUser from "@/components/app/NavUser";
+import { PokedexIcon } from "@/components/ui/icons/PokedexIcon";
 import {
   Sidebar,
   SidebarContent,
@@ -10,10 +14,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { PokedexIcon } from "@/components/ui/icons/PokedexIcon";
-import type { LucideIcon } from "lucide-react";
-import Link from "next/link";
-import NavUser from "@/components/app/NavUser";
 
 interface NavigationItem {
   title: string;

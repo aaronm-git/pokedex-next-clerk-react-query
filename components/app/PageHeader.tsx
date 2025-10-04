@@ -1,5 +1,5 @@
+import type { LucideIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { type LucideIcon } from "lucide-react";
 
 export default function PageHeader({
   title,

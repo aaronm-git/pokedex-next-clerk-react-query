@@ -1,13 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Search } from "lucide-react";
-import PageHeader from "@/components/app/PageHeader";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
 import { useDebounce } from "@uidotdev/usehooks";
+import { Search } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import PageHeader from "@/components/app/PageHeader";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -15,11 +13,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { execute } from "@/lib/pokemonClient";
 import { GET_POKEMON_SPRITES, SEARCH_POKEMON } from "@/lib/queries";
-import {
+import type {
   GetPokemonSpritesByIdsQuery,
-  type SearchPokemonQuery,
+  SearchPokemonQuery,
 } from "@/src/graphql/graphql";
 
 export default function PokemonSearch() {

@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export interface HeroProps {
   title: string;
@@ -38,7 +38,7 @@ export const Hero = async ({
         asChild
         variant={buttonVariant}
       >
-        <SignInButton fallbackRedirectUrl="/app/dashboard">{text}</SignInButton>
+        <SignInButton>{text}</SignInButton>
       </Button>
     ) : link.startsWith("/signup") ? (
       <Button
@@ -47,7 +47,7 @@ export const Hero = async ({
         asChild
         variant={buttonVariant}
       >
-        <SignUpButton fallbackRedirectUrl="/app/dashboard">{text}</SignUpButton>
+        <SignUpButton>{text}</SignUpButton>
       </Button>
     ) : (
       <Button

@@ -1,29 +1,30 @@
 "use client";
+import { SignOutButton, useUser } from "@clerk/nextjs";
 import {
-  useSidebar,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-} from "@/components/ui/sidebar";
-import { useUser } from "@clerk/nextjs";
+  Bell,
+  CreditCard,
+  LogOut,
+  MoreVertical,
+  Settings,
+  User,
+} from "lucide-react";
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
-import Link from "next/link";
-import { User } from "lucide-react";
-import { CreditCard } from "lucide-react";
-import { Bell } from "lucide-react";
-import { Settings } from "lucide-react";
-import { LogOut } from "lucide-react";
-import { SignOutButton } from "@clerk/nextjs";
+import {
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { Skeleton } from "../ui/skeleton";
 
 export default function NavUser() {

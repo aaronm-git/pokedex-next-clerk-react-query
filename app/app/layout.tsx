@@ -1,8 +1,8 @@
-import { Home, Search, Zap, Gamepad2, User } from "lucide-react";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Gamepad2, Home, Search, User, Zap } from "lucide-react";
 import { AppSidebar } from "@/components/app/Sidebar";
 import QueryProvider from "@/components/providers/QueryProvider";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 // Navigation items for the sidebar
 const navigationItems = [

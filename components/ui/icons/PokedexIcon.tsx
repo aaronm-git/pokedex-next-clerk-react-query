@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 // Reusable Pokedex SVG icon. Uses currentColor so it can be styled with Tailwind classes.
 export const PokedexIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {

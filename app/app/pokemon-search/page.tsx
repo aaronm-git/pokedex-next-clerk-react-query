@@ -6,13 +6,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import PageHeader from "@/components/app/PageHeader";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { execute } from "@/lib/pokemonClient";
@@ -33,11 +27,13 @@ export default function PokemonSearch() {
     isLoading: isSearchingResults,
     isFetched: isFetchedResults,
   } = useQuery({
-    queryKey: ["searchPokemon", searchTerm],
-    queryFn: () => execute(SEARCH_POKEMON, { searchTerm: `%${searchTerm}%` }),
+    queryKey: ["pokemonSearch", debouncedSearchTerm],
+    queryFn: () =>
+      execute(SEARCH_POKEMON, { searchTerm: `%${debouncedSearchTerm}%` }),
     gcTime: 1000 * 60 * 10,
     staleTime: Infinity,
-    enabled: searchTerm.length > 2 && debouncedSearchTerm === searchTerm,
+    enabled:
+      debouncedSearchTerm.length > 2 && debouncedSearchTerm === searchTerm,
   });
 
   const { data: pokemonSprites, isLoading: isLoadingSprites } = useQuery({

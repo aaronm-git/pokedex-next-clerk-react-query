@@ -49393,34 +49393,19 @@ export type Versionname_Variance_Order_By = {
   version_id?: InputMaybe<Order_By>;
 };
 
-export type GetAllPokemonQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
+export type SearchPokemonByIdQueryVariables = Exact<{
+  id: Scalars['Int']['input'];
 }>;
 
 
-export type GetAllPokemonQuery = { __typename?: 'query_root', pokemonspecies: Array<{ __typename?: 'pokemonspecies', id: number, name: string, pokemon_color_id?: number | null, generation?: { __typename?: 'generation', id: number, name: string } | null }> };
-
-export type GetPokemonByNameQueryVariables = Exact<{
-  name: Scalars['String']['input'];
-}>;
-
-
-export type GetPokemonByNameQuery = { __typename?: 'query_root', pokemonspecies: Array<{ __typename?: 'pokemonspecies', id: number, name: string, generation?: { __typename?: 'generation', id: number, name: string } | null }> };
+export type SearchPokemonByIdQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', name: string, base_experience?: number | null, pokemonstats: Array<{ __typename?: 'pokemonstat', base_stat: number, stat?: { __typename?: 'stat', name: string, characteristics_aggregate: { __typename?: 'characteristic_aggregate', nodes: Array<{ __typename?: 'characteristic', characteristicdescriptions_aggregate: { __typename?: 'characteristicdescription_aggregate', nodes: Array<{ __typename?: 'characteristicdescription', description: string }> } }> } } | null }>, pokemonmoves: Array<{ __typename?: 'pokemonmove', move?: { __typename?: 'move', name: string } | null }>, pokemoncries: Array<{ __typename?: 'pokemoncries', cries: any }>, pokemonabilities: Array<{ __typename?: 'pokemonability', ability?: { __typename?: 'ability', name: string } | null }>, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }>, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string } | null }> }> };
 
 export type SearchPokemonQueryVariables = Exact<{
   searchTerm: Scalars['String']['input'];
 }>;
 
 
-export type SearchPokemonQuery = { __typename?: 'query_root', pokemonspecies: Array<{ __typename?: 'pokemonspecies', id: number, name: string, generation?: { __typename?: 'generation', id: number, name: string } | null }> };
-
-export type GetPokemonSpritesByIdsQueryVariables = Exact<{
-  ids?: InputMaybe<Array<Scalars['Int']['input']> | Scalars['Int']['input']>;
-}>;
-
-
-export type GetPokemonSpritesByIdsQuery = { __typename?: 'query_root', pokemonformsprites: Array<{ __typename?: 'pokemonformsprites', id: number, pokemon_form_id?: number | null, sprites: any }> };
+export type SearchPokemonQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', id: number, name: string, pokemoncries: Array<{ __typename?: 'pokemoncries', cries: any }>, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }> }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -49441,53 +49426,61 @@ export class TypedDocumentString<TResult, TVariables>
   }
 }
 
-export const GetAllPokemonDocument = new TypedDocumentString(`
-    query GetAllPokemon($limit: Int = 20, $offset: Int = 0) {
-  pokemonspecies(limit: $limit, offset: $offset, order_by: {id: asc}) {
-    id
+export const SearchPokemonByIdDocument = new TypedDocumentString(`
+    query SearchPokemonById($id: Int!) {
+  pokemon(where: {id: {_eq: $id}}) {
     name
-    pokemon_color_id
-    generation {
-      id
-      name
+    base_experience
+    pokemonstats {
+      stat {
+        name
+        characteristics_aggregate {
+          nodes {
+            characteristicdescriptions_aggregate(where: {language: {name: {_eq: "en"}}}) {
+              nodes {
+                description
+              }
+            }
+          }
+        }
+      }
+      base_stat
+    }
+    pokemonmoves {
+      move {
+        name
+      }
+    }
+    pokemoncries {
+      cries
+    }
+    pokemonabilities {
+      ability {
+        name
+      }
+    }
+    pokemonsprites {
+      sprites
+    }
+    pokemontypes {
+      type {
+        name
+      }
     }
   }
 }
-    `) as unknown as TypedDocumentString<GetAllPokemonQuery, GetAllPokemonQueryVariables>;
-export const GetPokemonByNameDocument = new TypedDocumentString(`
-    query GetPokemonByName($name: String!) {
-  pokemonspecies(where: {name: {_eq: $name}}) {
-    id
-    name
-    generation {
-      id
-      name
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<GetPokemonByNameQuery, GetPokemonByNameQueryVariables>;
+    `) as unknown as TypedDocumentString<SearchPokemonByIdQuery, SearchPokemonByIdQueryVariables>;
 export const SearchPokemonDocument = new TypedDocumentString(`
     query SearchPokemon($searchTerm: String!) {
-  pokemonspecies(
-    where: {name: {_ilike: $searchTerm}}
-    limit: 10
-    order_by: {id: asc}
-  ) {
+  pokemon(where: {name: {_ilike: $searchTerm}}, limit: 10, order_by: {id: asc}) {
     id
     name
-    generation {
-      id
-      name
+    pokemoncries {
+      cries
+    }
+    pokemonsprites {
+      sprites
     }
   }
 }
     `) as unknown as TypedDocumentString<SearchPokemonQuery, SearchPokemonQueryVariables>;
-export const GetPokemonSpritesByIdsDocument = new TypedDocumentString(`
-    query GetPokemonSpritesByIds($ids: [Int!]) {
-  pokemonformsprites(where: {id: {_in: $ids}}) {
-    id
-    pokemon_form_id
-    sprites
-  }
-}
-    `) as unknown as TypedDocumentString<GetPokemonSpritesByIdsQuery, GetPokemonSpritesByIdsQueryVariables>;

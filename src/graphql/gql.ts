@@ -1,5 +1,7 @@
 /* eslint-disable */
-import * as types from "./graphql";
+import * as types from './graphql';
+
+
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,46 +15,23 @@ import * as types from "./graphql";
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-  "\n  query GetAllPokemon($limit: Int = 20, $offset: Int = 0) {\n    pokemonspecies(limit: $limit, offset: $offset, order_by: { id: asc }) {\n      id\n      name\n      pokemon_color_id\n      generation {\n        id\n        name\n      }\n    }\n  }\n": typeof types.GetAllPokemonDocument;
-  "\n  query GetPokemonByName($name: String!) {\n    pokemonspecies(where: { name: { _eq: $name } }) {\n      id\n      name\n      generation {\n        id\n        name\n      }\n    }\n  }\n": typeof types.GetPokemonByNameDocument;
-  "\n  query SearchPokemon($searchTerm: String!) {\n    pokemonspecies(\n      where: { name: { _ilike: $searchTerm } }\n      limit: 10\n      order_by: { id: asc }\n    ) {\n      id\n      name\n      generation {\n        id\n        name\n      }\n    }\n  }\n": typeof types.SearchPokemonDocument;
-  "\n  query GetPokemonSpritesByIds($ids: [Int!]) {\n    pokemonformsprites(where: { id: { _in: $ids } }) {\n      id\n      pokemon_form_id\n      sprites\n    }\n  }\n": typeof types.GetPokemonSpritesByIdsDocument;
+    "\n  query SearchPokemonById($id: Int!) {\n  pokemon(where: {id: {_eq: $id}}) {\n    name\n    base_experience\n    pokemonstats {\n      stat {\n        name\n        characteristics_aggregate {\n          nodes {\n            characteristicdescriptions_aggregate(where: {language: {name: {_eq: \"en\"}}}) {\n              nodes {\n                description\n              }\n            }\n          }\n        }\n      }\n      base_stat\n    }\n    pokemonmoves {\n      move {\n        name\n      }\n    }\n    pokemoncries {\n      cries\n    }\n    pokemonabilities {\n      ability {\n        name\n      }\n    }\n    pokemonsprites {\n      sprites\n    }\n    pokemontypes {\n      type {\n        name\n      }\n    }\n  }\n}\n": typeof types.SearchPokemonByIdDocument,
+    "\n  query SearchPokemon($searchTerm: String!) {\n    pokemon(\n      where: { name: { _ilike: $searchTerm } }\n      limit: 10\n      order_by: { id: asc }\n    ) {\n      id\n      name\n      pokemoncries {\n        cries\n      }\n      pokemonsprites {\n        sprites\n      }\n    }\n  }\n": typeof types.SearchPokemonDocument,
 };
 const documents: Documents = {
-  "\n  query GetAllPokemon($limit: Int = 20, $offset: Int = 0) {\n    pokemonspecies(limit: $limit, offset: $offset, order_by: { id: asc }) {\n      id\n      name\n      pokemon_color_id\n      generation {\n        id\n        name\n      }\n    }\n  }\n":
-    types.GetAllPokemonDocument,
-  "\n  query GetPokemonByName($name: String!) {\n    pokemonspecies(where: { name: { _eq: $name } }) {\n      id\n      name\n      generation {\n        id\n        name\n      }\n    }\n  }\n":
-    types.GetPokemonByNameDocument,
-  "\n  query SearchPokemon($searchTerm: String!) {\n    pokemonspecies(\n      where: { name: { _ilike: $searchTerm } }\n      limit: 10\n      order_by: { id: asc }\n    ) {\n      id\n      name\n      generation {\n        id\n        name\n      }\n    }\n  }\n":
-    types.SearchPokemonDocument,
-  "\n  query GetPokemonSpritesByIds($ids: [Int!]) {\n    pokemonformsprites(where: { id: { _in: $ids } }) {\n      id\n      pokemon_form_id\n      sprites\n    }\n  }\n":
-    types.GetPokemonSpritesByIdsDocument,
+    "\n  query SearchPokemonById($id: Int!) {\n  pokemon(where: {id: {_eq: $id}}) {\n    name\n    base_experience\n    pokemonstats {\n      stat {\n        name\n        characteristics_aggregate {\n          nodes {\n            characteristicdescriptions_aggregate(where: {language: {name: {_eq: \"en\"}}}) {\n              nodes {\n                description\n              }\n            }\n          }\n        }\n      }\n      base_stat\n    }\n    pokemonmoves {\n      move {\n        name\n      }\n    }\n    pokemoncries {\n      cries\n    }\n    pokemonabilities {\n      ability {\n        name\n      }\n    }\n    pokemonsprites {\n      sprites\n    }\n    pokemontypes {\n      type {\n        name\n      }\n    }\n  }\n}\n": types.SearchPokemonByIdDocument,
+    "\n  query SearchPokemon($searchTerm: String!) {\n    pokemon(\n      where: { name: { _ilike: $searchTerm } }\n      limit: 10\n      order_by: { id: asc }\n    ) {\n      id\n      name\n      pokemoncries {\n        cries\n      }\n      pokemonsprites {\n        sprites\n      }\n    }\n  }\n": types.SearchPokemonDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  query GetAllPokemon($limit: Int = 20, $offset: Int = 0) {\n    pokemonspecies(limit: $limit, offset: $offset, order_by: { id: asc }) {\n      id\n      name\n      pokemon_color_id\n      generation {\n        id\n        name\n      }\n    }\n  }\n",
-): typeof import("./graphql").GetAllPokemonDocument;
+export function graphql(source: "\n  query SearchPokemonById($id: Int!) {\n  pokemon(where: {id: {_eq: $id}}) {\n    name\n    base_experience\n    pokemonstats {\n      stat {\n        name\n        characteristics_aggregate {\n          nodes {\n            characteristicdescriptions_aggregate(where: {language: {name: {_eq: \"en\"}}}) {\n              nodes {\n                description\n              }\n            }\n          }\n        }\n      }\n      base_stat\n    }\n    pokemonmoves {\n      move {\n        name\n      }\n    }\n    pokemoncries {\n      cries\n    }\n    pokemonabilities {\n      ability {\n        name\n      }\n    }\n    pokemonsprites {\n      sprites\n    }\n    pokemontypes {\n      type {\n        name\n      }\n    }\n  }\n}\n"): typeof import('./graphql').SearchPokemonByIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: "\n  query GetPokemonByName($name: String!) {\n    pokemonspecies(where: { name: { _eq: $name } }) {\n      id\n      name\n      generation {\n        id\n        name\n      }\n    }\n  }\n",
-): typeof import("./graphql").GetPokemonByNameDocument;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: "\n  query SearchPokemon($searchTerm: String!) {\n    pokemonspecies(\n      where: { name: { _ilike: $searchTerm } }\n      limit: 10\n      order_by: { id: asc }\n    ) {\n      id\n      name\n      generation {\n        id\n        name\n      }\n    }\n  }\n",
-): typeof import("./graphql").SearchPokemonDocument;
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(
-  source: "\n  query GetPokemonSpritesByIds($ids: [Int!]) {\n    pokemonformsprites(where: { id: { _in: $ids } }) {\n      id\n      pokemon_form_id\n      sprites\n    }\n  }\n",
-): typeof import("./graphql").GetPokemonSpritesByIdsDocument;
+export function graphql(source: "\n  query SearchPokemon($searchTerm: String!) {\n    pokemon(\n      where: { name: { _ilike: $searchTerm } }\n      limit: 10\n      order_by: { id: asc }\n    ) {\n      id\n      name\n      pokemoncries {\n        cries\n      }\n      pokemonsprites {\n        sprites\n      }\n    }\n  }\n"): typeof import('./graphql').SearchPokemonDocument;
+
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

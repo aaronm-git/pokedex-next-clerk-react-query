@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import PageHeader from "@/components/app/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -10,11 +11,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { execute } from "@/lib/pokemonClient";
-import { GET_POKEMON_SPRITES, SEARCH_POKEMON } from "@/lib/queries";
-import type {
-  GetPokemonSpritesByIdsQuery,
-  SearchPokemonQuery,
-} from "@/src/graphql/graphql";
+import { SEARCH_POKEMON } from "@/lib/queries";
+import type { SearchPokemonQuery } from "@/src/graphql/graphql";
 
 export default function PokemonSearch() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -22,11 +20,7 @@ export default function PokemonSearch() {
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
 
   // Search for Pokémon by name pattern
-  const {
-    data: searchResults,
-    isLoading: isSearchingResults,
-    isFetched: isFetchedResults,
-  } = useQuery({
+  const { data: searchResults, isFetched: isFetchedResults } = useQuery({
     queryKey: ["pokemonSearch", debouncedSearchTerm],
     queryFn: () =>
       execute(SEARCH_POKEMON, { searchTerm: `%${debouncedSearchTerm}%` }),
@@ -34,21 +28,6 @@ export default function PokemonSearch() {
     staleTime: Infinity,
     enabled:
       debouncedSearchTerm.length > 2 && debouncedSearchTerm === searchTerm,
-  });
-
-  const { data: pokemonSprites, isLoading: isLoadingSprites } = useQuery({
-    queryKey: [
-      "pokemonSprites",
-      searchResults?.data?.pokemonspecies.map((pokemon) => pokemon.id),
-    ],
-    queryFn: () =>
-      execute(GET_POKEMON_SPRITES, {
-        ids: searchResults?.data?.pokemonspecies.map((pokemon) => pokemon.id),
-      }),
-    enabled:
-      !!searchResults?.data?.pokemonspecies.length &&
-      searchResults?.data?.pokemonspecies.length > 0,
-    staleTime: Infinity,
   });
 
   const handleSearch = (e: React.FormEvent) => {
@@ -75,6 +54,10 @@ export default function PokemonSearch() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="flex-1"
+          autoFocus
+          onFocus={(e) => {
+            (e.target as HTMLInputElement).select();
+          }}
         />
         <Button type="submit" disabled={isSearching}>
           {isSearching ? "Searching..." : "Search"}
@@ -88,12 +71,9 @@ export default function PokemonSearch() {
         ) : (
           <PokemonSearchResults
             noResults={
-              searchTerm.length > 2 &&
-              searchResults?.data?.pokemonspecies.length === 0
+              searchTerm.length > 2 && searchResults?.data?.pokemon.length === 0
             }
-            pokemon={searchResults?.data?.pokemonspecies ?? []}
-            pokemonSprites={pokemonSprites?.data?.pokemonformsprites ?? []}
-            isLoadingSprites={isLoadingSprites}
+            pokemon={searchResults?.data?.pokemon ?? []}
           />
         )}
       </div>
@@ -112,13 +92,9 @@ function LoadingSearchResults() {
 function PokemonSearchResults({
   noResults,
   pokemon,
-  pokemonSprites,
-  isLoadingSprites,
 }: {
   noResults: boolean;
-  pokemon: SearchPokemonQuery["pokemonspecies"];
-  pokemonSprites: GetPokemonSpritesByIdsQuery["pokemonformsprites"];
-  isLoadingSprites: boolean;
+  pokemon: SearchPokemonQuery["pokemon"];
 }) {
   if (noResults) {
     return (
@@ -130,29 +106,24 @@ function PokemonSearchResults({
   }
 
   return pokemon.map((pkmn) => (
-    <Card key={pkmn.id}>
-      <CardHeader>
-        {isLoadingSprites ? (
-          <Skeleton className="w-[96px] h-[96px]" />
-        ) : (
+    <Link href={`/app/pokemon/${pkmn.id}`} key={pkmn.id} className="group">
+      <Card className="group-hover:shadow-lg transition-shadow duration-300">
+        <CardHeader>
           <Image
-            src={
-              pokemonSprites.find(
-                (sprite) => sprite.pokemon_form_id === pkmn.id,
-              )?.sprites.front_default
-            }
+            src={pkmn.pokemonsprites?.[0]?.sprites?.front_default || "/egg.svg"}
             alt={`${pkmn.name} sprite`}
             width={96}
             height={96}
+            className="transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105"
           />
-        )}
-        <CardTitle className="capitalize">
-          #{pkmn.id} {pkmn.name}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="uppercase">{pkmn.generation?.name}</p>
-      </CardContent>
-    </Card>
+          <CardTitle className="capitalize">
+            #{pkmn.id} {pkmn.name}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {/* Add any additional content here if needed */}
+        </CardContent>
+      </Card>
+    </Link>
   ));
 }

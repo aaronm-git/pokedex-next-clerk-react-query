@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import NavUser from "@/components/app/NavUser";
-import { PokedexIcon } from "@/components/ui/icons/PokedexIcon";
+import { PokedexIcon } from "@/components/icons/PokedexIcon";
 import {
   Sidebar,
   SidebarContent,

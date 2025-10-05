@@ -1,58 +1,65 @@
 import { graphql } from "@/src/graphql";
 
-// Get all Pokémon with basic info
-export const GET_ALL_POKEMON = graphql(`
-  query GetAllPokemon($limit: Int = 20, $offset: Int = 0) {
-    pokemonspecies(limit: $limit, offset: $offset, order_by: { id: asc }) {
-      id
-      name
-      pokemon_color_id
-      generation {
-        id
+export const POKEMON_ID_PAGE_QUERY = graphql(`
+  query SearchPokemonById($id: Int!) {
+  pokemon(where: {id: {_eq: $id}}) {
+    name
+    base_experience
+    pokemonstats {
+      stat {
+        name
+        characteristics_aggregate {
+          nodes {
+            characteristicdescriptions_aggregate(where: {language: {name: {_eq: "en"}}}) {
+              nodes {
+                description
+              }
+            }
+          }
+        }
+      }
+      base_stat
+    }
+    pokemonmoves {
+      move {
+        name
+      }
+    }
+    pokemoncries {
+      cries
+    }
+    pokemonabilities {
+      ability {
+        name
+      }
+    }
+    pokemonsprites {
+      sprites
+    }
+    pokemontypes {
+      type {
         name
       }
     }
   }
+}
 `);
 
-// Get a specific Pokémon by name
-export const GET_POKEMON_BY_NAME = graphql(`
-  query GetPokemonByName($name: String!) {
-    pokemonspecies(where: { name: { _eq: $name } }) {
-      id
-      name
-      generation {
-        id
-        name
-      }
-    }
-  }
-`);
-
-// Search Pokémon by name pattern
 export const SEARCH_POKEMON = graphql(`
   query SearchPokemon($searchTerm: String!) {
-    pokemonspecies(
+    pokemon(
       where: { name: { _ilike: $searchTerm } }
       limit: 10
       order_by: { id: asc }
     ) {
       id
       name
-      generation {
-        id
-        name
+      pokemoncries {
+        cries
       }
-    }
-  }
-`);
-
-export const GET_POKEMON_SPRITES = graphql(`
-  query GetPokemonSpritesByIds($ids: [Int!]) {
-    pokemonformsprites(where: { id: { _in: $ids } }) {
-      id
-      pokemon_form_id
-      sprites
+      pokemonsprites {
+        sprites
+      }
     }
   }
 `);

@@ -10,20 +10,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { execute } from "@/lib/pokemonClient";
-import { SEARCH_POKEMON } from "@/lib/queries";
-import type { SearchPokemonQuery } from "@/src/graphql/graphql";
+import { usePokemon } from "@/hooks/use-pokemon";
 
 export default function PokemonSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-
+  const { getSearchPokemon } = usePokemon();
   // Search for Pokémon by name pattern
   const { data: searchResults, isFetched: isFetchedResults } = useQuery({
     queryKey: ["pokemonSearch", debouncedSearchTerm],
-    queryFn: () =>
-      execute(SEARCH_POKEMON, { searchTerm: `%${debouncedSearchTerm}%` }),
+    queryFn: () => getSearchPokemon(debouncedSearchTerm, 0),
     gcTime: 1000 * 60 * 10,
     staleTime: Infinity,
     enabled:
@@ -71,9 +68,9 @@ export default function PokemonSearch() {
         ) : (
           <PokemonSearchResults
             noResults={
-              searchTerm.length > 2 && searchResults?.data?.pokemon.length === 0
+              searchTerm.length > 2 && searchResults?.pokemon.length === 0
             }
-            pokemon={searchResults?.data?.pokemon ?? []}
+            pokemon={searchResults?.pokemon ?? []}
           />
         )}
       </div>
@@ -94,7 +91,12 @@ function PokemonSearchResults({
   pokemon,
 }: {
   noResults: boolean;
-  pokemon: SearchPokemonQuery["pokemon"];
+  pokemon: {
+    id: number;
+    name: string;
+    spriteUrl: string;
+    type: string;
+  }[];
 }) {
   if (noResults) {
     return (
@@ -110,7 +112,7 @@ function PokemonSearchResults({
       <Card className="group-hover:shadow-lg transition-shadow duration-300">
         <CardHeader>
           <Image
-            src={pkmn.pokemonsprites?.[0]?.sprites?.front_default || "/egg.svg"}
+            src={pkmn.spriteUrl || "/egg.svg"}
             alt={`${pkmn.name} sprite`}
             width={96}
             height={96}
@@ -121,7 +123,7 @@ function PokemonSearchResults({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {/* Add any additional content here if needed */}
+          <p className="text-sm text-muted-foreground">{pkmn.type}</p>
         </CardContent>
       </Card>
     </Link>

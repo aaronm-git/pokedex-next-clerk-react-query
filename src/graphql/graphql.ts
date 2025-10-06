@@ -49398,14 +49398,15 @@ export type SearchPokemonByIdQueryVariables = Exact<{
 }>;
 
 
-export type SearchPokemonByIdQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', name: string, base_experience?: number | null, pokemonstats: Array<{ __typename?: 'pokemonstat', base_stat: number, stat?: { __typename?: 'stat', name: string, characteristics_aggregate: { __typename?: 'characteristic_aggregate', nodes: Array<{ __typename?: 'characteristic', characteristicdescriptions_aggregate: { __typename?: 'characteristicdescription_aggregate', nodes: Array<{ __typename?: 'characteristicdescription', description: string }> } }> } } | null }>, pokemonmoves: Array<{ __typename?: 'pokemonmove', move?: { __typename?: 'move', name: string } | null }>, pokemoncries: Array<{ __typename?: 'pokemoncries', cries: any }>, pokemonabilities: Array<{ __typename?: 'pokemonability', ability?: { __typename?: 'ability', name: string } | null }>, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }>, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string } | null }> }> };
+export type SearchPokemonByIdQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', id: number, name: string, weight?: number | null, height?: number | null, base_experience?: number | null, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }>, pokemonstats: Array<{ __typename?: 'pokemonstat', base_stat: number, stat?: { __typename?: 'stat', name: string, statnames: Array<{ __typename?: 'statname', name: string, language?: { __typename?: 'language', id: number } | null }> } | null }>, pokemonmoves: Array<{ __typename?: 'pokemonmove', move?: { __typename?: 'move', name: string, movenames: Array<{ __typename?: 'movename', name: string }> } | null }>, pokemoncries: Array<{ __typename?: 'pokemoncries', cries: any }>, pokemonabilities: Array<{ __typename?: 'pokemonability', ability?: { __typename?: 'ability', name: string, abilitynames: Array<{ __typename?: 'abilityname', name: string }>, generation?: { __typename?: 'generation', generationnames_aggregate: { __typename?: 'generationname_aggregate', nodes: Array<{ __typename?: 'generationname', name: string }> } } | null, abilityeffecttexts_aggregate: { __typename?: 'abilityeffecttext_aggregate', nodes: Array<{ __typename?: 'abilityeffecttext', short_effect: string, effect: string }> } } | null }>, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string, typenames: Array<{ __typename?: 'typename', name: string }> } | null }> }> };
 
 export type SearchPokemonQueryVariables = Exact<{
   searchTerm: Scalars['String']['input'];
+  page: Scalars['Int']['input'];
 }>;
 
 
-export type SearchPokemonQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', id: number, name: string, pokemoncries: Array<{ __typename?: 'pokemoncries', cries: any }>, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }> }> };
+export type SearchPokemonQuery = { __typename?: 'query_root', pokemon_aggregate: { __typename?: 'pokemon_aggregate', aggregate?: { __typename?: 'pokemon_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'pokemon', id: number, name: string, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }>, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string, typenames: Array<{ __typename?: 'typename', name: string }> } | null }> }> } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -49428,27 +49429,33 @@ export class TypedDocumentString<TResult, TVariables>
 
 export const SearchPokemonByIdDocument = new TypedDocumentString(`
     query SearchPokemonById($id: Int!) {
-  pokemon(where: {id: {_eq: $id}}) {
+  pokemon(where: {_and: [{id: {_eq: $id}, is_default: {_eq: true}}]}) {
+    id
     name
+    weight
+    height
     base_experience
+    pokemonsprites {
+      sprites
+    }
     pokemonstats {
+      base_stat
       stat {
         name
-        characteristics_aggregate {
-          nodes {
-            characteristicdescriptions_aggregate(where: {language: {name: {_eq: "en"}}}) {
-              nodes {
-                description
-              }
-            }
+        statnames(where: {language_id: {_eq: 9}}) {
+          language {
+            id
           }
+          name
         }
       }
-      base_stat
     }
     pokemonmoves {
       move {
         name
+        movenames(where: {language_id: {_eq: 9}}) {
+          name
+        }
       }
     }
     pokemoncries {
@@ -49457,29 +49464,60 @@ export const SearchPokemonByIdDocument = new TypedDocumentString(`
     pokemonabilities {
       ability {
         name
+        abilitynames(where: {language_id: {_eq: 9}}) {
+          name
+        }
+        generation {
+          generationnames_aggregate(where: {language_id: {_eq: 9}}) {
+            nodes {
+              name
+            }
+          }
+        }
+        abilityeffecttexts_aggregate(where: {language_id: {_eq: 9}}) {
+          nodes {
+            short_effect
+            effect
+          }
+        }
       }
-    }
-    pokemonsprites {
-      sprites
     }
     pokemontypes {
       type {
         name
+        typenames(where: {language_id: {_eq: 9}}) {
+          name
+        }
       }
     }
   }
 }
     `) as unknown as TypedDocumentString<SearchPokemonByIdQuery, SearchPokemonByIdQueryVariables>;
 export const SearchPokemonDocument = new TypedDocumentString(`
-    query SearchPokemon($searchTerm: String!) {
-  pokemon(where: {name: {_ilike: $searchTerm}}, limit: 10, order_by: {id: asc}) {
-    id
-    name
-    pokemoncries {
-      cries
+    query SearchPokemon($searchTerm: String!, $page: Int!) {
+  pokemon_aggregate(
+    where: {_and: [{name: {_ilike: $searchTerm}}, {is_default: {_eq: true}}]}
+    limit: 10
+    offset: $page
+    order_by: {id: asc}
+  ) {
+    aggregate {
+      count
     }
-    pokemonsprites {
-      sprites
+    nodes {
+      id
+      name
+      pokemonsprites {
+        sprites
+      }
+      pokemontypes {
+        type {
+          name
+          typenames(where: {language_id: {_eq: 9}}) {
+            name
+          }
+        }
+      }
     }
   }
 }

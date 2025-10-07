@@ -21,16 +21,13 @@ ChartJS.register(
   Legend,
 );
 
-interface PokemonStat {
-  base_stat: number;
-  stat?: {
-    name: string;
-    [key: string]: unknown; // Allow additional properties from GraphQL
-  } | null;
+interface RadarChartStat {
+  name: string;
+  baseStat: number;
 }
 
 interface PokemonStatsRadarChartProps {
-  stats: PokemonStat[];
+  stats: RadarChartStat[];
   pokemonName: string;
 }
 
@@ -38,22 +35,10 @@ export function PokemonStatsRadarChart({
   stats,
   pokemonName,
 }: PokemonStatsRadarChartProps) {
-  // Map stat names to more readable labels
-  const statNameMap: Record<string, string> = {
-    hp: "HP",
-    attack: "Attack",
-    defense: "Defense",
-    "special-attack": "Sp. Attack",
-    "special-defense": "Sp. Defense",
-    speed: "Speed",
-  };
+  // Use the already formatted stat names from awesomeName
+  const labels = stats.map((stat) => stat.name || "Unknown");
 
-  const labels = stats.map(
-    (stat) =>
-      statNameMap[stat.stat?.name || ""] || stat.stat?.name || "Unknown",
-  );
-
-  const values = stats.map((stat) => stat.base_stat);
+  const values = stats.map((stat) => stat.baseStat);
 
   const data = {
     labels,

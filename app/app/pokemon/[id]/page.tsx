@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import { CgPokemon } from "react-icons/cg";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
+import MovesCard from "@/components/app/MovesCard";
 import PageHeader from "@/components/app/PageHeader";
 import { PokemonStatsRadarChart } from "@/components/app/pokemon-stats-radar-chart";
 import { Badge } from "@/components/ui/badge";
@@ -19,11 +20,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { execute } from "@/lib/pokemonClient";
-import { POKEMON_ID_PAGE_QUERY } from "@/lib/queries";
+import { usePokemon } from "@/hooks/use-pokemon";
 
 export default function PokemonDetailPage({
   params,
@@ -36,9 +35,11 @@ export default function PokemonDetailPage({
   // Only use notFound() for completely invalid URLs (non-numeric IDs)
   if (Number.isNaN(idNum)) notFound();
 
+  const { getPokemonById } = usePokemon();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["pokemonById", idNum],
-    queryFn: () => execute(POKEMON_ID_PAGE_QUERY, { id: idNum }),
+    queryFn: () => getPokemonById(idNum),
     enabled: Number.isFinite(idNum),
     staleTime: Infinity,
     gcTime: Infinity,
@@ -70,7 +71,7 @@ export default function PokemonDetailPage({
     );
   }
 
-  if (error || !data?.data?.pokemon?.[0]) {
+  if (error || !data) {
     return (
       <div className="space-y-6">
         <PageHeader title="Pokemon Not Found" IconComponent={CgPokemon} />
@@ -138,7 +139,7 @@ export default function PokemonDetailPage({
     );
   }
 
-  const pokemon = data.data.pokemon[0];
+  const pokemon = data;
   return (
     <div className="space-y-6">
       <PageHeader title={pokemon.name} IconComponent={CgPokemon} />
@@ -151,10 +152,7 @@ export default function PokemonDetailPage({
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-full blur-2xl" />
                 <Image
-                  src={
-                    pokemon.pokemonsprites?.[0]?.sprites?.front_default ||
-                    "/egg.svg"
-                  }
+                  src={pokemon.spriteUrl || "/egg.svg"}
                   alt={pokemon.name}
                   width={200}
                   height={200}
@@ -179,9 +177,7 @@ export default function PokemonDetailPage({
                   className="p-1"
                   asChild
                   onClick={() => {
-                    const audio = new Audio(
-                      pokemon.pokemoncries[0].cries.latest,
-                    );
+                    const audio = new Audio(pokemon.cryUrl);
                     audio.play();
                   }}
                 >
@@ -192,13 +188,13 @@ export default function PokemonDetailPage({
             <div>
               <p className="text-sm text-muted-foreground mb-2">Types</p>
               <div className="flex flex-wrap gap-2">
-                {pokemon.pokemontypes?.map((type) => (
+                {pokemon.types?.map((type) => (
                   <Badge
-                    key={type.type?.name}
+                    key={type.name}
                     variant="secondary"
                     className="capitalize"
                   >
-                    {type.type?.name}
+                    {type.awesomeName}
                   </Badge>
                 )) || <Badge variant="outline">Unknown</Badge>}
               </div>
@@ -209,7 +205,7 @@ export default function PokemonDetailPage({
                 Base Experience
               </p>
               <p className="text-2xl font-bold">
-                {pokemon.base_experience || "—"}
+                {pokemon.baseExperience || "—"}
               </p>
             </div>
           </CardContent>
@@ -222,9 +218,12 @@ export default function PokemonDetailPage({
             <CardDescription>Combat statistics and attributes</CardDescription>
           </CardHeader>
           <CardContent>
-            {pokemon.pokemonstats && pokemon.pokemonstats.length > 0 ? (
+            {pokemon.stats && pokemon.stats.length > 0 ? (
               <PokemonStatsRadarChart
-                stats={pokemon.pokemonstats}
+                stats={pokemon.stats.map((stat) => ({
+                  name: stat.awesomeName,
+                  baseStat: stat.baseStat,
+                }))}
                 pokemonName={pokemon.name}
               />
             ) : (
@@ -243,13 +242,13 @@ export default function PokemonDetailPage({
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
-              {pokemon.pokemonabilities?.map((ability) => (
+              {pokemon.abilities?.map((ability) => (
                 <Badge
-                  key={ability.ability?.name}
+                  key={ability.name}
                   variant="outline"
                   className="capitalize"
                 >
-                  {ability.ability?.name?.replace(/-/g, " ")}
+                  {ability.awesomeName}
                 </Badge>
               )) || (
                 <p className="text-sm text-muted-foreground">
@@ -261,38 +260,7 @@ export default function PokemonDetailPage({
         </Card>
 
         {/* Moves Card */}
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle>Moves</CardTitle>
-            <CardDescription>
-              {pokemon.pokemonmoves?.length
-                ? `${pokemon.pokemonmoves.length} available moves`
-                : "No moves available"}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {pokemon.pokemonmoves && pokemon.pokemonmoves.length > 0 ? (
-              <ScrollArea className="h-[300px] pr-4">
-                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                  {pokemon.pokemonmoves.map((move, index) => (
-                    <div
-                      key={`${move.move?.name}-${index}`}
-                      className="group relative rounded-lg border p-3 hover:bg-accent hover:shadow-sm transition-all"
-                    >
-                      <p className="text-sm font-medium capitalize leading-tight">
-                        {move.move?.name?.replace(/-/g, " ")}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </ScrollArea>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                No moves available
-              </p>
-            )}
-          </CardContent>
-        </Card>
+        <MovesCard moves={pokemon.moves} />
       </div>
     </div>
   );

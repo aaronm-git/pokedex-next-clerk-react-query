@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
@@ -52,6 +53,7 @@ export default function RootLayout({
           className={`${pressStart2P.variable} ${jersey15Charted.variable} antialiased relative`}
         >
           <main>{children}</main>
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

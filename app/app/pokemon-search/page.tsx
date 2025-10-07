@@ -10,13 +10,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePokemon } from "@/hooks/use-pokemon";
+import { getSearchPokemon } from "@/lib/pokemonService";
 
 export default function PokemonSearch() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const { getSearchPokemon } = usePokemon();
   // Search for Pokémon by name pattern
   const { data: searchResults, isFetched: isFetchedResults } = useQuery({
     queryKey: ["pokemonSearch", debouncedSearchTerm],

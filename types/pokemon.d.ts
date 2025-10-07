@@ -9,6 +9,7 @@ export interface Pokemon {
   moves: Move[];
   abilities: Ability[];
   types: Type[];
+  isSaved?: boolean;
 }
 
 export interface Stat {

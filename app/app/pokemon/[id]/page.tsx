@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlertCircle, ArrowLeft, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import { CgPokemon } from "react-icons/cg";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import MovesCard from "@/components/app/MovesCard";
 import PageHeader from "@/components/app/PageHeader";
+import PkmnActionButtons from "@/components/app/PkmnActionButtons";
 import { PokemonStatsRadarChart } from "@/components/app/pokemon-stats-radar-chart";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { usePokemon } from "@/hooks/use-pokemon";
+import { getPokemonById } from "@/lib/pokemonService";
 
 export default function PokemonDetailPage({
   params,
@@ -34,8 +35,6 @@ export default function PokemonDetailPage({
 
   // Only use notFound() for completely invalid URLs (non-numeric IDs)
   if (Number.isNaN(idNum)) notFound();
-
-  const { getPokemonById } = usePokemon();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["pokemonById", idNum],
@@ -74,7 +73,11 @@ export default function PokemonDetailPage({
   if (error || !data) {
     return (
       <div className="space-y-6">
-        <PageHeader title="Pokemon Not Found" IconComponent={CgPokemon} />
+        <PageHeader
+          title="Pokemon Not Found"
+          IconComponent={CgPokemon}
+          ButtonGroup={<PkmnActionButtons pokemonId={idNum} />}
+        />
 
         <Card className="max-w-2xl mx-auto">
           <CardHeader className="text-center">
@@ -142,7 +145,11 @@ export default function PokemonDetailPage({
   const pokemon = data;
   return (
     <div className="space-y-6">
-      <PageHeader title={pokemon.name} IconComponent={CgPokemon} />
+      <PageHeader
+        title={pokemon.name}
+        IconComponent={CgPokemon}
+        ButtonGroup={<PkmnActionButtons pokemonId={idNum} />}
+      />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Hero Card - Pokemon Image & Basic Info */}

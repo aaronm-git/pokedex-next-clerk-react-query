@@ -3,17 +3,25 @@ import { useQuery } from "@tanstack/react-query";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Search } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import PageHeader from "@/components/app/PageHeader";
+import SimplePkmnCard, {
+  type SimplePokemon,
+} from "@/components/app/SimplePkmnCard";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSearchPokemon } from "@/lib/pokemonService";
 
 export default function PokemonSearch() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Initialize search term from URL parameter
+  const [searchTerm, setSearchTerm] = useState(() => {
+    return searchParams.get("q") || "";
+  });
   const [isSearching, setIsSearching] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   // Search for Pokémon by name pattern
@@ -39,6 +47,27 @@ export default function PokemonSearch() {
     }
   }, [searchTerm, isFetchedResults]);
 
+  // Update URL when search term changes and meets criteria
+  useEffect(() => {
+    const updateURL = () => {
+      const params = new URLSearchParams();
+
+      if (
+        debouncedSearchTerm.length > 2 &&
+        debouncedSearchTerm === searchTerm
+      ) {
+        params.set("q", debouncedSearchTerm);
+        // Use replace to update URL without adding to history for each search
+        router.replace(`/app/pokemon-search?${params.toString()}`);
+      } else if (debouncedSearchTerm.length === 0) {
+        // Clear the URL parameter when search is empty
+        router.replace("/app/pokemon-search");
+      }
+    };
+
+    updateURL();
+  }, [debouncedSearchTerm, searchTerm, router]);
+
   return (
     <div className="space-y-6">
       <PageHeader title="Pokémon Search" IconComponent={Search} />
@@ -61,7 +90,7 @@ export default function PokemonSearch() {
       </form>
 
       {/* Search Results */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {isSearching ? (
           <LoadingSearchResults />
         ) : (
@@ -70,6 +99,7 @@ export default function PokemonSearch() {
               searchTerm.length > 2 && searchResults?.pokemon.length === 0
             }
             pokemon={searchResults?.pokemon ?? []}
+            onViewDetails={(id) => router.push(`/app/pokemon/${id}`)}
           />
         )}
       </div>
@@ -78,16 +108,48 @@ export default function PokemonSearch() {
 }
 
 function LoadingSearchResults() {
-  return new Array(12)
-    .fill(0)
-    .map((_, index) => (
-      <Skeleton key={index.toString()} className="w-full h-40" />
-    ));
+  return new Array(12).fill(0).map((_, index) => (
+    <div
+      key={index.toString()}
+      className="group hover:shadow-lg transition-shadow duration-200"
+    >
+      <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+        {/* Card Header */}
+        <div className="flex flex-col space-y-1.5 p-6 pb-3">
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-4 w-12" /> {/* Pokemon ID */}
+            <Skeleton className="h-8 w-8 rounded-md" /> {/* Dropdown menu */}
+          </div>
+        </div>
+
+        {/* Card Content */}
+        <div className="p-6 pt-0">
+          <div className="flex flex-col items-center space-y-4">
+            {/* Pokemon Image */}
+            <Skeleton className="h-24 w-24 rounded-lg" />
+
+            {/* Pokemon Name */}
+            <Skeleton className="h-6 w-20" />
+
+            {/* Pokemon Types */}
+            <div className="flex gap-1">
+              <Skeleton className="h-5 w-12 rounded-full" />
+              <Skeleton className="h-5 w-12 rounded-full" />
+            </div>
+
+            {/* View Details Button */}
+            <Skeleton className="h-9 w-full rounded-md" />
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
 }
 
 function PokemonSearchResults({
   noResults,
   pokemon,
+  onViewDetails,
 }: {
   noResults: boolean;
   pokemon: {
@@ -96,6 +158,7 @@ function PokemonSearchResults({
     spriteUrl: string;
     type: string;
   }[];
+  onViewDetails: (id: number) => void;
 }) {
   if (noResults) {
     return (
@@ -106,25 +169,24 @@ function PokemonSearchResults({
     );
   }
 
-  return pokemon.map((pkmn) => (
-    <Link href={`/app/pokemon/${pkmn.id}`} key={pkmn.id} className="group">
-      <Card className="group-hover:shadow-lg transition-shadow duration-300">
-        <CardHeader>
-          <Image
-            src={pkmn.spriteUrl || "/egg.svg"}
-            alt={`${pkmn.name} sprite`}
-            width={96}
-            height={96}
-            className="transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105"
-          />
-          <CardTitle className="capitalize">
-            #{pkmn.id} {pkmn.name}
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-sm text-muted-foreground">{pkmn.type}</p>
-        </CardContent>
-      </Card>
-    </Link>
+  // Transform search results to match SimplePokemon interface
+  const transformedPokemon: SimplePokemon[] = pokemon.map((pkmn) => ({
+    id: pkmn.id,
+    name: pkmn.name,
+    spriteUrl: pkmn.spriteUrl || "/egg.svg",
+    types: [
+      {
+        name: pkmn.type.toLowerCase(),
+        awesomeName: pkmn.type,
+      },
+    ],
+  }));
+
+  return transformedPokemon.map((pkmn) => (
+    <SimplePkmnCard
+      key={pkmn.id}
+      pokemon={pkmn}
+      onViewDetails={onViewDetails}
+    />
   ));
 }

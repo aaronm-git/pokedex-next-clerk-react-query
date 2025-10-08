@@ -1,5 +1,5 @@
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Gamepad2, Home, Search, User, Zap } from "lucide-react";
+import { Gamepad2, Heart, Home, Search, User, Zap } from "lucide-react";
 import { AppSidebar } from "@/components/app/Sidebar";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -15,6 +15,11 @@ const navigationItems = [
     title: "Pokemon Search",
     url: "/app/pokemon-search",
     icon: Search,
+  },
+  {
+    title: "My Favorites",
+    url: "/app/favorites",
+    icon: Heart,
   },
   {
     title: "My Pokemon",

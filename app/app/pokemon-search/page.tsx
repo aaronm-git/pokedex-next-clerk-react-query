@@ -4,7 +4,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import PageHeader from "@/components/app/PageHeader";
 import SimplePkmnCard, {
   type SimplePokemon,
@@ -203,7 +203,7 @@ function PokemonSearchFallback() {
   return (
     <div className="space-y-6">
       <PageHeader title="Pokémon Search" IconComponent={Search} />
-      
+
       <div className="flex gap-2">
         <Skeleton className="h-10 flex-1" />
         <Skeleton className="h-10 w-20" />

@@ -1,7 +1,6 @@
 "use client";
 
 import { Heart, Share2 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -9,39 +8,23 @@ import { useFavorites } from "@/hooks/use-favorites";
 
 interface PkmnActionButtonsProps {
   pokemonId: number;
-  isFavorited?: boolean;
 }
 
 export default function PkmnActionButtons({
   pokemonId,
-  isFavorited: propIsFavorited = false,
 }: PkmnActionButtonsProps) {
-  const [isFavorited, setIsFavorited] = useState(propIsFavorited);
   const { isFavorite, removeFavorite, addFavorite } = useFavorites();
 
-  useEffect(() => {
-    const checkFavoritedStatus = () => {
-      try {
-        const favorited = isFavorite(pokemonId);
-        setIsFavorited(favorited);
-      } catch (error) {
-        console.error("Error checking favorited status:", error);
-        setIsFavorited(false);
-      }
-    };
-
-    checkFavoritedStatus();
-  }, [pokemonId, isFavorite]);
+  // Get favorite status directly from the hook
+  const isFavorited = isFavorite(pokemonId);
 
   const handleFavorite = () => {
     try {
       if (isFavorited) {
         removeFavorite(pokemonId);
-        setIsFavorited(false);
         toast.success("Pokémon removed from favorites");
       } else {
         addFavorite(pokemonId);
-        setIsFavorited(true);
         toast.success("Pokémon added to favorites");
       }
     } catch (error) {

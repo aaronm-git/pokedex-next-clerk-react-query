@@ -1,4 +1,3 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { execute } from "@/lib/pokemonClient";
 import { POKEMON_ID_PAGE_QUERY, SEARCH_POKEMON } from "@/lib/queries";
 import type { Pokemon } from "@/types/pokemon";
@@ -36,7 +35,6 @@ const getPokemonById = async (id: number): Promise<Pokemon> => {
       name: type.type?.name ?? "",
       awesomeName: type.type?.typenames[0].name ?? "",
     })),
-    isSaved: false,
   };
 
   return pokemon;

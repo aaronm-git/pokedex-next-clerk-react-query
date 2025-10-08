@@ -23,7 +23,6 @@ export interface SimplePokemon {
     name: string;
     awesomeName: string;
   }>;
-  isFavorited?: boolean;
 }
 
 interface SimplePkmnCardProps {

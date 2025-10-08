@@ -4,7 +4,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import PageHeader from "@/components/app/PageHeader";
 import SimplePkmnCard, {
   type SimplePokemon,
@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getSearchPokemon } from "@/lib/pokemonService";
 
-export default function PokemonSearch() {
+function PokemonSearchContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -189,4 +189,29 @@ function PokemonSearchResults({
       onViewDetails={onViewDetails}
     />
   ));
+}
+
+export default function PokemonSearch() {
+  return (
+    <Suspense fallback={<PokemonSearchFallback />}>
+      <PokemonSearchContent />
+    </Suspense>
+  );
+}
+
+function PokemonSearchFallback() {
+  return (
+    <div className="space-y-6">
+      <PageHeader title="Pokémon Search" IconComponent={Search} />
+      
+      <div className="flex gap-2">
+        <Skeleton className="h-10 flex-1" />
+        <Skeleton className="h-10 w-20" />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <LoadingSearchResults />
+      </div>
+    </div>
+  );
 }

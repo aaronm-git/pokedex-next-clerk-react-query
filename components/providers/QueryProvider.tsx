@@ -18,6 +18,9 @@ export default function QueryProvider({
     <PersistQueryClientProvider
       client={queryClient}
       persistOptions={{ persister }}
+      onSuccess={() => {
+        queryClient.resumePausedMutations();
+      }}
     >
       {children}
     </PersistQueryClientProvider>

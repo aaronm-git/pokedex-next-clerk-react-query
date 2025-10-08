@@ -22,11 +22,6 @@ const navigationItems = [
     icon: Heart,
   },
   {
-    title: "My Pokemon",
-    url: "/app/pokemon",
-    icon: Zap,
-  },
-  {
     title: "My Games",
     url: "/app/games",
     icon: Gamepad2,

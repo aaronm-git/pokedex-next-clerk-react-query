@@ -6,9 +6,9 @@ export const useFavorites = () => {
   // Read favorites (persisted via react-query-persist-client)
   const { data: favorites = [] } = useQuery<number[]>({
     queryKey: FAVORITES_KEY,
-    // no fetcher; we’re only using the cache (and persistence rehydration)
+    // no fetcher; we're only using the cache (and persistence rehydration)
     queryFn: async () => [],
-    initialData: [],
+    placeholderData: [], // Use placeholderData instead of initialData to allow persistence to work
     // optional: never consider this "stale" since it's client-only
     staleTime: Infinity,
     gcTime: Infinity,

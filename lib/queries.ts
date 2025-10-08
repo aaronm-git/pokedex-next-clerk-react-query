@@ -96,3 +96,58 @@ query SearchPokemon($searchTerm: String!, $page: Int!) {
   }
 }
 `);
+
+// Dashboard aggregates for pokemon
+export const POKEMON_AGGREGATES = graphql(`
+  query PokemonAggregates {
+    pokemon_aggregate(where: {is_default: {_eq: true}}) {
+      aggregate {
+        count
+        avg {
+          base_experience
+        }
+      }
+    }
+  }
+`);
+
+// Top Pokemon by base experience
+export const TOP_POKEMON_BY_BASE_EXPERIENCE = graphql(`
+  query TopPokemonByBaseExperience($limit: Int!) {
+    pokemon(
+      where: {is_default: {_eq: true}}
+      order_by: {base_experience: desc}
+      limit: $limit
+    ) {
+      id
+      name
+      base_experience
+      pokemonsprites { sprites }
+      pokemontypes {
+        type {
+          name
+          typenames(where: {language_id: {_eq: 9}}) { name }
+        }
+      }
+    }
+  }
+`);
+
+// Sample a set of Pokémon to compute type distribution client-side
+export const SAMPLE_POKEMON_TYPES = graphql(`
+  query SamplePokemonTypes($limit: Int!) {
+    pokemon(
+      where: { is_default: { _eq: true } }
+      limit: $limit
+      order_by: { id: asc }
+    ) {
+      id
+      pokemontypes {
+        type {
+          name
+          typenames(where: { language_id: { _eq: 9 } }) { name }
+        }
+      }
+    }
+  }
+`);

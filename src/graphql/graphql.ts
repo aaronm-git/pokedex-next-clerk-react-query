@@ -49408,6 +49408,25 @@ export type SearchPokemonQueryVariables = Exact<{
 
 export type SearchPokemonQuery = { __typename?: 'query_root', pokemon_aggregate: { __typename?: 'pokemon_aggregate', aggregate?: { __typename?: 'pokemon_aggregate_fields', count: number } | null, nodes: Array<{ __typename?: 'pokemon', id: number, name: string, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }>, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string, typenames: Array<{ __typename?: 'typename', name: string }> } | null }> }> } };
 
+export type PokemonAggregatesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PokemonAggregatesQuery = { __typename?: 'query_root', pokemon_aggregate: { __typename?: 'pokemon_aggregate', aggregate?: { __typename?: 'pokemon_aggregate_fields', count: number, avg?: { __typename?: 'pokemon_avg_fields', base_experience?: number | null } | null } | null } };
+
+export type TopPokemonByBaseExperienceQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+}>;
+
+
+export type TopPokemonByBaseExperienceQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', id: number, name: string, base_experience?: number | null, pokemonsprites: Array<{ __typename?: 'pokemonsprites', sprites: any }>, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string, typenames: Array<{ __typename?: 'typename', name: string }> } | null }> }> };
+
+export type SamplePokemonTypesQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+}>;
+
+
+export type SamplePokemonTypesQuery = { __typename?: 'query_root', pokemon: Array<{ __typename?: 'pokemon', id: number, pokemontypes: Array<{ __typename?: 'pokemontype', type?: { __typename?: 'type', name: string, typenames: Array<{ __typename?: 'typename', name: string }> } | null }> }> };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -49522,3 +49541,54 @@ export const SearchPokemonDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<SearchPokemonQuery, SearchPokemonQueryVariables>;
+export const PokemonAggregatesDocument = new TypedDocumentString(`
+    query PokemonAggregates {
+  pokemon_aggregate(where: {is_default: {_eq: true}}) {
+    aggregate {
+      count
+      avg {
+        base_experience
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<PokemonAggregatesQuery, PokemonAggregatesQueryVariables>;
+export const TopPokemonByBaseExperienceDocument = new TypedDocumentString(`
+    query TopPokemonByBaseExperience($limit: Int!) {
+  pokemon(
+    where: {is_default: {_eq: true}}
+    order_by: {base_experience: desc}
+    limit: $limit
+  ) {
+    id
+    name
+    base_experience
+    pokemonsprites {
+      sprites
+    }
+    pokemontypes {
+      type {
+        name
+        typenames(where: {language_id: {_eq: 9}}) {
+          name
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<TopPokemonByBaseExperienceQuery, TopPokemonByBaseExperienceQueryVariables>;
+export const SamplePokemonTypesDocument = new TypedDocumentString(`
+    query SamplePokemonTypes($limit: Int!) {
+  pokemon(where: {is_default: {_eq: true}}, limit: $limit, order_by: {id: asc}) {
+    id
+    pokemontypes {
+      type {
+        name
+        typenames(where: {language_id: {_eq: 9}}) {
+          name
+        }
+      }
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<SamplePokemonTypesQuery, SamplePokemonTypesQueryVariables>;

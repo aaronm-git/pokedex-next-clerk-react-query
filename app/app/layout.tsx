@@ -21,16 +21,6 @@ const navigationItems = [
     url: "/app/favorites",
     icon: Heart,
   },
-  {
-    title: "My Games",
-    url: "/app/games",
-    icon: Gamepad2,
-  },
-  {
-    title: "My Trainer Profile",
-    url: "/app/profile",
-    icon: User,
-  },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {

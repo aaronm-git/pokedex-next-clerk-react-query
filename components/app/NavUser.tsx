@@ -75,7 +75,7 @@ export default function NavUser() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem asChild>
                 <Link href="/app/profile" className="flex items-center gap-2">
                   <User className="h-4 w-4" />
@@ -94,8 +94,8 @@ export default function NavUser() {
                 <Settings className="h-4 w-4" />
                 Settings
               </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            </DropdownMenuGroup> */}
+            {/* <DropdownMenuSeparator /> */}
             <DropdownMenuItem className="flex items-center gap-2 text-red-600 focus:text-red-600">
               <LogOut className="h-4 w-4" />
               <SignOutButton>Log out</SignOutButton>

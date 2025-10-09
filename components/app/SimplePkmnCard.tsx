@@ -3,7 +3,7 @@
 import { ExternalLink, Heart, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
+import { PokemonTypeTag } from "@/components/app/pokemon-type-tag";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -101,9 +101,11 @@ export default function SimplePkmnCard({
           {/* Pokemon Types */}
           <div className="flex flex-wrap gap-1 justify-center">
             {pokemon.types.map((type) => (
-              <Badge key={type.name} variant="secondary" className="text-xs">
-                {type.awesomeName}
-              </Badge>
+              <PokemonTypeTag
+                key={type.name}
+                type={type.name}
+                className="text-xs"
+              />
             ))}
           </div>
 

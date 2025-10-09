@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Trophy } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
+import { PokemonTypeTag } from "@/components/app/pokemon-type-tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTopPokemonByBaseExperience } from "@/lib/pokemonService";
 
@@ -36,9 +36,11 @@ export default function DashboardTopPokemon() {
               <div className="font-medium capitalize">{p.name}</div>
               <div className="flex gap-1 mt-1">
                 {p.types.map((t) => (
-                  <Badge key={t.name} variant="secondary" className="text-xs">
-                    {t.awesomeName}
-                  </Badge>
+                  <PokemonTypeTag
+                    key={t.name}
+                    type={t.name}
+                    className="text-xs"
+                  />
                 ))}
               </div>
             </div>

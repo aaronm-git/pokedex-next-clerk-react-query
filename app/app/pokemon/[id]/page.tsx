@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { AlertCircle, ArrowLeft, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import MovesCard from "@/components/app/MovesCard";
 import PageHeader from "@/components/app/PageHeader";
 import PkmnActionButtons from "@/components/app/PkmnActionButtons";
 import { PokemonStatsRadarChart } from "@/components/app/pokemon-stats-radar-chart";
+import { PokemonTypeTag } from "@/components/app/pokemon-type-tag";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,23 +47,113 @@ export default function PokemonDetailPage({
 
   console.log(data);
 
-  if (isLoading) {
+  // Show skeleton while loading OR when data is undefined but no error yet
+  if (isLoading || (!data && !error)) {
     return (
       <div className="space-y-6">
-        <Skeleton className="h-12 w-64" />
+        {/* Page Header Skeleton */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Skeleton className="h-8 w-8 rounded-full" />
+            <Skeleton className="h-8 w-48" />
+          </div>
+          <div className="flex gap-2">
+            <Skeleton className="h-9 w-24" />
+            <Skeleton className="h-9 w-24" />
+          </div>
+        </div>
+
+        {/* Bento Grid Layout */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Hero Card - Pokemon Image & Basic Info */}
           <Card className="md:col-span-2 lg:col-span-1">
-            <CardHeader>
-              <Skeleton className="h-48 w-full" />
-              <Skeleton className="h-8 w-32" />
+            <CardHeader className="text-center">
+              {/* Pokemon Image Skeleton */}
+              <div className="flex justify-center mb-4">
+                <div className="relative">
+                  <Skeleton className="h-48 w-48 rounded-full" />
+                </div>
+              </div>
+              {/* Pokemon Name & Number */}
+              <Skeleton className="h-8 w-32 mx-auto mb-2" />
+              <Skeleton className="h-4 w-16 mx-auto" />
             </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Cries Section */}
+              <div>
+                <Skeleton className="h-4 w-12 mb-2" />
+                <Skeleton className="h-8 w-8 rounded" />
+              </div>
+
+              {/* Types Section */}
+              <div>
+                <Skeleton className="h-4 w-16 mb-2" />
+                <div className="flex flex-wrap gap-2">
+                  <Skeleton className="h-6 w-16 rounded-full" />
+                  <Skeleton className="h-6 w-20 rounded-full" />
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Base Experience */}
+              <div>
+                <Skeleton className="h-4 w-24 mb-2" />
+                <Skeleton className="h-8 w-16" />
+              </div>
+            </CardContent>
           </Card>
+
+          {/* Stats Card */}
           <Card className="md:col-span-2">
             <CardHeader>
-              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-6 w-32 mb-2" />
+              <Skeleton className="h-4 w-48" />
             </CardHeader>
             <CardContent>
-              <Skeleton className="h-64 w-full" />
+              <Skeleton className="h-64 w-full rounded-lg" />
+            </CardContent>
+          </Card>
+
+          {/* Abilities Card */}
+          <Card className="md:col-span-2 lg:col-span-1">
+            <CardHeader>
+              <Skeleton className="h-6 w-20 mb-2" />
+              <Skeleton className="h-4 w-40" />
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                <Skeleton className="h-6 w-20 rounded-full" />
+                <Skeleton className="h-6 w-24 rounded-full" />
+                <Skeleton className="h-6 w-18 rounded-full" />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Moves Card */}
+          <Card className="md:col-span-2 lg:col-span-3">
+            <CardHeader>
+              <Skeleton className="h-6 w-16 mb-2" />
+              <Skeleton className="h-4 w-32" />
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-2">
+                {[1, 2, 3, 4, 5, 6].map((moveIndex) => (
+                  <div
+                    key={`skeleton-move-${moveIndex}`}
+                    className="flex items-center justify-between p-3 border rounded-lg"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Skeleton className="h-8 w-8 rounded" />
+                      <div className="space-y-1">
+                        <Skeleton className="h-4 w-24" />
+                        <Skeleton className="h-3 w-16" />
+                      </div>
+                    </div>
+                    <Skeleton className="h-6 w-12 rounded-full" />
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -163,7 +254,14 @@ export default function PokemonDetailPage({
                   alt={pokemon.name}
                   width={200}
                   height={200}
-                  className="relative z-10 drop-shadow-2xl"
+                  className="relative z-10"
+                />
+                <Image
+                  src={pokemon.spriteUrl || "/egg.svg"}
+                  alt={pokemon.name}
+                  width={200}
+                  height={200}
+                  className="absolute inset-0 blur-2xl z-0"
                 />
               </div>
             </div>
@@ -196,13 +294,7 @@ export default function PokemonDetailPage({
               <p className="text-sm text-muted-foreground mb-2">Types</p>
               <div className="flex flex-wrap gap-2">
                 {pokemon.types?.map((type) => (
-                  <Badge
-                    key={type.name}
-                    variant="secondary"
-                    className="capitalize"
-                  >
-                    {type.awesomeName}
-                  </Badge>
+                  <PokemonTypeTag key={type.name} type={type.name} />
                 )) || <Badge variant="outline">Unknown</Badge>}
               </div>
             </div>

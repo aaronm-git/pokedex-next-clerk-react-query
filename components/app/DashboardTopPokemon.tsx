@@ -1,11 +1,13 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { Trophy } from "lucide-react";
+import { ExternalLink, Trophy } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { PokemonTypeTag } from "@/components/app/pokemon-type-tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTopPokemonByBaseExperience } from "@/lib/pokemonService";
+import { Button } from "../ui/button";
 
 export default function DashboardTopPokemon() {
   const { data } = useQuery({
@@ -46,6 +48,14 @@ export default function DashboardTopPokemon() {
             </div>
             <div className="text-sm text-muted-foreground">
               EXP {p.baseExperience}
+            </div>
+            <div>
+              <Button variant="outline" size="sm" asChild>
+                <Link href={`/app/pokemon/${p.id}`}>
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  View Details
+                </Link>
+              </Button>
             </div>
           </div>
         )) || <div className="text-sm text-muted-foreground">No data</div>}

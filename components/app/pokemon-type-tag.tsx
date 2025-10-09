@@ -17,18 +17,14 @@ export function PokemonTypeTag({
   const color =
     POKEMON_TYPE_COLORS[normalizedType] || POKEMON_TYPE_COLORS.unknown;
 
-  // Determine if we need light or dark text based on background color
   const getTextColor = (backgroundColor: string) => {
-    // Convert hex to RGB
     const hex = backgroundColor.replace("#", "");
     const r = parseInt(hex.substr(0, 2), 16);
     const g = parseInt(hex.substr(2, 2), 16);
     const b = parseInt(hex.substr(4, 2), 16);
 
-    // Calculate luminance
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 
-    // Return black for light backgrounds, white for dark backgrounds
     return luminance > 0.5 ? "#000000" : "#ffffff";
   };
 

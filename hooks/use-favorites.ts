@@ -1,15 +1,14 @@
+import { useUser } from "@clerk/nextjs";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-// Custom hooks for Pokemon save/delete functionality
+
 export const useFavorites = () => {
+  const user = useUser();
   const queryClient = useQueryClient();
-  const FAVORITES_KEY = ["myPokemon"];
-  // Read favorites (persisted via react-query-persist-client)
+  const FAVORITES_KEY = ["myPokemon", user?.user?.id];
   const { data: favorites = [] } = useQuery<number[]>({
     queryKey: FAVORITES_KEY,
-    // no fetcher; we're only using the cache (and persistence rehydration)
     queryFn: async () => [],
-    placeholderData: [], // Use placeholderData instead of initialData to allow persistence to work
-    // optional: never consider this "stale" since it's client-only
+    placeholderData: [],
     staleTime: Infinity,
     gcTime: Infinity,
   });
@@ -27,14 +26,15 @@ export const useFavorites = () => {
   };
 
   const toggleFavorite = (id: number) => {
-    if (favorites.includes(id)) {
+    const favorites = queryClient.getQueryData<number[]>(FAVORITES_KEY);
+    if (favorites?.includes(id)) {
       removeFavorite(id);
     } else {
       addFavorite(id);
     }
   };
 
-  const isFavorite = (id: number): boolean => favorites.includes(id);
+  const isFavorite = (id: number): boolean => favorites?.includes(id) ?? false;
 
   return {
     favorites,

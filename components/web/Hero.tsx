@@ -97,9 +97,11 @@ export const Hero = async ({
           <Image
             src={imageUrl}
             alt="placeholder hero"
-            className="aspect-video rounded-md object-cover"
+            className="aspect-video rounded-md object-contain"
             width={600}
             height={400}
+            priority
+            loading="eager"
             unoptimized
           />
         </div>

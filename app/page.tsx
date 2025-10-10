@@ -8,7 +8,7 @@ const heroProps: HeroProps = {
   primaryButtonLink: "/signin",
   secondaryButtonText: "Sign Up",
   secondaryButtonLink: "/signup",
-  imageUrl: "https://placehold.co/600x400",
+  imageUrl: "/pokedex-app-image.png",
 };
 
 export default function Home() {

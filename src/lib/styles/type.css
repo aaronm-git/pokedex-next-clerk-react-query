@@ -1,0 +1,106 @@
+/* ==========================================================================
+   type.css
+   Three voices:
+     .t-label    Press Start 2P. Uppercase, 8-dot grid. Buttons, menus,
+                 headings, anything that would have been a tile in 1999.
+     .t-body     Jersey 15, 27px. Paragraphs, descriptions, form help.
+                 The only typeface allowed to run past 40 characters.
+     .t-display  Jersey 15 at 54px and 81px. Big numerals and hero words.
+                 Same face as body, so the two scale together on the
+                 27-unit grid (2px and 3px per glyph pixel).
+   ========================================================================== */
+
+.t-label,
+.t-label-xs,
+.t-label-lg,
+.t-label-xl {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.t-label-xs {
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+}
+.t-label-lg {
+  font-size: var(--text-label-lg);
+  line-height: calc(var(--dot) * 16);
+}
+.t-label-xl {
+  font-size: var(--text-label-xl);
+  line-height: calc(var(--dot) * 20);
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  text-transform: none;
+  max-width: 44ch;
+}
+.t-body--wide {
+  max-width: none;
+}
+
+.t-display,
+.t-display-xl {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: 1;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+.t-display-xl {
+  font-size: var(--text-display-xl);
+}
+
+/* Headings default to the label voice. */
+h1, h2, h3, h4 {
+  font-family: var(--font-label);
+  text-transform: uppercase;
+  font-weight: 400;
+  line-height: var(--leading-label);
+}
+h1 { font-size: var(--text-label-lg); line-height: calc(var(--dot) * 16); }
+h2 { font-size: var(--text-label); }
+h3 { font-size: var(--text-label); }
+h4 { font-size: var(--text-label-xs); line-height: calc(var(--dot) * 6); }
+
+p {
+  max-width: 44ch;
+}
+
+/* Tone modifiers. --mid is the only allowed "secondary" text color. */
+.t-mid   { color: var(--lcd-mid); }
+.t-ink   { color: var(--lcd-ink); }
+.t-red   { color: var(--sig-red); }
+.t-blue  { color: var(--sig-blue); }
+.t-center { text-align: center; }
+.t-right  { text-align: right; }
+.t-nowrap { white-space: nowrap; }
+
+/* The Gen 1 "é" is its own tile. So is the No. glyph. Honor them. */
+.t-poke::first-letter { text-transform: uppercase; }
+.t-no::before { content: "No."; margin-right: var(--dot); }
+
+/* The blinking continue arrow from every text box in the series. */
+.t-cursor::after {
+  content: "\25BC";  /* ▼ */
+  display: inline-block;
+  margin-left: var(--space-1);
+  animation: blink var(--blink) var(--ease-step) infinite;
+}
+.t-cursor--right::after {
+  content: "\25B6";  /* ▶ */
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-cursor::after { animation: none; }
+}

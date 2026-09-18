@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokédex design system</title>
+<link rel="stylesheet" href="./style-guide.css">
+</head>
+<body>
+<main class="sg">
+  <header>
+    <h1>Pokédex design system</h1>
+    <p class="t-body sg-lede">Every primitive in the Game Boy Color Pokédex, in every state, plus the six app screens mocked with real content. Rendered from <code>src/lib/styles/index.css</code>, so what you see here is what the app will ship. Rationale and sources are in <a href="./README.md">README.md</a>.</p>
+    <nav class="sg-toc" aria-label="Sections">
+      <a href="#palette">Palette</a>
+      <a href="#type">Type</a>
+      <a href="#grid">Grid</a>
+      <a href="#device">Device</a>
+      <a href="#components">Components</a>
+      <a href="#screens">Screens</a>
+      <a href="#motion">Motion</a>
+      <a href="#scale">Scaling</a>
+    </nav>
+  </header>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="palette">
+    <h2>Palette</h2>
+    <p class="t-body sg-note">Every color is RGB555-representable. The channels were picked on the 0..31 grid and expanded the way the CGB does it, so a "white" is #E7EFDE and not #FFFFFF. The LCD gets four tones, the way a GBC background palette does. Signal colors are one per element, never mixed in gradients.</p>
+
+    <h3>LCD</h3>
+    <div class="sg-swatches">
+      <div class="sg-swatch" style="--sw:var(--lcd-paper)"><i></i><b>paper</b><span>#E7EFDE</span><small>The panel. Light gray, not white.</small></div>
+      <div class="sg-swatch" style="--sw:var(--lcd-ink)"><i></i><b>ink</b><span>#101821</span><small>Text and rules. 14.2:1 on paper.</small></div>
+      <div class="sg-swatch" style="--sw:var(--lcd-mid)"><i></i><b>mid</b><span>#4A5A52</span><small>Secondary text. 5.99:1 on paper.</small></div>
+      <div class="sg-swatch" style="--sw:var(--lcd-light)"><i></i><b>light</b><span>#ADBDAD</span><small>Rules and disabled fills. Never text.</small></div>
+      <div class="sg-swatch" style="--sw:var(--lcd-black)"><i></i><b>black</b><span>#080810</span><small>Crystal-style inverted panels.</small></div>
+      <div class="sg-swatch" style="--sw:var(--lcd-white)"><i></i><b>white</b><span>#F7F7EF</span><small>Text on black, input wells, sprite wells.</small></div>
+    </div>
+
+    <h3>Signal</h3>
+    <div class="sg-swatches">
+      <div class="sg-swatch" style="--sw:var(--sig-red)"><i></i><b>red</b><span>#D62931</span><small>Errors, HP low, danger buttons. White ink.</small></div>
+      <div class="sg-swatch" style="--sw:var(--sig-yellow)"><i></i><b>yellow</b><span>#FFC600</span><small>HP mid, warnings. Black ink.</small></div>
+      <div class="sg-swatch" style="--sw:var(--sig-green)"><i></i><b>green</b><span>#39A542</span><small>HP full, success. Black ink.</small></div>
+      <div class="sg-swatch" style="--sw:var(--sig-blue)"><i></i><b>blue</b><span>#3163CE</span><small>Links in body copy. White ink.</small></div>
+    </div>
+
+    <h3>Shell</h3>
+    <div class="sg-swatches">
+      <div class="sg-swatch" style="--sw:var(--shell)"><i></i><b>shell</b><span>#CE2139</span><small>Berry, the 1998 launch red.</small></div>
+      <div class="sg-swatch" style="--sw:var(--shell-light)"><i></i><b>shell light</b><span>#EF5A73</span><small>Top-left molded lip.</small></div>
+      <div class="sg-swatch" style="--sw:var(--shell-dark)"><i></i><b>shell dark</b><span>#841029</span><small>Bottom-right lip, printed labels.</small></div>
+      <div class="sg-swatch" style="--sw:var(--bezel)"><i></i><b>bezel</b><span>#292931</span><small>Screen surround.</small></div>
+      <div class="sg-swatch" style="--sw:var(--btn-ab)"><i></i><b>A/B</b><span>#6B3994</span><small>The purple pair on the Berry unit.</small></div>
+      <div class="sg-swatch" style="--sw:var(--rubber)"><i></i><b>rubber</b><span>#52525A</span><small>START and SELECT pills.</small></div>
+      <div class="sg-swatch" style="--sw:var(--dpad)"><i></i><b>D-pad</b><span>#212129</span><small></small></div>
+      <div class="sg-swatch" style="--sw:var(--desk)"><i></i><b>desk</b><span>#18181F</span><small>Page background around the device.</small></div>
+    </div>
+
+    <h3>Type colors</h3>
+    <p class="t-body sg-note">Eighteen badge colors, each with its ink chosen by contrast ratio. Six use white ink, twelve use black. All clear 4.5:1.</p>
+    <div class="sg-lcd">
+      <div class="dex-types">
+        <span class="dex-type" data-type="normal">Normal</span>
+        <span class="dex-type" data-type="fire">Fire</span>
+        <span class="dex-type" data-type="water">Water</span>
+        <span class="dex-type" data-type="electric">Electric</span>
+        <span class="dex-type" data-type="grass">Grass</span>
+        <span class="dex-type" data-type="ice">Ice</span>
+        <span class="dex-type" data-type="fighting">Fighting</span>
+        <span class="dex-type" data-type="poison">Poison</span>
+        <span class="dex-type" data-type="ground">Ground</span>
+        <span class="dex-type" data-type="flying">Flying</span>
+        <span class="dex-type" data-type="psychic">Psychic</span>
+        <span class="dex-type" data-type="bug">Bug</span>
+        <span class="dex-type" data-type="rock">Rock</span>
+        <span class="dex-type" data-type="ghost">Ghost</span>
+        <span class="dex-type" data-type="dragon">Dragon</span>
+        <span class="dex-type" data-type="dark">Dark</span>
+        <span class="dex-type" data-type="steel">Steel</span>
+        <span class="dex-type" data-type="fairy">Fairy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="type">
+    <h2>Type</h2>
+    <p class="t-body sg-note">Two faces, three voices. Press Start 2P for anything that would have been a tile in 1999: menus, buttons, headings, numbers in lists. Jersey 15 for paragraphs, and again at 54px and 81px for the big dex number and hero words. Each face is used only at sizes where its pixels land on whole CSS pixels.</p>
+
+    <div class="sg-lcd">
+      <div class="sg-spec"><span>label xl, Press Start 2P, 32px (4 dots per glyph pixel)</span><div class="t-label-xl">Pokédex</div></div>
+      <div class="sg-spec"><span>label lg, 24px</span><div class="t-label-lg">Bulbasaur</div></div>
+      <div class="sg-spec"><span>label, 16px, the UI voice</span><div class="t-label">Data &nbsp; Cry &nbsp; Area &nbsp; Quit</div></div>
+      <div class="sg-spec"><span>label xs, 8px, hints and captions only. Never sentences.</span><div class="t-label-xs">Seen 151 &nbsp; Own 151 &nbsp; A:Select B:Back</div></div>
+      <div class="sg-spec"><span>body, Jersey 15, 27px on 36px. Cap height 15px, x-height 11px. Max 44ch.</span><p class="t-body">A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon. It can go for days without eating a single morsel. In the bulb on its back, it stores energy.</p></div>
+      <div class="sg-spec"><span>display, Jersey 15, 54px (2px per glyph pixel)</span><div class="t-display">No.001</div></div>
+      <div class="sg-spec"><span>display xl, 81px (3px per glyph pixel)</span><div class="t-display-xl">151</div></div>
+    </div>
+
+    <h3>Why the project's Jersey 15 Charted is out</h3>
+    <p class="t-body sg-note">The repo loads Jersey 15 Charted. Opened in a font editor, a Charted glyph is one filled contour covering the whole em box with 46-unit holes on a 50-unit grid. The "chart" is the 4-unit grid lines. At 27px those lines are 0.08px wide, so the browser antialiases them into a faint gray haze across the entire glyph box, spaces included. You cannot see the grid and you lose contrast. The face only shows what it is at around 324px, where one cell is 12px and a line is 1px. Here it is at that size, next to the same numeral in plain Jersey 15.</p>
+    <div class="sg-dd">
+      <div class="dont sg-lcd" style="overflow:hidden"><span>Jersey 15 Charted, 324px</span><div class="sg-charted-demo">7</div></div>
+      <div class="do sg-lcd" style="overflow:hidden"><span>Jersey 15, 324px</span><div class="sg-charted-demo" style="font-family:'Jersey 15'">7</div></div>
+      <div class="do sg-lcd"><span>Do: Jersey 15 at 27px</span><p class="t-body">It can go for days without eating a single morsel. In the bulb on its back, it stores energy.</p></div>
+      <div class="dont sg-lcd"><span>Don't: Jersey 15 Charted at 27px (haze, no texture)</span><p class="t-body" style="font-family:'Jersey 15 Charted'">It can go for days without eating a single morsel. In the bulb on its back, it stores energy.</p></div>
+      <div class="do sg-lcd"><span>Do: Press Start 2P at 16px</span><p class="t-label">Seed Pokémon</p></div>
+      <div class="dont sg-lcd"><span>Don't: Press Start 2P at 12px</span><p class="t-label" style="font-size:12px">Seed Pokémon. Every pixel splits across 1.5 CSS pixels.</p></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="grid">
+    <h2>Grid</h2>
+    <p class="t-body sg-note">One dot is 2px (3px on large screens). One tile is 8 dots, the GBC's tile size. Spacing is in dots, multiples of 2, so everything lines up on the tile grid. No corner radius on the LCD, ever. The only curves are on the molded shell.</p>
+    <div class="sg-ruler">
+      <div><i style="--s:var(--space-1)"></i><span>1</span></div>
+      <div><i style="--s:var(--space-2)"></i><span>2</span></div>
+      <div><i style="--s:var(--space-3)"></i><span>3</span></div>
+      <div><i style="--s:var(--space-4)"></i><span>4 (tile)</span></div>
+      <div><i style="--s:var(--space-5)"></i><span>5</span></div>
+      <div><i style="--s:var(--space-6)"></i><span>6</span></div>
+      <div><i style="--s:var(--space-8)"></i><span>8</span></div>
+    </div>
+    <table class="sg-table">
+      <thead><tr><th>Token</th><th>Dots</th><th>At dot 2</th><th>At dot 3</th></tr></thead>
+      <tbody>
+        <tr><td>--dot</td><td>1</td><td>2px</td><td>3px</td></tr>
+        <tr><td>--tile</td><td>8</td><td>16px</td><td>24px</td></tr>
+        <tr><td>--text-label</td><td>8</td><td>16px</td><td>24px</td></tr>
+        <tr><td>--text-body</td><td>Jersey grid, 27 jpx</td><td>27px</td><td>27px</td></tr>
+        <tr><td>--border-2</td><td>2</td><td>4px</td><td>6px</td></tr>
+        <tr><td>--screen-w</td><td>22 tiles</td><td>352px</td><td>528px</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="device">
+    <h2>Device</h2>
+    <p class="t-body sg-note">The shell wraps the entire app. Power LED and wordmark up top, a bezel with the five-color letters, the LCD, and a working deck: D-pad, A, B, START, SELECT. Every button on the deck is a real <code>&lt;button&gt;</code>; the app binds them to navigation. Press one.</p>
+    <div class="sg-screen">
+      <div class="gb-stage">
+        <div class="gb-device">
+          <div class="gb-device__top">
+            <i class="gb-led is-on"></i><span class="gb-led-label">Power</span>
+            <div class="gb-wordmark"><strong>Pokédex</strong></div>
+          </div>
+          <div class="gb-bezel">
+            <div class="gb-screen">
+              <div class="dex-screen-body">
+                <header class="dex-header"><h1 class="dex-header__title">Pokédex</h1><div class="dex-header__meta"><span>Seen <b>151</b></span><span>Own <b>097</b></span></div></header>
+                <nav class="dex-menu" aria-label="Main">
+                  <a class="dex-menu__item" href="#" aria-current="true">Data</a>
+                  <a class="dex-menu__item" href="#">Search</a>
+                  <a class="dex-menu__item" href="#">Favorites <span class="dex-menu__hint">12</span></a>
+                  <a class="dex-menu__item" href="#">Quit</a>
+                </nav>
+                <footer class="dex-hints"><span><kbd>A</kbd>Select</span><span><kbd>B</kbd>Back</span><span><kbd>Start</kbd>Menu</span></footer>
+              </div>
+            </div>
+            <div class="gb-bezel__label"><span>Game</span> <span class="c1">D</span><span class="c2">E</span><span class="c3">X</span> <span class="c4">C</span><span class="c5">O</span><span class="c1">L</span><span class="c2">O</span><span class="c3">R</span></div>
+          </div>
+          <div class="gb-deck">
+            <div class="gb-dpad">
+              <button class="gb-dpad__btn" data-dir="up" aria-label="Up"></button>
+              <button class="gb-dpad__btn" data-dir="down" aria-label="Down"></button>
+              <button class="gb-dpad__btn" data-dir="left" aria-label="Left"></button>
+              <button class="gb-dpad__btn" data-dir="right" aria-label="Right"></button>
+              <i class="gb-dpad__center"></i>
+            </div>
+            <div class="gb-ab">
+              <div><button class="gb-ab__btn gb-ab__btn--b" aria-label="B">B</button></div>
+              <div><button class="gb-ab__btn" aria-label="A">A</button></div>
+            </div>
+            <div class="gb-pills">
+              <div class="gb-pill"><button class="gb-pill__btn" aria-label="Select"></button><span class="gb-pill__label">Select</span></div>
+              <div class="gb-pill"><button class="gb-pill__btn" aria-label="Start"></button><span class="gb-pill__label">Start</span></div>
+            </div>
+          </div>
+          <div class="gb-device__grille"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+    <h3>Deck states</h3>
+    <div class="sg-row">
+      <div class="gb-device" style="max-width:calc(var(--tile)*26)">
+        <div class="gb-deck">
+          <div class="gb-dpad is-pressed">
+            <button class="gb-dpad__btn" data-dir="up"></button><button class="gb-dpad__btn" data-dir="down"></button><button class="gb-dpad__btn" data-dir="left"></button><button class="gb-dpad__btn" data-dir="right"></button><i class="gb-dpad__center"></i>
+          </div>
+          <div class="gb-ab"><div><button class="gb-ab__btn gb-ab__btn--b is-pressed">B</button></div><div><button class="gb-ab__btn">A</button></div></div>
+          <div class="gb-pills"><div class="gb-pill"><button class="gb-pill__btn is-pressed"></button><span class="gb-pill__label">Select (pressed)</span></div><div class="gb-pill"><button class="gb-pill__btn"></button><span class="gb-pill__label">Start</span></div></div>
+        </div>
+      </div>
+      <div class="gb-device" style="max-width:calc(var(--tile)*26)">
+        <div class="gb-device__top"><i class="gb-led"></i><span class="gb-led-label">Power (off)</span><div class="gb-wordmark"><strong>Pokédex</strong></div></div>
+        <div class="gb-bezel"><div class="gb-screen gb-screen--inverted" style="min-height:calc(var(--tile)*8)"><p class="t-label">Inverted panel</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="components">
+    <h2>Components</h2>
+
+    <h3>Box</h3>
+    <p class="t-body sg-note">The Gen 1 text box: a 1-dot rule, a 1-dot gap, another 1-dot rule, square corners. Built with <code>border</code> plus <code>outline</code>, so it is one element.</p>
+    <div class="sg-lcd">
+      <div class="sg-states">
+        <div class="sg-state"><span>default</span><div class="dex-box"><p class="t-body">Got a BULBASAUR!</p></div></div>
+        <div class="sg-state"><span>--thick</span><div class="dex-box dex-box--thick"><p class="t-body">Thick inner rule.</p></div></div>
+        <div class="sg-state"><span>--single</span><div class="dex-box dex-box--single"><p class="t-body">Single rule, no gap.</p></div></div>
+        <div class="sg-state"><span>--inverted</span><div class="dex-box dex-box--inverted"><p class="t-body">White on black.</p></div></div>
+        <div class="sg-state"><span>with __title</span><div class="dex-box"><span class="dex-box__title">Entry</span><p class="t-body">A titled frame.</p></div></div>
+      </div>
+    </div>
+
+    <h3>Header</h3>
+    <div class="sg-lcd">
+      <header class="dex-header"><h2 class="dex-header__title">Pokédex</h2><div class="dex-header__meta"><span>Seen <b>151</b></span><span>Own <b>097</b></span></div></header>
+      <header class="dex-header"><h2 class="dex-header__title">Favorites</h2><div class="dex-header__meta"><span><b>12</b> saved</span></div></header>
+    </div>
+
+    <h3>Menu</h3>
+    <div class="sg-row">
+      <div class="sg-lcd">
+        <nav class="dex-menu"><a class="dex-menu__item" href="#" aria-current="true">Data</a><a class="dex-menu__item" href="#">Cry</a><a class="dex-menu__item" href="#" aria-disabled="true">Area</a><a class="dex-menu__item" href="#">Quit</a></nav>
+      </div>
+      <div class="sg-lcd">
+        <nav class="dex-menu dex-menu--row"><a class="dex-menu__item" href="#">Page</a><a class="dex-menu__item" href="#" aria-current="true">Area</a><a class="dex-menu__item" href="#">Cry</a></nav>
+        <p class="t-body t-mid">Hover shows the cursor. Focus makes it blink. Disabled swaps it for an X.</p>
+      </div>
+    </div>
+
+    <h3>Button</h3>
+    <p class="t-body sg-note">Four variants, each with default, hover, pressed, focus, disabled and loading. The press is a 2-dot drop onto a hard shadow. No lift on hover; hover inverts.</p>
+    <div class="sg-lcd">
+      <div class="sg-states">
+        <div class="sg-state"><span>default</span><button class="dex-btn">Data</button></div>
+        <div class="sg-state"><span>pressed</span><button class="dex-btn is-pressed">Data</button></div>
+        <div class="sg-state"><span>disabled</span><button class="dex-btn" disabled>Data</button></div>
+        <div class="sg-state"><span>loading</span><button class="dex-btn is-loading">Saving</button></div>
+        <div class="sg-state"><span>--primary</span><button class="dex-btn dex-btn--primary">Send link</button></div>
+        <div class="sg-state"><span>--primary pressed</span><button class="dex-btn dex-btn--primary is-pressed">Send link</button></div>
+        <div class="sg-state"><span>--primary disabled</span><button class="dex-btn dex-btn--primary" disabled>Send link</button></div>
+        <div class="sg-state"><span>--danger</span><button class="dex-btn dex-btn--danger">Remove</button></div>
+        <div class="sg-state"><span>--sm</span><button class="dex-btn dex-btn--sm">Cry</button></div>
+        <div class="sg-state"><span>--block</span><button class="dex-btn dex-btn--block">Next page</button></div>
+        <div class="sg-state"><span>--start</span><button class="dex-btn dex-btn--start">Try the demo</button></div>
+        <div class="sg-state"><span>--start pressed</span><button class="dex-btn dex-btn--start is-pressed">Try the demo</button></div>
+      </div>
+      <div class="dex-btn-group"><button class="dex-btn dex-btn--primary">Save</button><button class="dex-btn">Cancel</button><span class="t-label-xs t-mid">group</span></div>
+    </div>
+    <div class="sg-lcd sg-lcd--inverted">
+      <div class="dex-btn-group"><button class="dex-btn">Neutral on black</button><button class="dex-btn dex-btn--primary">Primary</button><button class="dex-btn dex-btn--danger">Danger</button></div>
+    </div>
+
+    <h3>Field</h3>
+    <div class="sg-lcd">
+      <div class="sg-states">
+        <div class="sg-state"><span>default</span><div class="dex-field"><label class="dex-field__label" for="f1">Email</label><input class="dex-field__input" id="f1" type="email" placeholder="ash@pallet.town"><p class="dex-field__help">We send a one-time link. No password.</p></div></div>
+        <div class="sg-state"><span>filled</span><div class="dex-field"><label class="dex-field__label" for="f2">Email</label><input class="dex-field__input" id="f2" type="email" value="ash@pallet.town"></div></div>
+        <div class="sg-state"><span>error</span><div class="dex-field"><label class="dex-field__label" for="f3">Email</label><input class="dex-field__input" id="f3" type="email" value="ash@pallet" aria-invalid="true" aria-describedby="f3e"><p class="dex-field__error" id="f3e">Enter a full address</p></div></div>
+        <div class="sg-state"><span>disabled</span><div class="dex-field"><label class="dex-field__label" for="f4">Email</label><input class="dex-field__input" id="f4" type="email" value="ash@pallet.town" disabled></div></div>
+        <div class="sg-state" style="grid-column:1/-1"><span>--search</span><div class="dex-field dex-field--search"><label class="dex-field__label" for="f5">Search</label><div class="dex-field__row"><input class="dex-field__input" id="f5" type="search" placeholder="Name or number"><button class="dex-btn">Go</button></div></div></div>
+      </div>
+    </div>
+
+    <h3>Row and list</h3>
+    <p class="t-body sg-note">The Gen 1 list row, straight from the disassembly: number, ball if owned, name, dashes if unseen. Rows are links. Selected, hover and focus all invert the row.</p>
+    <div class="sg-lcd">
+      <div class="dex-list">
+        <a class="dex-row" href="#"><span class="dex-row__no">001</span><i class="dex-ball dex-ball--filled"></i><span class="dex-row__name">Bulbasaur</span><span class="dex-row__end"><span class="dex-type" data-type="grass">Grass</span></span></a>
+        <a class="dex-row" href="#" aria-current="true"><span class="dex-row__no">004</span><i class="dex-ball dex-ball--filled"></i><span class="dex-row__name">Charmander</span><span class="dex-row__end"><span class="dex-type" data-type="fire">Fire</span></span></a>
+        <a class="dex-row" href="#"><span class="dex-row__no">007</span><i class="dex-ball"></i><span class="dex-row__name">Squirtle</span><span class="dex-row__end"><span class="dex-type" data-type="water">Water</span></span></a>
+        <a class="dex-row dex-row--unseen" href="#"><span class="dex-row__no">010</span><i></i><span class="dex-row__name"></span><span class="dex-row__end"></span></a>
+        <a class="dex-row dex-row--thumb" href="#"><span class="dex-row__no">025</span><img class="dex-row__thumb" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt=""><span class="dex-row__name">Pikachu</span><span class="dex-row__end"><span class="dex-type" data-type="electric">Electric</span></span></a>
+        <div class="dex-row"><span class="dex-row__no"><span class="dex-skeleton" style="display:block"></span></span><i></i><span class="dex-skeleton"></span><span></span></div>
+      </div>
+    </div>
+
+    <h3>Sprite well</h3>
+    <div class="sg-lcd">
+      <div class="dex-cluster">
+        <div class="dex-sprite"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur"></div>
+        <div class="dex-sprite dex-sprite--inverted"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur"></div>
+        <div class="dex-sprite dex-sprite--lg"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur"></div>
+      </div>
+    </div>
+
+    <h3>Stat bar</h3>
+    <p class="t-body sg-note">HP bar logic: green, then yellow, then red. Fill width animates in four steps, not a glide. Set <code>--value</code> and <code>data-level</code>.</p>
+    <div class="sg-lcd">
+      <div class="dex-bars" style="max-width:calc(var(--tile)*24)">
+        <div class="dex-bar" style="--value:45" role="meter" aria-valuenow="45" aria-valuemin="0" aria-valuemax="255" aria-label="HP"><span class="dex-bar__label">HP</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">45</span></div>
+        <div class="dex-bar" style="--value:49" role="meter" aria-valuenow="49" aria-label="Attack"><span class="dex-bar__label">Atk</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">49</span></div>
+        <div class="dex-bar" data-level="mid" style="--value:30" role="meter" aria-valuenow="30" aria-label="Defense"><span class="dex-bar__label">Def</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">30</span></div>
+        <div class="dex-bar" data-level="low" style="--value:12" role="meter" aria-valuenow="12" aria-label="Speed"><span class="dex-bar__label">Spd</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">12</span></div>
+        <div class="dex-bar" style="--value:100" role="meter" aria-valuenow="100" aria-label="Max"><span class="dex-bar__label">Max</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">255</span></div>
+        <div class="dex-bar" style="--value:0" role="meter" aria-valuenow="0" aria-label="Empty"><span class="dex-bar__label">None</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">0</span></div>
+      </div>
+    </div>
+
+    <h3>Tabs</h3>
+    <div class="sg-lcd">
+      <div role="tablist" class="dex-tabs"><button class="dex-tabs__tab" role="tab" aria-selected="true">Data</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Stats</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Moves</button></div>
+      <div class="dex-tabpanel"><p class="t-body">Panel content.</p></div>
+    </div>
+    <div class="sg-lcd sg-lcd--inverted gb-screen--inverted" style="box-shadow:none">
+      <div role="tablist" class="dex-tabs"><button class="dex-tabs__tab" role="tab" aria-selected="false">Data</button><button class="dex-tabs__tab" role="tab" aria-selected="true">Stats</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Moves</button></div>
+    </div>
+
+    <h3>Card</h3>
+    <div class="sg-lcd">
+      <div class="dex-grid dex-grid--3">
+        <div class="dex-card"><span class="dex-card__label">Seen</span><span class="dex-card__value">151</span><span class="dex-card__caption">of 151 in Kanto</span></div>
+        <a class="dex-card dex-card--link" href="#"><span class="dex-card__label">Favorites</span><span class="dex-card__value">12</span><span class="dex-card__caption">Tap to open. Link cards press in.</span></a>
+        <div class="dex-card dex-card--inverted"><span class="dex-card__label">Streak</span><span class="dex-card__value">07</span><span class="dex-card__caption">days in a row</span></div>
+      </div>
+    </div>
+
+    <h3>Notice and toast</h3>
+    <div class="sg-lcd">
+      <div class="dex-stack">
+        <div class="dex-notice" role="status"><span class="dex-notice__title">Info</span><p>You can search by name or number. Try 25.</p></div>
+        <div class="dex-notice dex-notice--ok" role="status"><span class="dex-notice__title">Sent</span><p>Check your email. If nothing shows up in a minute, look in spam. It happens.</p></div>
+        <div class="dex-notice dex-notice--warn" role="status"><span class="dex-notice__title">Heads up</span><p>Demo mode. Favorites are not saved between visits.</p></div>
+        <div class="dex-notice dex-notice--error" role="alert"><span class="dex-notice__title">Error</span><p>Could not reach the server. Try again.</p></div>
+        <p class="t-body t-cursor">Text box with the continue arrow</p>
+      </div>
+      <div class="dex-toast" role="status">Added Pikachu to favorites</div>
+    </div>
+
+    <h3>Hints, key/value, rule</h3>
+    <div class="sg-lcd">
+      <footer class="dex-hints"><span><kbd>A</kbd>Select</span><span><kbd>B</kbd>Back</span><span><kbd>&larr;&rarr;</kbd>Prev / next</span><span><kbd>Start</kbd>Menu</span></footer>
+      <dl class="dex-kv" style="max-width:calc(var(--tile)*16)"><dt>HT</dt><dd>2'04"</dd><dt>WT</dt><dd>15.2 lb</dd><dt>No.</dt><dd>001</dd></dl>
+      <hr class="dex-rule"><hr class="dex-rule dex-rule--dashed">
+    </div>
+
+    <h3>Empty and loading</h3>
+    <div class="sg-row">
+      <div class="sg-lcd"><div class="dex-empty"><span>No favorites yet</span><p>Open a Pokémon and press A to save it here.</p><button class="dex-btn dex-btn--sm">Browse</button></div></div>
+      <div class="sg-lcd"><div class="dex-loading"><span class="dex-loading__dots">Loading</span><p>Fetching 151 entries.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="screens">
+    <h2>Screens</h2>
+    <p class="t-body sg-note">Six app screens composed from the primitives above. Each sits inside the device the way it will in production. Screens scroll inside the LCD; the device itself never grows.</p>
+    <div class="sg-screens">
+
+      <div class="sg-screen"><h3>1. Landing</h3>
+        <div class="gb-stage"><div class="gb-device">
+          <div class="gb-device__top"><i class="gb-led is-on"></i><span class="gb-led-label">Power</span><div class="gb-wordmark"><strong>Pokédex</strong></div></div>
+          <div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+            <div class="dex-stack" style="text-align:center;justify-items:center;padding-top:var(--space-4)">
+              <div class="dex-sprite dex-sprite--lg"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu"></div>
+              <h1 class="t-label-xl">Pokédex</h1>
+              <p class="t-body">A Kanto Pokédex you can carry in your pocket. Browse 151 entries, read the stats, keep favorites. Built with SvelteKit, plain CSS and a magic-link login.</p>
+              <button class="dex-btn dex-btn--start">Try the demo</button>
+              <a class="dex-btn dex-btn--sm" href="#">Log in</a>
+            </div>
+            <footer class="dex-hints"><span><kbd>Start</kbd>Demo</span><span><kbd>A</kbd>Log in</span></footer>
+          </div></div><div class="gb-bezel__label"><span>Game</span> <span class="c1">D</span><span class="c2">E</span><span class="c3">X</span> <span class="c4">C</span><span class="c5">O</span><span class="c1">L</span><span class="c2">O</span><span class="c3">R</span></div></div>
+          <div class="gb-deck"><div class="gb-dpad"><button class="gb-dpad__btn" data-dir="up"></button><button class="gb-dpad__btn" data-dir="down"></button><button class="gb-dpad__btn" data-dir="left"></button><button class="gb-dpad__btn" data-dir="right"></button><i class="gb-dpad__center"></i></div><div class="gb-ab"><div><button class="gb-ab__btn gb-ab__btn--b">B</button></div><div><button class="gb-ab__btn">A</button></div></div><div class="gb-pills"><div class="gb-pill"><button class="gb-pill__btn"></button><span class="gb-pill__label">Select</span></div><div class="gb-pill"><button class="gb-pill__btn"></button><span class="gb-pill__label">Start</span></div></div></div>
+        </div></div>
+      </div>
+
+      <div class="sg-screen"><h3>2. Login, and the sent state</h3>
+        <div class="sg-row">
+          <div class="gb-device"><div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+            <header class="dex-header"><h1 class="dex-header__title">Log in</h1></header>
+            <form class="dex-stack" onsubmit="return false">
+              <p class="t-body">Enter your email. We send a link; no password to remember.</p>
+              <div class="dex-field"><label class="dex-field__label" for="login-email">Email</label><input class="dex-field__input" id="login-email" type="email" placeholder="ash@pallet.town" autocomplete="email"></div>
+              <button class="dex-btn dex-btn--primary dex-btn--block" type="submit">Send link</button>
+            </form>
+            <footer class="dex-hints"><span><kbd>A</kbd>Send</span><span><kbd>B</kbd>Back</span></footer>
+          </div></div></div></div>
+          <div class="gb-device"><div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+            <header class="dex-header"><h1 class="dex-header__title">Log in</h1></header>
+            <div class="dex-stack">
+              <div class="dex-notice dex-notice--ok" role="status"><span class="dex-notice__title">Link sent</span><p>Check <b>ash@pallet.town</b>. If it is not there in a minute, look in spam. Mail from new domains lands there more than it should.</p></div>
+              <div class="dex-box"><p class="t-body t-cursor">Waiting for you to click the link</p></div>
+              <button class="dex-btn">Use a different email</button>
+            </div>
+            <footer class="dex-hints"><span><kbd>B</kbd>Back</span></footer>
+          </div></div></div></div>
+        </div>
+      </div>
+
+      <div class="sg-screen"><h3>3. Dashboard</h3>
+        <div class="gb-device"><div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+          <header class="dex-header"><h1 class="dex-header__title">Trainer</h1><div class="dex-header__meta"><span>ash@pallet.town</span></div></header>
+          <div class="dex-stack">
+            <div class="dex-grid dex-grid--3">
+              <a class="dex-card dex-card--link" href="#"><span class="dex-card__label">Seen</span><span class="dex-card__value">151</span><span class="dex-card__caption">Kanto complete</span></a>
+              <a class="dex-card dex-card--link" href="#"><span class="dex-card__label">Favorites</span><span class="dex-card__value">12</span><span class="dex-card__caption">3 added this week</span></a>
+              <div class="dex-card dex-card--inverted"><span class="dex-card__label">Last viewed</span><span class="dex-card__value">025</span><span class="dex-card__caption">Pikachu</span></div>
+            </div>
+            <nav class="dex-menu" aria-label="Sections">
+              <a class="dex-menu__item" href="#" aria-current="true">Browse Pokédex</a>
+              <a class="dex-menu__item" href="#">Favorites <span class="dex-menu__hint">12</span></a>
+              <a class="dex-menu__item" href="#">Log out</a>
+            </nav>
+          </div>
+          <footer class="dex-hints"><span><kbd>A</kbd>Open</span><span><kbd>Select</kbd>Zoom</span></footer>
+        </div></div></div></div>
+      </div>
+
+      <div class="sg-screen"><h3>4. Browse and search</h3>
+        <div class="gb-device"><div class="gb-bezel"><div class="gb-screen lcd-scroll"><div class="dex-screen-body">
+          <header class="dex-header"><h1 class="dex-header__title">Pokédex</h1><div class="dex-header__meta"><span>Seen <b>151</b></span><span>Own <b>097</b></span></div></header>
+          <div class="dex-stack">
+            <div class="dex-field dex-field--search"><label class="dex-field__label visually-hidden" for="q">Search</label><div class="dex-field__row"><input class="dex-field__input" id="q" type="search" value="char" placeholder="Name or number"><button class="dex-btn">Go</button></div></div>
+            <div role="tablist" class="dex-tabs"><button class="dex-tabs__tab" role="tab" aria-selected="true">All</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Owned</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Favorites</button></div>
+            <div class="dex-list">
+              <a class="dex-row" href="#"><span class="dex-row__no">004</span><i class="dex-ball dex-ball--filled"></i><span class="dex-row__name">Charmander</span><span class="dex-row__end"><span class="dex-type" data-type="fire">Fire</span></span></a>
+              <a class="dex-row" href="#" aria-current="true"><span class="dex-row__no">005</span><i class="dex-ball dex-ball--filled"></i><span class="dex-row__name">Charmeleon</span><span class="dex-row__end"><span class="dex-type" data-type="fire">Fire</span></span></a>
+              <a class="dex-row" href="#"><span class="dex-row__no">006</span><i class="dex-ball"></i><span class="dex-row__name">Charizard</span><span class="dex-row__end"><span class="dex-type" data-type="fire">Fire</span><span class="dex-type" data-type="flying">Flying</span></span></a>
+            </div>
+            <p class="t-label-xs t-mid">3 of 151 match "char"</p>
+          </div>
+          <footer class="dex-hints"><span><kbd>&uarr;&darr;</kbd>Move</span><span><kbd>A</kbd>Open</span><span><kbd>B</kbd>Clear</span></footer>
+        </div></div></div></div>
+      </div>
+
+      <div class="sg-screen"><h3>5. Detail, Crystal-style inverted panel</h3>
+        <div class="gb-device"><div class="gb-bezel"><div class="gb-screen gb-screen--inverted lcd-scroll"><div class="dex-screen-body">
+          <header class="dex-header"><h1 class="dex-header__title">Bulbasaur</h1><div class="dex-header__meta"><span>No. <b>001</b></span></div></header>
+          <div class="dex-stack">
+            <div class="dex-split">
+              <div class="dex-sprite dex-sprite--inverted"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur"></div>
+              <div class="dex-stack dex-stack--tight" style="flex:1">
+                <div class="t-display">No.001</div>
+                <p class="t-label">Seed Pokémon</p>
+                <div class="dex-types"><span class="dex-type" data-type="grass">Grass</span><span class="dex-type" data-type="poison">Poison</span></div>
+                <dl class="dex-kv"><dt>HT</dt><dd>2'04"</dd><dt>WT</dt><dd>15.2 lb</dd></dl>
+              </div>
+            </div>
+            <hr class="dex-rule">
+            <p class="t-body">A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.</p>
+            <div role="tablist" class="dex-tabs"><button class="dex-tabs__tab" role="tab" aria-selected="true">Stats</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Moves</button><button class="dex-tabs__tab" role="tab" aria-selected="false">Evolution</button></div>
+            <div class="dex-bars dex-tabpanel">
+              <div class="dex-bar" style="--value:18"><span class="dex-bar__label">HP</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">45</span></div>
+              <div class="dex-bar" style="--value:19"><span class="dex-bar__label">Atk</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">49</span></div>
+              <div class="dex-bar" style="--value:19"><span class="dex-bar__label">Def</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">49</span></div>
+              <div class="dex-bar" style="--value:25"><span class="dex-bar__label">SpA</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">65</span></div>
+              <div class="dex-bar" style="--value:25"><span class="dex-bar__label">SpD</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">65</span></div>
+              <div class="dex-bar" data-level="mid" style="--value:18"><span class="dex-bar__label">Spd</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">45</span></div>
+            </div>
+            <div class="dex-btn-group"><button class="dex-btn dex-btn--primary" aria-pressed="false"><i class="dex-ball"></i> Favorite</button><a class="dex-btn" href="#">Next: Ivysaur</a></div>
+          </div>
+          <footer class="dex-hints"><span><kbd>A</kbd>Favorite</span><span><kbd>B</kbd>Back</span><span><kbd>&larr;&rarr;</kbd>Prev / next</span></footer>
+        </div></div></div></div>
+      </div>
+
+      <div class="sg-screen"><h3>6. Favorites, with an empty state beside it</h3>
+        <div class="sg-row">
+          <div class="gb-device"><div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+            <header class="dex-header"><h1 class="dex-header__title">Favorites</h1><div class="dex-header__meta"><span><b>12</b> saved</span></div></header>
+            <div class="dex-list">
+              <a class="dex-row dex-row--thumb" href="#"><span class="dex-row__no">025</span><img class="dex-row__thumb" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt=""><span class="dex-row__name">Pikachu</span><span class="dex-row__end"><button class="dex-btn dex-btn--sm dex-btn--danger" aria-label="Remove Pikachu">&times;</button></span></a>
+              <a class="dex-row dex-row--thumb" href="#"><span class="dex-row__no">094</span><img class="dex-row__thumb" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png" alt=""><span class="dex-row__name">Gengar</span><span class="dex-row__end"><button class="dex-btn dex-btn--sm dex-btn--danger" aria-label="Remove Gengar">&times;</button></span></a>
+              <a class="dex-row dex-row--thumb" href="#"><span class="dex-row__no">143</span><img class="dex-row__thumb" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png" alt=""><span class="dex-row__name">Snorlax</span><span class="dex-row__end"><button class="dex-btn dex-btn--sm dex-btn--danger" aria-label="Remove Snorlax">&times;</button></span></a>
+            </div>
+            <div class="dex-toast" role="status">Removed Eevee</div>
+          </div></div></div></div>
+          <div class="gb-device"><div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+            <header class="dex-header"><h1 class="dex-header__title">Favorites</h1></header>
+            <div class="dex-empty"><span>No favorites yet</span><p>Open a Pokémon and press A to save it here.</p><a class="dex-btn dex-btn--sm" href="#">Browse Pokédex</a></div>
+            <footer class="dex-hints"><span><kbd>B</kbd>Back</span></footer>
+          </div></div></div></div>
+        </div>
+      </div>
+
+      <div class="sg-screen"><h3>7. Phone width (360px)</h3>
+        <p class="t-body sg-note">Below 520px the shell goes edge to edge, the screen takes the height, and the deck sits under the thumb. The Game Boy was already a vertical handheld; the phone layout is the one that needs the least argument.</p>
+        <div class="sg-phone"><div class="gb-device">
+          <div class="gb-device__top"><i class="gb-led is-on"></i><span class="gb-led-label">Power</span><div class="gb-wordmark"><strong>Pokédex</strong></div></div>
+          <div class="gb-bezel"><div class="gb-screen"><div class="dex-screen-body">
+            <header class="dex-header"><h1 class="dex-header__title">Pokédex</h1><div class="dex-header__meta"><span>Own <b>097</b></span></div></header>
+            <div class="dex-list">
+              <a class="dex-row" href="#"><span class="dex-row__no">001</span><i class="dex-ball dex-ball--filled"></i><span class="dex-row__name">Bulbasaur</span><span></span></a>
+              <a class="dex-row" href="#" aria-current="true"><span class="dex-row__no">002</span><i class="dex-ball dex-ball--filled"></i><span class="dex-row__name">Ivysaur</span><span></span></a>
+              <a class="dex-row" href="#"><span class="dex-row__no">003</span><i class="dex-ball"></i><span class="dex-row__name">Venusaur</span><span></span></a>
+              <a class="dex-row dex-row--unseen" href="#"><span class="dex-row__no">004</span><i></i><span class="dex-row__name"></span><span></span></a>
+            </div>
+            <footer class="dex-hints"><span><kbd>A</kbd>Open</span><span><kbd>B</kbd>Back</span></footer>
+          </div></div></div>
+          <div class="gb-deck"><div class="gb-dpad"><button class="gb-dpad__btn" data-dir="up"></button><button class="gb-dpad__btn" data-dir="down"></button><button class="gb-dpad__btn" data-dir="left"></button><button class="gb-dpad__btn" data-dir="right"></button><i class="gb-dpad__center"></i></div><div class="gb-ab"><div><button class="gb-ab__btn gb-ab__btn--b">B</button></div><div><button class="gb-ab__btn">A</button></div></div><div class="gb-pills"><div class="gb-pill"><button class="gb-pill__btn"></button><span class="gb-pill__label">Select</span></div><div class="gb-pill"><button class="gb-pill__btn"></button><span class="gb-pill__label">Start</span></div></div></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="motion">
+    <h2>Motion</h2>
+    <p class="t-body sg-note">There is no easing on a Game Boy Color. Frames change or they do not. Every transition here uses <code>steps()</code>. The blink is 533ms, roughly the 32-frame cadence of the text-box arrow. Buttons drop 2 dots in one frame. Stat bars fill in four steps. Under <code>prefers-reduced-motion</code> every duration becomes 0ms and the blink stops on the visible frame.</p>
+    <div class="sg-lcd">
+      <div class="dex-cluster">
+        <span class="t-label t-cursor">Blink</span>
+        <button class="dex-btn">Press me</button>
+        <span class="t-label dex-loading__dots">Dots</span>
+        <div class="dex-bar" style="--value:70;width:calc(var(--tile)*16)"><span class="dex-bar__label">Fill</span><div class="dex-bar__track"><div class="dex-bar__fill"></div></div><span class="dex-bar__value">70</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <section class="sg-section" id="scale">
+    <h2>Scaling</h2>
+    <p class="t-body sg-note">The device does not stretch. At any width under 1280px the dot is 2px and the device is 352px of screen inside a 416px shell. At 1280px wide and 800px tall the dot becomes 3px and everything on the device grows by exactly 1.5x. Body copy stays 27px because 54px is a poster. The app can also set <code>data-dot="2|3|4"</code> on <code>&lt;html&gt;</code> from the SELECT button; 4 doubles the Jersey grid too.</p>
+    <div class="sg-row">
+      <div class="sg-lcd" style="--dot:2px"><span class="t-label-xs t-mid">dot 2</span><button class="dex-btn">Data</button><span class="dex-type" data-type="fire">Fire</span></div>
+      <div class="sg-lcd" style="--dot:3px"><span class="t-label-xs t-mid">dot 3</span><button class="dex-btn">Data</button><span class="dex-type" data-type="fire">Fire</span></div>
+      <div class="sg-lcd" style="--dot:4px;--jpx:2px"><span class="t-label-xs t-mid">dot 4</span><button class="dex-btn">Data</button><span class="dex-type" data-type="fire">Fire</span></div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,12 @@
+/* ==========================================================================
+   Pokédex design system. Import this one file from the app root layout.
+
+   Order matters: tokens first, then the reset, then type, then the device
+   shell, then components. Nothing here is page-specific; screens compose
+   these primitives inside Svelte components with their own scoped styles.
+   ========================================================================== */
+@import "./tokens.css";
+@import "./base.css";
+@import "./type.css";
+@import "./device.css";
+@import "./components.css";

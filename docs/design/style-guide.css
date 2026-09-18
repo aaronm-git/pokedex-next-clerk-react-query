@@ -1,0 +1,116 @@
+/* Style guide chrome. Everything the guide needs that the app does not.
+   The design system itself comes from ../../src/lib/styles/index.css. */
+@import url("../../src/lib/styles/index.css");
+/* Charted is loaded here only to demonstrate why the system does not use it. */
+@import url("https://fonts.googleapis.com/css2?family=Jersey+15+Charted&display=swap");
+
+.sg {
+  max-width: calc(var(--tile) * 80);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-8);
+  color: var(--lcd-paper);
+}
+.sg-lede a, .sg-note a, .sg-toc a { text-decoration: underline; text-underline-offset: var(--dot); }
+.sg > header {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.sg > header h1 { color: var(--lcd-white); }
+.sg-lede { color: var(--lcd-light); max-width: 60ch; }
+.sg-toc {
+  display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4);
+  font-family: var(--font-label); font-size: var(--text-label-xs); text-transform: uppercase;
+  color: var(--lcd-light);
+}
+.sg-section {
+  margin-top: var(--space-8);
+  display: grid;
+  gap: var(--space-4);
+}
+.sg-section > h2 {
+  color: var(--lcd-white);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-2) solid var(--lcd-mid);
+}
+.sg-section > h3 { color: var(--lcd-light); margin-top: var(--space-3); }
+.sg-note { color: var(--lcd-light); max-width: 64ch; }
+.sg-note code, .sg code {
+  font-family: var(--font-label); font-size: var(--text-label-xs);
+  background: var(--desk-line); color: var(--lcd-white); padding: 0 var(--space-1);
+}
+/* A panel that pretends to be the LCD so components render in context. */
+.sg-lcd {
+  background: var(--lcd-paper);
+  color: var(--lcd-ink);
+  padding: var(--space-4);
+  border: var(--border-2) solid var(--bezel-light);
+  box-shadow: var(--shadow-inset-screen);
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.sg-lcd--inverted { background: var(--lcd-black); color: var(--lcd-white); }
+.sg-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-start; }
+.sg-row > * { flex: 1 1 calc(var(--tile) * 20); }
+.sg-states { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(calc(var(--tile) * 16), 1fr)); }
+.sg-state { display: grid; gap: var(--space-2); align-content: start; justify-items: start; }
+.sg-state > span {
+  font-family: var(--font-label); font-size: var(--text-label-xs); text-transform: uppercase; color: var(--lcd-mid);
+}
+.sg-lcd--inverted .sg-state > span { color: var(--lcd-light); }
+
+/* Swatches */
+.sg-swatches { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(calc(var(--tile) * 14), 1fr)); }
+.sg-swatch {
+  display: grid; gap: var(--space-1);
+  font-family: var(--font-label); font-size: var(--text-label-xs); text-transform: uppercase; color: var(--lcd-light);
+}
+.sg-swatch i {
+  display: block; height: calc(var(--tile) * 5);
+  border: var(--border-1) solid var(--lcd-mid);
+  background: var(--sw);
+}
+.sg-swatch b { font-weight: 400; color: var(--lcd-white); }
+.sg-swatch small { font-size: inherit; color: var(--lcd-mid); text-transform: none; font-family: var(--font-body); font-size: var(--text-body); line-height: 1.1; }
+
+/* Type specimens */
+.sg-spec { display: grid; gap: var(--space-2); padding: var(--space-3) 0; border-bottom: var(--border-1) dashed var(--lcd-mid); }
+.sg-spec > span { font-family: var(--font-label); font-size: var(--text-label-xs); text-transform: uppercase; color: var(--lcd-mid); }
+.sg-spec .t-body { color: inherit; }
+
+/* Spacing ruler */
+.sg-ruler { display: flex; gap: var(--space-2); align-items: flex-end; }
+.sg-ruler i { display: block; background: var(--lcd-light); width: var(--s); height: var(--s); }
+.sg-ruler span { font-family: var(--font-label); font-size: var(--text-label-xs); color: var(--lcd-mid); }
+
+/* Screens */
+.sg-screens { display: grid; gap: var(--space-6); }
+.sg-screen { display: grid; gap: var(--space-3); }
+.sg-screen > h3 { color: var(--lcd-white); }
+.sg-screen .gb-stage { min-height: 0; padding: 0; }
+.sg-screen .gb-device { justify-self: start; }
+.sg .gb-screen { height: auto; }
+.sg-screen .gb-screen { min-height: calc(var(--tile) * 30); }
+.sg-phone { --dot: 2px; width: 360px; }
+.sg-phone .gb-device { width: 100%; border-radius: 0; padding: var(--space-2); }
+.sg-phone .gb-bezel { padding: var(--space-2); }
+.sg-phone .gb-screen { min-height: calc(var(--tile) * 34); }
+
+/* Do / don't */
+.sg-dd { display: grid; grid-template-columns: repeat(auto-fit, minmax(calc(var(--tile) * 20), 1fr)); gap: var(--space-4); }
+.sg-dd > div { display: grid; gap: var(--space-2); }
+.sg-dd > div > span { font-family: var(--font-label); font-size: var(--text-label-xs); text-transform: uppercase; }
+.sg-dd .do > span { color: var(--sig-green); }
+.sg-dd .dont > span { color: var(--sig-red); }
+.sg-charted-demo { font-family: "Jersey 15 Charted"; font-size: 324px; line-height: 1; letter-spacing: 0; }
+
+.sg-table { border-collapse: collapse; width: 100%; font-family: var(--font-body); font-size: var(--text-body); line-height: var(--leading-body); }
+.sg-table th, .sg-table td { text-align: left; padding: var(--space-1) var(--space-2); border-bottom: var(--border-1) solid var(--lcd-mid); vertical-align: top; }
+.sg-table th { font-family: var(--font-label); font-size: var(--text-label-xs); text-transform: uppercase; color: var(--lcd-light); }
+
+@media (max-width: 520px) {
+  .sg { padding-inline: var(--space-4); }
+  .sg-row > * { flex-basis: 100%; }
+  .sg-phone { width: 100%; }
+}

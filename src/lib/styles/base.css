@@ -1,0 +1,133 @@
+/* ==========================================================================
+   base.css
+   Reset, fonts, and the two rules that make pixel art stay pixel art.
+   ========================================================================== */
+
+/* Fonts. The app currently loads Press Start 2P and Jersey 15 Charted
+   through next/font. This system uses Press Start 2P and Jersey 15 (plain)
+   and drops Charted; see docs/design/README.md for why. The @import keeps
+   the stylesheet usable standalone (style guide, tests). */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Jersey+15&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Text stays crisp. No font smoothing tricks: pixel fonts need aliasing
+     off where the platform lets us ask for it. */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  background: var(--desk);
+  color: var(--lcd-ink);
+}
+
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  background-color: var(--desk);
+  /* A 1-tile grid on the desk, drawn with two gradients so it needs no image. */
+  background-image:
+    linear-gradient(var(--desk-line) var(--dot), transparent var(--dot)),
+    linear-gradient(90deg, var(--desk-line) var(--dot), transparent var(--dot));
+  background-size: var(--tile) var(--tile);
+  overflow-x: hidden;
+}
+
+/* Every raster on the site is a sprite. Never let the browser smooth one. */
+img,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Sprites from PokeAPI are 96x96. Scale them by integers only. */
+img.sprite {
+  width: calc(var(--dot) * 48);
+  height: calc(var(--dot) * 48);
+}
+img.sprite--1x {
+  width: 96px;
+  height: 96px;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* Focus is a hardware-pixel outline, offset by one dot, no radius. */
+:focus-visible {
+  outline: var(--border-2) solid var(--lcd-ink);
+  outline-offset: var(--dot);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Scrollbars inside the LCD: a flat 1-tile track and a solid ink thumb. */
+.lcd-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--lcd-ink) var(--lcd-light);
+}
+.lcd-scroll::-webkit-scrollbar {
+  width: var(--tile);
+  height: var(--tile);
+}
+.lcd-scroll::-webkit-scrollbar-track {
+  background: var(--lcd-light);
+}
+.lcd-scroll::-webkit-scrollbar-thumb {
+  background: var(--lcd-ink);
+  border: var(--border-1) solid var(--lcd-light);
+}
+
+::selection {
+  background: var(--lcd-ink);
+  color: var(--lcd-paper);
+}

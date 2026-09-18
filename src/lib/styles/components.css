@@ -1,0 +1,862 @@
+/* ==========================================================================
+   components.css
+   Everything drawn on the LCD. Each block is one primitive with one job.
+   Class prefix is `dex-`. Modifiers use `--`, elements use `__`, state uses
+   `is-` or an ARIA attribute (preferred, so state and semantics agree).
+
+   Inventory
+     .dex-box        Gen 1 text box: double rule, square corners
+     .dex-header     screen title strip with counters
+     .dex-menu       vertical menu with ▶ cursor (DATA CRY AREA QUIT)
+     .dex-btn        button, 4 variants, 6 states
+     .dex-field      input + label + help + error
+     .dex-row        list entry: No. + ball + name
+     .dex-sprite     framed sprite well
+     .dex-bar        stat bar, HP-colored by fill
+     .dex-type       type badge
+     .dex-tabs       DATA | AREA | CRY style tabs
+     .dex-card       dashboard tile
+     .dex-notice     inline message with continue arrow
+     .dex-toast      bottom-of-screen message
+     .dex-hints      button legend (A:SELECT B:BACK)
+     .dex-kv         label/value rows (HT / WT)
+     .dex-rule       dashed horizontal separator
+     .dex-empty      empty state
+     .dex-loading    loading state
+     .dex-grid       tile-aligned layout helper
+   ========================================================================== */
+
+/* ---- Box ---------------------------------------------------------------- */
+/* The Gen 1 frame: 1-dot outer rule, 1-dot gap, 1-dot inner rule. Drawn
+   with an outline plus a border so it costs no extra elements. */
+.dex-box {
+  position: relative;
+  background: var(--lcd-paper);
+  color: var(--lcd-ink);
+  border: var(--border-1) solid currentColor;
+  outline: var(--border-1) solid currentColor;
+  outline-offset: var(--border-gap);
+  /* Outline needs room; margin keeps siblings off it. */
+  margin: calc(var(--border-1) + var(--border-gap));
+  padding: var(--space-3) var(--space-4);
+}
+.dex-box--thick {
+  border-width: var(--border-2);
+}
+.dex-box--single {
+  outline: 0;
+  margin: 0;
+}
+.dex-box--inverted {
+  background: var(--lcd-black);
+  color: var(--lcd-white);
+}
+.dex-box--flush {
+  padding: 0;
+}
+.dex-box__title {
+  position: absolute;
+  top: calc(var(--leading-label) / -2);
+  left: var(--space-3);
+  padding: 0 var(--space-1);
+  background: inherit;
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+}
+
+/* ---- Header strip -------------------------------------------------------- */
+.dex-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+  border-bottom: var(--border-2) solid currentColor;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+}
+.dex-header__title {
+  font-size: inherit;
+  line-height: inherit;
+}
+.dex-header__meta {
+  margin-left: auto;
+  display: flex;
+  gap: var(--space-3);
+  font-size: var(--text-label-xs);
+  color: var(--lcd-mid);
+  white-space: nowrap;
+}
+.dex-header__meta b {
+  font-weight: 400;
+  color: currentColor;
+}
+.gb-screen--inverted .dex-header__meta,
+.dex-box--inverted .dex-header__meta {
+  color: var(--lcd-light);
+}
+
+/* ---- Menu with cursor --------------------------------------------------- */
+.dex-menu {
+  display: grid;
+  gap: 0;
+  align-content: start;
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+}
+.dex-menu__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) 0 var(--space-1) var(--space-5);
+  width: 100%;
+  text-align: left;
+  color: inherit;
+}
+.dex-menu__item::before {
+  content: "\25B6";
+  position: absolute;
+  left: 0;
+  width: var(--space-4);
+  opacity: 0;
+}
+.dex-menu__item[aria-current="true"],
+.dex-menu__item[aria-selected="true"],
+.dex-menu__item:hover,
+.dex-menu__item:focus-visible {
+  outline: none;
+}
+.dex-menu__item[aria-current="true"]::before,
+.dex-menu__item[aria-selected="true"]::before,
+.dex-menu__item:hover::before,
+.dex-menu__item:focus-visible::before {
+  opacity: 1;
+}
+.dex-menu__item:focus-visible::before {
+  animation: blink var(--blink) var(--ease-step) infinite;
+}
+.dex-menu__item[aria-disabled="true"] {
+  color: var(--lcd-mid);
+  cursor: not-allowed;
+}
+.dex-menu__item[aria-disabled="true"]::before {
+  content: "\2715";  /* ✕ */
+}
+.dex-menu__hint {
+  margin-left: auto;
+  font-size: var(--text-label-xs);
+  color: var(--lcd-mid);
+}
+.dex-menu--row {
+  grid-auto-flow: column;
+  justify-content: start;
+  gap: var(--space-4);
+}
+
+/* ---- Button -------------------------------------------------------------- */
+/* The press is physical: a 2-dot hard shadow that the button falls onto.
+   No hover lift, no color fade. It either is or is not pressed. */
+.dex-btn {
+  --btn-bg: var(--lcd-paper);
+  --btn-fg: var(--lcd-ink);
+  --btn-edge: var(--lcd-ink);
+  --btn-shadow: var(--lcd-ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: calc(var(--tile) * 3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: var(--border-2) solid var(--btn-edge);
+  box-shadow: 0 var(--border-2) 0 0 var(--btn-shadow);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+  text-align: center;
+  max-width: 100%;
+  user-select: none;
+  transition: transform var(--step-fast) var(--ease-step), box-shadow var(--step-fast) var(--ease-step);
+}
+.dex-btn:hover {
+  --btn-bg: var(--lcd-ink);
+  --btn-fg: var(--lcd-paper);
+}
+.dex-btn:active,
+.dex-btn.is-pressed,
+.dex-btn[aria-pressed="true"] {
+  transform: translateY(var(--border-2));
+  box-shadow: 0 0 0 0 var(--btn-shadow);
+}
+.dex-btn:disabled,
+.dex-btn[aria-disabled="true"] {
+  --btn-bg: var(--lcd-light);
+  --btn-fg: var(--lcd-mid);
+  --btn-edge: var(--lcd-mid);
+  --btn-shadow: var(--lcd-mid);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 var(--border-2) 0 0 var(--btn-shadow);
+}
+.dex-btn.is-loading {
+  pointer-events: none;
+}
+.dex-btn.is-loading::after {
+  content: "\2026";  /* … */
+  animation: blink var(--blink) var(--ease-step) infinite;
+}
+.dex-btn--block {
+  display: flex;
+  width: 100%;
+  white-space: normal;
+}
+.dex-btn--sm {
+  min-height: calc(var(--tile) * 2);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+}
+
+/* Primary: ink on paper flipped, so it is the darkest thing on screen. */
+.dex-btn--primary {
+  --btn-bg: var(--lcd-ink);
+  --btn-fg: var(--lcd-paper);
+  --btn-edge: var(--lcd-ink);
+  --btn-shadow: var(--lcd-mid);
+}
+.dex-btn--primary:hover {
+  --btn-bg: var(--lcd-mid);
+  --btn-fg: var(--lcd-white);
+}
+
+/* Danger: only for destructive actions (remove favorite, sign out). */
+.dex-btn--danger {
+  --btn-bg: var(--sig-red);
+  --btn-fg: var(--on-red);
+  --btn-edge: var(--lcd-ink);
+  --btn-shadow: var(--lcd-ink);
+}
+.dex-btn--danger:hover {
+  --btn-bg: var(--lcd-ink);
+  --btn-fg: var(--sig-red);
+}
+
+/* START: the "try the demo" button. A rubber pill that lives on the LCD,
+   with the physical START label pressed into it. Only one per screen. */
+.dex-btn--start {
+  --btn-bg: var(--rubber);
+  --btn-fg: var(--lcd-white);
+  --btn-edge: var(--rubber-dark);
+  --btn-shadow: var(--bezel-dark);
+  border-radius: var(--radius-pill);
+  min-height: calc(var(--tile) * 3);
+  padding-inline: var(--space-6);
+  box-shadow:
+    inset 0 var(--dot) 0 0 var(--bezel-light),
+    0 calc(var(--dot) * 3) 0 0 var(--btn-shadow);
+}
+.dex-btn--start::before {
+  content: "\25B6";
+  animation: blink var(--blink) var(--ease-step) infinite;
+}
+.dex-btn--start:hover {
+  --btn-bg: var(--bezel-light);
+}
+.dex-btn--start:active,
+.dex-btn--start.is-pressed {
+  transform: translateY(calc(var(--dot) * 3));
+  box-shadow:
+    inset 0 var(--dot) 0 0 var(--rubber-dark),
+    0 0 0 0 var(--btn-shadow);
+}
+
+/* Inverted panels flip the neutral and primary buttons. */
+.gb-screen--inverted .dex-btn:not([class*="--"]),
+.dex-box--inverted .dex-btn:not([class*="--"]) {
+  --btn-bg: var(--lcd-black);
+  --btn-fg: var(--lcd-white);
+  --btn-edge: var(--lcd-white);
+  --btn-shadow: var(--lcd-white);
+}
+.gb-screen--inverted .dex-btn:not([class*="--"]):hover,
+.dex-box--inverted .dex-btn:not([class*="--"]):hover {
+  --btn-bg: var(--lcd-white);
+  --btn-fg: var(--lcd-black);
+}
+.gb-screen--inverted .dex-btn--primary,
+.dex-box--inverted .dex-btn--primary {
+  --btn-bg: var(--lcd-white);
+  --btn-fg: var(--lcd-black);
+  --btn-edge: var(--lcd-white);
+  --btn-shadow: var(--lcd-light);
+}
+.gb-screen--inverted .dex-btn--primary:hover,
+.dex-box--inverted .dex-btn--primary:hover {
+  --btn-bg: var(--lcd-light);
+  --btn-fg: var(--lcd-black);
+}
+
+/* Button group: siblings share one rhythm. */
+.dex-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* ---- Field --------------------------------------------------------------- */
+.dex-field {
+  display: grid;
+  gap: var(--space-1);
+}
+.dex-field__label {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+}
+.dex-field__input {
+  width: 100%;
+  min-height: calc(var(--tile) * 3);
+  padding: var(--space-1) var(--space-3);
+  background: var(--lcd-white);
+  color: var(--lcd-ink);
+  border: var(--border-2) solid var(--lcd-ink);
+  box-shadow: inset var(--border-2) var(--border-2) 0 0 var(--lcd-light);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  caret-color: var(--lcd-ink);
+}
+.dex-field__input::placeholder {
+  color: var(--lcd-mid);
+}
+.dex-field__input:focus {
+  outline: var(--border-2) solid var(--lcd-ink);
+  outline-offset: var(--dot);
+  box-shadow: inset var(--border-2) var(--border-2) 0 0 var(--lcd-ink);
+}
+.dex-field__input:disabled {
+  background: var(--lcd-light);
+  color: var(--lcd-mid);
+  cursor: not-allowed;
+}
+.dex-field__input[aria-invalid="true"] {
+  border-color: var(--sig-red);
+  box-shadow: inset var(--border-2) var(--border-2) 0 0 var(--sig-red);
+}
+.dex-field__help {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--lcd-mid);
+}
+.dex-field__error {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  color: var(--sig-red);
+  text-transform: uppercase;
+}
+.dex-field__error::before {
+  content: "\2715 ";
+}
+/* Search: input with a trailing button inside one frame. */
+.dex-field--search .dex-field__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.dex-field--search .dex-field__input {
+  border-right: 0;
+}
+.dex-field--search .dex-btn {
+  box-shadow: none;
+  border-left-width: var(--border-2);
+}
+.dex-field--search .dex-btn:active {
+  transform: none;
+}
+
+/* ---- Dex row ------------------------------------------------------------- */
+/* The Gen 1 list row: number, ball (if owned), name, and a dashed line for
+   anything not yet seen. A row is a link or a button, never a div. */
+.dex-list {
+  display: grid;
+  gap: 0;
+  align-content: start;
+}
+.dex-row {
+  display: grid;
+  grid-template-columns: auto var(--tile) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: calc(var(--tile) * 3);
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+  color: inherit;
+  width: 100%;
+  text-align: left;
+  border-bottom: var(--border-1) dashed var(--lcd-light);
+}
+.dex-row:last-child {
+  border-bottom: 0;
+}
+.dex-row__no {
+  font-variant-numeric: tabular-nums;
+}
+.dex-row__ball {
+  width: var(--tile);
+  height: var(--tile);
+  display: block;
+}
+.dex-row__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dex-row__thumb {
+  width: calc(var(--tile) * 3);
+  height: calc(var(--tile) * 3);
+}
+/* Rows that carry a sprite instead of a ball widen the second column. */
+.dex-row--thumb {
+  grid-template-columns: auto calc(var(--tile) * 3) minmax(0, 1fr) auto;
+}
+.dex-row__end {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+.dex-row:hover,
+.dex-row:focus-visible,
+.dex-row[aria-current="true"] {
+  background: var(--lcd-ink);
+  color: var(--lcd-paper);
+  outline: none;
+}
+.dex-row--unseen {
+  color: var(--lcd-mid);
+}
+.dex-row--unseen .dex-row__name::before {
+  content: "----------";
+  letter-spacing: 0;
+}
+/* On the standard 22-tile screen a badge in a list row collapses to a
+   colored tile so a 10-character name keeps its room. Full badges show in
+   the detail view, and in lists at dot 3 where there is width to spare. */
+@container lcd (max-width: 320px) {
+  .dex-row .dex-type {
+    width: var(--tile);
+    min-height: var(--tile);
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+  }
+}
+
+/* Owned/favorite marker: a 8x8 Poké Ball drawn as a tiny CSS sprite. */
+.dex-ball {
+  display: inline-block;
+  width: var(--tile);
+  height: var(--tile);
+  background:
+    linear-gradient(currentColor, currentColor) 50% 50% / calc(var(--dot) * 2) calc(var(--dot) * 2) no-repeat,
+    linear-gradient(currentColor, currentColor) 0 50% / 100% var(--dot) no-repeat,
+    radial-gradient(circle at 50% 50%, transparent calc(var(--dot) * 2.6), currentColor calc(var(--dot) * 2.6), currentColor calc(var(--dot) * 3.6), transparent calc(var(--dot) * 3.6));
+}
+.dex-ball--filled {
+  background:
+    linear-gradient(var(--lcd-paper), var(--lcd-paper)) 50% 50% / calc(var(--dot) * 2) calc(var(--dot) * 2) no-repeat,
+    radial-gradient(circle at 50% 50%, currentColor calc(var(--dot) * 3.6), transparent calc(var(--dot) * 3.6));
+}
+
+/* ---- Sprite well --------------------------------------------------------- */
+.dex-sprite {
+  display: grid;
+  place-items: center;
+  width: calc(var(--tile) * 7);
+  height: calc(var(--tile) * 7);
+  background: var(--lcd-white);
+  border: var(--border-1) solid currentColor;
+  outline: var(--border-1) solid currentColor;
+  outline-offset: var(--border-gap);
+  margin: calc(var(--border-1) + var(--border-gap));
+  flex: none;
+}
+.dex-sprite--lg {
+  width: calc(var(--tile) * 13);
+  height: calc(var(--tile) * 13);
+}
+.dex-sprite img {
+  width: calc(var(--dot) * 48);
+  height: calc(var(--dot) * 48);
+}
+.dex-sprite--lg img {
+  width: calc(var(--dot) * 96);
+  height: calc(var(--dot) * 96);
+}
+.dex-sprite--inverted {
+  background: var(--lcd-black);
+}
+
+/* ---- Stat bar ------------------------------------------------------------ */
+/* An HP bar. Fill is green above 50%, yellow above 20%, red below. The
+   fill is stepped to whole tiles; set --value as a percentage 0..100. */
+.dex-bar {
+  --value: 0;
+  --bar-fill: var(--sig-green);
+  display: grid;
+  grid-template-columns: calc(var(--tile) * 4) 1fr calc(var(--tile) * 3);
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+}
+.dex-bar__label {
+  color: var(--lcd-mid);
+}
+.dex-bar__track {
+  position: relative;
+  height: var(--tile);
+  background: var(--lcd-light);
+  border: var(--border-1) solid var(--lcd-ink);
+  overflow: hidden;
+}
+.dex-bar__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--value) * 1%);
+  background: var(--bar-fill);
+  /* Step the fill so it grows in tile-sized chunks, not a smooth glide. */
+  transition: width calc(var(--step-slow) * 2) var(--ease-4);
+}
+.dex-bar__value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.dex-bar--mid { --bar-fill: var(--sig-yellow); }
+.dex-bar--low { --bar-fill: var(--sig-red); }
+/* Automatic thresholds when the bar owns a range via style="--value:NN". */
+.dex-bar[data-level="mid"] { --bar-fill: var(--sig-yellow); }
+.dex-bar[data-level="low"] { --bar-fill: var(--sig-red); }
+.dex-bars {
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* ---- Type badge ---------------------------------------------------------- */
+.dex-type {
+  --type-bg: var(--lcd-light);
+  --type-fg: var(--lcd-ink);
+  display: inline-flex;
+  align-items: center;
+  min-height: calc(var(--tile) * 2);
+  padding: 0 var(--space-2);
+  background: var(--type-bg);
+  color: var(--type-fg);
+  border: var(--border-1) solid var(--lcd-ink);
+  box-shadow: var(--dot) var(--dot) 0 0 var(--lcd-ink);
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.dex-type[data-type="normal"]   { --type-bg: var(--type-normal);   --type-fg: var(--on-normal); }
+.dex-type[data-type="fire"]     { --type-bg: var(--type-fire);     --type-fg: var(--on-fire); }
+.dex-type[data-type="water"]    { --type-bg: var(--type-water);    --type-fg: var(--on-water); }
+.dex-type[data-type="electric"] { --type-bg: var(--type-electric); --type-fg: var(--on-electric); }
+.dex-type[data-type="grass"]    { --type-bg: var(--type-grass);    --type-fg: var(--on-grass); }
+.dex-type[data-type="ice"]      { --type-bg: var(--type-ice);      --type-fg: var(--on-ice); }
+.dex-type[data-type="fighting"] { --type-bg: var(--type-fighting); --type-fg: var(--on-fighting); }
+.dex-type[data-type="poison"]   { --type-bg: var(--type-poison);   --type-fg: var(--on-poison); }
+.dex-type[data-type="ground"]   { --type-bg: var(--type-ground);   --type-fg: var(--on-ground); }
+.dex-type[data-type="flying"]   { --type-bg: var(--type-flying);   --type-fg: var(--on-flying); }
+.dex-type[data-type="psychic"]  { --type-bg: var(--type-psychic);  --type-fg: var(--on-psychic); }
+.dex-type[data-type="bug"]      { --type-bg: var(--type-bug);      --type-fg: var(--on-bug); }
+.dex-type[data-type="rock"]     { --type-bg: var(--type-rock);     --type-fg: var(--on-rock); }
+.dex-type[data-type="ghost"]    { --type-bg: var(--type-ghost);    --type-fg: var(--on-ghost); }
+.dex-type[data-type="dragon"]   { --type-bg: var(--type-dragon);   --type-fg: var(--on-dragon); }
+.dex-type[data-type="dark"]     { --type-bg: var(--type-dark);     --type-fg: var(--on-dark); }
+.dex-type[data-type="steel"]    { --type-bg: var(--type-steel);    --type-fg: var(--on-steel); }
+.dex-type[data-type="fairy"]    { --type-bg: var(--type-fairy);    --type-fg: var(--on-fairy); }
+.dex-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---- Tabs ---------------------------------------------------------------- */
+.dex-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: var(--border-2) solid currentColor;
+  /* Jersey, not Press Start: three 16px labels do not fit a 22-tile screen
+     and 8px labels are too small for a control. Jersey's cap height is
+     15px, so the tabs read as large as the menu without the width. */
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  text-transform: none;
+}
+.dex-tabs__tab {
+  padding: var(--space-1) var(--space-3) 0;
+  color: var(--lcd-mid);
+  border: var(--border-2) solid transparent;
+  border-bottom: 0;
+  margin-bottom: calc(var(--border-2) * -1);
+}
+.dex-tabs__tab:hover {
+  color: currentColor;
+}
+.dex-tabs__tab[aria-selected="true"] {
+  color: var(--lcd-ink);
+  background: var(--lcd-paper);
+  border-color: currentColor;
+  border-bottom: var(--border-2) solid var(--lcd-paper);
+}
+.gb-screen--inverted .dex-tabs__tab[aria-selected="true"] {
+  color: var(--lcd-white);
+  background: var(--lcd-black);
+  border-bottom-color: var(--lcd-black);
+}
+.dex-tabs__tab:focus-visible {
+  outline-offset: calc(var(--dot) * -2);
+}
+.dex-tabpanel {
+  padding-top: var(--space-3);
+}
+
+/* ---- Card ---------------------------------------------------------------- */
+/* Dashboard tile. A box with a label, a big number, and a caption. */
+.dex-card {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background: var(--lcd-paper);
+  color: var(--lcd-ink);
+  border: var(--border-2) solid currentColor;
+  box-shadow: var(--border-2) var(--border-2) 0 0 currentColor;
+}
+.dex-card__label {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+  color: var(--lcd-mid);
+}
+.dex-card__value {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.dex-card__caption {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  color: var(--lcd-mid);
+}
+.dex-card--inverted {
+  background: var(--lcd-black);
+  color: var(--lcd-white);
+}
+.dex-card--inverted .dex-card__label,
+.dex-card--inverted .dex-card__caption {
+  color: var(--lcd-light);
+}
+.dex-card--link:hover,
+.dex-card--link:focus-visible {
+  transform: translate(var(--border-2), var(--border-2));
+  box-shadow: 0 0 0 0 currentColor;
+  outline: none;
+}
+
+/* ---- Notice and toast ---------------------------------------------------- */
+.dex-notice {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--lcd-white);
+  border: var(--border-2) solid currentColor;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+.dex-notice__title {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+}
+.dex-notice--ok    .dex-notice__title { color: var(--sig-green); }
+.dex-notice--warn  .dex-notice__title { color: var(--lcd-ink); }
+.dex-notice--error .dex-notice__title { color: var(--sig-red); }
+.dex-notice--ok    { border-color: var(--sig-green); }
+.dex-notice--error { border-color: var(--sig-red); }
+.dex-notice--warn  { background: var(--sig-yellow); color: var(--on-yellow); }
+
+.dex-toast {
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-toast);
+  margin: var(--space-3) calc(var(--tile) * -1) calc(var(--tile) * -1);
+  padding: var(--space-3) var(--space-4);
+  background: var(--lcd-paper);
+  color: var(--lcd-ink);
+  border-top: var(--border-2) solid currentColor;
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+  animation: toast-in var(--step-slow) var(--ease-4) both;
+}
+@keyframes toast-in {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ---- Hints --------------------------------------------------------------- */
+/* Legend for physical buttons: what A, B, START do on this screen. */
+.dex-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  padding-top: var(--space-2);
+  border-top: var(--border-1) dashed var(--lcd-light);
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+  color: var(--lcd-mid);
+}
+.dex-hints kbd {
+  font: inherit;
+  color: var(--lcd-ink);
+  background: var(--lcd-white);
+  border: var(--border-1) solid var(--lcd-ink);
+  padding: 0 var(--space-1);
+  margin-right: var(--space-1);
+  box-shadow: 0 var(--dot) 0 0 var(--lcd-ink);
+}
+.gb-screen--inverted .dex-hints kbd {
+  color: var(--lcd-black);
+}
+
+/* ---- Key/value ----------------------------------------------------------- */
+.dex-kv {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-1) var(--space-3);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+}
+.dex-kv dt {
+  color: var(--lcd-mid);
+}
+.dex-kv dd {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.gb-screen--inverted .dex-kv dt,
+.dex-box--inverted .dex-kv dt {
+  color: var(--lcd-light);
+}
+
+/* ---- Rule ---------------------------------------------------------------- */
+.dex-rule {
+  border: 0;
+  border-top: var(--border-2) solid currentColor;
+  margin: var(--space-3) 0;
+}
+.dex-rule--dashed {
+  border-top-style: dashed;
+}
+
+/* ---- Empty and loading --------------------------------------------------- */
+.dex-empty,
+.dex-loading {
+  display: grid;
+  gap: var(--space-2);
+  place-items: center;
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  color: var(--lcd-mid);
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: calc(var(--dot) * 6);
+  text-transform: uppercase;
+}
+.dex-empty p,
+.dex-loading p {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  text-transform: none;
+}
+.dex-loading__dots::after {
+  content: "";
+  display: inline-block;
+  min-width: 3ch;
+  text-align: left;
+  animation: dots calc(var(--blink) * 3) var(--ease-step) infinite;
+}
+@keyframes dots {
+  0%   { content: ""; }
+  33%  { content: "."; }
+  66%  { content: ".."; }
+  100% { content: "..."; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dex-loading__dots::after { content: "..."; animation: none; }
+}
+/* Skeleton block: a striped light bar for rows still loading. */
+.dex-skeleton {
+  height: var(--leading-label);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--lcd-light) 0 var(--tile),
+    var(--lcd-paper) var(--tile) calc(var(--tile) * 2)
+  );
+}
+
+/* ---- Layout helpers ------------------------------------------------------ */
+.dex-grid {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+.dex-grid--2 { grid-template-columns: repeat(auto-fit, minmax(calc(var(--tile) * 8), 1fr)); }
+.dex-grid--3 { grid-template-columns: repeat(auto-fit, minmax(calc(var(--tile) * 8), 1fr)); }
+.dex-stack   { display: grid; gap: var(--space-3); align-content: start; grid-template-columns: minmax(0, 1fr); }
+.dex-stack--tight { gap: var(--space-1); }
+.dex-cluster { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.dex-split   { display: flex; gap: var(--space-4); align-items: flex-start; }
+.dex-screen-body {
+  display: grid;
+  gap: var(--space-3);
+  min-height: 100%;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (max-width: 520px) {
+  .dex-split { flex-direction: column; }
+}

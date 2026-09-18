@@ -1,0 +1,198 @@
+/* ==========================================================================
+   tokens.css
+   Design tokens for the Pokédex. Every other stylesheet reads from here.
+
+   Two coordinate systems live in this file, and the split is deliberate:
+
+   1. --dot   The "hardware pixel". Everything that belongs to the device
+              (bezels, borders, D-pad, button travel, Press Start 2P text)
+              is a whole number of dots. 2px by default, 3px on large
+              screens. Never fractional.
+
+   2. --jpx   The Jersey 15 pixel. Jersey 15 draws on a 27-unit em, so the
+              only sizes where its squares land on whole CSS pixels are
+              27px, 54px, 81px. Body copy is 27px at every scale, because
+              54px body copy is a poster, not a paragraph.
+
+   Colors are all RGB555-representable: each channel was chosen on the
+   0..31 grid and expanded the way the CGB hardware does it
+   ((v << 3) | (v >> 2)), which is why the hex values look odd.
+   ========================================================================== */
+
+:root {
+  /* ---- Scale ---------------------------------------------------------- */
+  --dot: 2px;
+  --jpx: 1px;
+
+  /* Tile = 8 dots. The GBC draws everything on 8x8 tiles; so do we. */
+  --tile: calc(var(--dot) * 8);
+
+  /* Spacing, in dots. Multiples of 4 keep everything on the tile grid. */
+  --space-1: calc(var(--dot) * 2);   /* 4px  */
+  --space-2: calc(var(--dot) * 4);   /* 8px  */
+  --space-3: calc(var(--dot) * 6);   /* 12px */
+  --space-4: calc(var(--dot) * 8);   /* 16px, one tile */
+  --space-5: calc(var(--dot) * 12);  /* 24px */
+  --space-6: calc(var(--dot) * 16);  /* 32px, two tiles */
+  --space-8: calc(var(--dot) * 24);  /* 48px */
+
+  /* ---- LCD palette ---------------------------------------------------- */
+  /* The panel. Not white: the CGB's brightest value reads as light gray. */
+  --lcd-paper: #E7EFDE;
+  --lcd-ink:   #101821;
+  --lcd-mid:   #4A5A52;   /* 5.99:1 on paper, AA for text */
+  --lcd-light: #ADBDAD;   /* rules, disabled fills, never text */
+
+  /* Crystal-style inverted panel (white on black) for detail views. */
+  --lcd-black: #080810;
+  --lcd-white: #F7F7EF;
+
+  /* Signal colors, used the way a GBC palette would: one per element. */
+  --sig-red:    #D62931;
+  --sig-yellow: #FFC600;
+  --sig-green:  #39A542;
+  --sig-blue:   #3163CE;
+
+  /* Ink to put on top of each signal color. Chosen by contrast, not taste. */
+  --on-red:    var(--lcd-white);  /* 4.88:1 */
+  --on-yellow: var(--lcd-ink);    /* 10.7:1 */
+  --on-green:  var(--lcd-ink);    /* 5.34:1 */
+  --on-blue:   var(--lcd-white);  /* 5.42:1 */
+
+  /* ---- Shell palette (the plastic) ------------------------------------ */
+  /* Berry: the 1998 launch red. It is also, conveniently, Pokédex red. */
+  --shell:        #CE2139;
+  --shell-dark:   #841029;
+  --shell-light:  #EF5A73;
+  --shell-shadow: #4A0818;
+
+  --bezel:       #292931;
+  --bezel-dark:  #101018;
+  --bezel-light: #4A4A52;
+
+  --rubber:       #52525A;   /* START / SELECT pills */
+  --rubber-dark:  #29292F;
+  --btn-ab:       #6B3994;   /* the purple A/B on the Berry unit */
+  --btn-ab-dark:  #3A1852;
+  --btn-ab-light: #9C6BC6;
+  --dpad:         #212129;
+  --dpad-dark:    #080810;
+  --dpad-light:   #42424A;
+
+  --led-off: #4A1018;
+  --led-on:  #FF3139;
+
+  /* The desk the device sits on. Only visible around the device. */
+  --desk:      #18181F;
+  --desk-line: #212129;
+
+  /* ---- Pokémon type colors (RGB555, ink chosen for AA) ----------------- */
+  --type-normal:   #ADA594; --on-normal:   var(--lcd-ink);
+  --type-fire:     #EF7331; --on-fire:     var(--lcd-ink);
+  --type-water:    #528CE7; --on-water:    var(--lcd-ink);
+  --type-electric: #FFCE18; --on-electric: var(--lcd-ink);
+  --type-grass:    #6BBD4A; --on-grass:    var(--lcd-ink);
+  --type-ice:      #8CD6D6; --on-ice:      var(--lcd-ink);
+  --type-fighting: #BD3129; --on-fighting: var(--lcd-white);
+  --type-poison:   #A54AA5; --on-poison:   var(--lcd-white);
+  --type-ground:   #DEBD63; --on-ground:   var(--lcd-ink);
+  --type-flying:   #A58CEF; --on-flying:   var(--lcd-ink);
+  --type-psychic:  #F75A8C; --on-psychic:  var(--lcd-ink);
+  --type-bug:      #A5B521; --on-bug:      var(--lcd-ink);
+  --type-rock:     #B5A54A; --on-rock:     var(--lcd-ink);
+  --type-ghost:    #735AA5; --on-ghost:    var(--lcd-white);
+  --type-dragon:   #6B39F7; --on-dragon:   var(--lcd-white);
+  --type-dark:     #6B4A39; --on-dark:     var(--lcd-white);
+  --type-steel:    #ADADC6; --on-steel:    var(--lcd-ink);
+  --type-fairy:    #EF9CBD; --on-fairy:    var(--lcd-ink);
+
+  /* ---- Type ------------------------------------------------------------ */
+  --font-label: "Press Start 2P", "Courier New", monospace;
+  --font-body:  "Jersey 15", "Press Start 2P", monospace;
+  /* Display is Jersey 15 too, not Jersey 15 Charted. Charted paints its
+     grid as 4/50-unit lines across the whole em box; at any size under
+     ~340px they antialias into haze. See docs/design/README.md. */
+  --font-display: "Jersey 15", "Press Start 2P", monospace;
+
+  /* Press Start 2P: 8 units per em, so sizes are multiples of 8 dots. */
+  --text-label-xs: calc(var(--dot) * 4);   /* 8px at dot 2. Hints only. */
+  --text-label:    calc(var(--dot) * 8);   /* 16px. The UI voice. */
+  --text-label-lg: calc(var(--dot) * 12);  /* 24px. Screen titles. */
+  --text-label-xl: calc(var(--dot) * 16);  /* 32px. Landing hero. */
+
+  /* Jersey 15: 27 units per em. Fixed to the jpx grid, not the dot grid. */
+  --text-body:     calc(var(--jpx) * 27);  /* cap height 15px, x-height 11px */
+  --text-display:  calc(var(--jpx) * 54);  /* big numerals, 2px per glyph pixel */
+  --text-display-xl: calc(var(--jpx) * 81);
+
+  /* Line heights in whole pixels, tile-aligned where it costs nothing. */
+  --leading-label: calc(var(--dot) * 12);  /* 24px on 16px type */
+  --leading-body:  calc(var(--jpx) * 36);
+  --leading-tight: 1;
+
+  /* ---- Borders --------------------------------------------------------- */
+  --border-1: var(--dot);                 /* one hardware pixel */
+  --border-2: calc(var(--dot) * 2);       /* the Gen 1 text box weight */
+  --border-gap: var(--dot);               /* gap in a double rule */
+
+  /* Corner radius is a lie on a tile grid. The only radius we use is on
+     the physical shell, which is molded plastic and allowed to curve. */
+  --radius-none: 0;
+  --radius-shell: calc(var(--dot) * 6);
+  --radius-shell-lg: calc(var(--dot) * 20);  /* the GBC's asymmetric bottom-right */
+  --radius-pill: 999px;
+
+  /* ---- Shadows --------------------------------------------------------- */
+  /* No blur anywhere. Blur is a modern GPU telling you it exists. */
+  --shadow-press: 0 var(--border-2) 0 0;           /* + color, see device.css */
+  --shadow-inset-screen: inset 0 var(--border-2) 0 0 var(--bezel-dark),
+                         inset 0 calc(var(--border-2) * -1) 0 0 var(--bezel-light);
+
+  /* ---- Motion ---------------------------------------------------------- */
+  /* The GBC runs at 59.7Hz. There is no easing; frames change or they don't. */
+  --tick: 16ms;
+  --blink: 533ms;          /* the text-box arrow cadence, about 32 frames */
+  --step-fast: 50ms;       /* 3 frames */
+  --step: 100ms;           /* 6 frames */
+  --step-slow: 250ms;      /* 15 frames */
+  --ease-step: steps(1, end);
+  --ease-4: steps(4, end);
+
+  /* ---- Z ---------------------------------------------------------------- */
+  --z-screen: 1;
+  --z-overlay: 10;
+  --z-toast: 20;
+
+  /* ---- Layout ----------------------------------------------------------- */
+  /* Screen width in tiles. 20 is the real GBC. We use 22 by default so a
+     Gen 1 dex row (No. + ball + 10-char name) plus SEEN/OWN column fits,
+     and phones at 360px still get a full screen with a 1-tile margin. */
+  --screen-cols: 22;
+  --screen-w: calc(var(--tile) * var(--screen-cols));
+  --screen-min-h: calc(var(--tile) * 18);
+  --device-pad: var(--space-4);
+  --device-w: calc(var(--screen-w) + var(--device-pad) * 2 + var(--tile) * 2);
+}
+
+/* Large screens get a 3px dot. The device grows by exactly 1.5x and every
+   border, button and label stays on the grid. Body copy stays at 27px. */
+@media (min-width: 1280px) and (min-height: 800px) {
+  :root {
+    --dot: 3px;
+  }
+}
+
+/* Escape hatch the app can set from a SELECT-button "zoom" toggle. */
+:root[data-dot="2"] { --dot: 2px; }
+:root[data-dot="3"] { --dot: 3px; }
+:root[data-dot="4"] { --dot: 4px; --jpx: 2px; }
+
+/* Reduced motion: the blink stops, steps become instant. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --blink: 0ms;
+    --step-fast: 0ms;
+    --step: 0ms;
+    --step-slow: 0ms;
+  }
+}

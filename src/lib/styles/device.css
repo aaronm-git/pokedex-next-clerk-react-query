@@ -1,0 +1,381 @@
+/* ==========================================================================
+   device.css
+   The handheld. One .gb-device wraps the whole app:
+
+     .gb-device
+       .gb-device__top        power LED + wordmark strip
+       .gb-bezel              the dark surround, asymmetric like the real one
+         .gb-screen           the LCD. The app renders inside here.
+       .gb-deck               D-pad, A/B, START/SELECT
+       .gb-device__grille     speaker slots, bottom right
+
+   On phones the device is the viewport: shell edge to edge, screen tall,
+   deck below. On desktop it is an object on a desk at a fixed size, and the
+   desk fills the rest. It never stretches to fit a monitor because a Game
+   Boy does not do that either.
+   ========================================================================== */
+
+.gb-stage {
+  min-height: 100dvh;
+  display: grid;
+  place-items: start center;
+  padding: var(--space-4) 0;
+}
+
+.gb-device {
+  width: min(100%, var(--device-w));
+  background: var(--shell);
+  border-radius: var(--radius-shell) var(--radius-shell) var(--radius-shell-lg) var(--radius-shell);
+  /* Molded-plastic edge: a light top-left lip and a dark bottom-right one. */
+  box-shadow:
+    inset var(--dot) var(--dot) 0 0 var(--shell-light),
+    inset calc(var(--dot) * -1) calc(var(--dot) * -1) 0 0 var(--shell-dark),
+    0 calc(var(--dot) * 4) 0 0 var(--shell-shadow);
+  padding: var(--device-pad);
+  display: grid;
+  gap: var(--space-4);
+  color: var(--lcd-ink);
+}
+
+/* ---- Top strip: LED and wordmark ---------------------------------------- */
+.gb-device__top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-2);
+  min-height: var(--tile);
+}
+
+.gb-led {
+  width: calc(var(--dot) * 4);
+  height: calc(var(--dot) * 4);
+  background: var(--led-off);
+  box-shadow: inset 0 var(--dot) 0 0 rgb(0 0 0 / 0.35);
+  flex: none;
+}
+.gb-led[data-on="true"],
+.gb-led.is-on {
+  background: var(--led-on);
+}
+
+.gb-led-label {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  color: var(--shell-dark);
+  text-transform: uppercase;
+}
+
+.gb-wordmark {
+  margin-left: auto;
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  line-height: 1;
+  color: var(--shell-dark);
+  text-transform: uppercase;
+  display: flex;
+  gap: var(--dot);
+  align-items: baseline;
+}
+.gb-wordmark strong {
+  font-weight: 400;
+  font-size: var(--text-label);
+  color: var(--lcd-white);
+  text-shadow: var(--dot) var(--dot) 0 var(--shell-dark);
+}
+
+/* ---- Bezel and screen --------------------------------------------------- */
+.gb-bezel {
+  background: var(--bezel);
+  padding: var(--tile) var(--tile) var(--tile) var(--tile);
+  /* The real GBC bezel is squared at top and has a large bottom-right radius. */
+  border-radius: var(--radius-shell) var(--radius-shell) var(--radius-shell-lg) var(--radius-shell);
+  box-shadow:
+    inset var(--dot) var(--dot) 0 0 var(--bezel-dark),
+    inset calc(var(--dot) * -1) calc(var(--dot) * -1) 0 0 var(--bezel-light);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.gb-bezel__label {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  color: var(--bezel-light);
+  text-transform: uppercase;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--dot);
+}
+/* The five-color wordmark homage. Each letter its own palette entry. */
+.gb-bezel__label .c1 { color: var(--sig-red); }
+.gb-bezel__label .c2 { color: var(--sig-yellow); }
+.gb-bezel__label .c3 { color: var(--sig-green); }
+.gb-bezel__label .c4 { color: var(--sig-blue); }
+.gb-bezel__label .c5 { color: var(--type-poison); }
+
+.gb-screen {
+  position: relative;
+  background: var(--lcd-paper);
+  color: var(--lcd-ink);
+  width: 100%;
+  min-height: var(--screen-min-h);
+  /* Desktop: a tall window. Phone: as tall as the viewport allows. */
+  height: clamp(var(--screen-min-h), 64dvh, calc(var(--tile) * 48));
+  overflow: auto;
+  overscroll-behavior: contain;
+  box-shadow: var(--shadow-inset-screen);
+  z-index: var(--z-screen);
+  /* Content inside the screen is one tile in from the glass. */
+  padding: var(--tile);
+  container: lcd / inline-size;
+}
+.gb-screen--inverted {
+  background: var(--lcd-black);
+  color: var(--lcd-white);
+}
+/* Optional dot-matrix overlay. Off by default; it lowers contrast. */
+.gb-screen--matrix::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(0 0 0 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(0 0 0 / 0.06) 1px, transparent 1px);
+  background-size: var(--dot) var(--dot);
+}
+
+/* Power-on. A one-shot: black, then a horizontal line, then the panel. */
+.gb-screen--boot {
+  animation: screen-boot calc(var(--step-slow) * 3) var(--ease-4) 1 both;
+}
+@keyframes screen-boot {
+  0%   { background: var(--lcd-black); color: transparent; clip-path: inset(50% 0 50% 0); }
+  50%  { background: var(--lcd-black); color: transparent; clip-path: inset(50% 0 50% 0); }
+  75%  { background: var(--lcd-black); color: transparent; clip-path: inset(0); }
+  100% { background: var(--lcd-paper); color: var(--lcd-ink); clip-path: inset(0); }
+}
+
+/* ---- Deck: the controls -------------------------------------------------- */
+.gb-deck {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "dpad . ab"
+    "pills pills pills";
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-2) 0;
+}
+
+/* D-pad. Two rectangles crossed, center dimple, each arm a real button. */
+.gb-dpad {
+  grid-area: dpad;
+  position: relative;
+  width: calc(var(--tile) * 6);
+  height: calc(var(--tile) * 6);
+}
+.gb-dpad::before,
+.gb-dpad::after {
+  content: "";
+  position: absolute;
+  background: var(--dpad);
+}
+.gb-dpad::before {
+  left: calc(var(--tile) * 2);
+  top: 0;
+  width: calc(var(--tile) * 2);
+  height: 100%;
+  box-shadow:
+    inset var(--dot) var(--dot) 0 0 var(--dpad-light),
+    inset calc(var(--dot) * -1) calc(var(--dot) * -1) 0 0 var(--dpad-dark),
+    0 var(--border-2) 0 0 var(--shell-shadow);
+}
+.gb-dpad::after {
+  top: calc(var(--tile) * 2);
+  left: 0;
+  height: calc(var(--tile) * 2);
+  width: 100%;
+  box-shadow:
+    inset var(--dot) var(--dot) 0 0 var(--dpad-light),
+    inset calc(var(--dot) * -1) calc(var(--dot) * -1) 0 0 var(--dpad-dark),
+    0 var(--border-2) 0 0 var(--shell-shadow);
+}
+.gb-dpad__btn {
+  position: absolute;
+  width: calc(var(--tile) * 2);
+  height: calc(var(--tile) * 2);
+  z-index: 1;
+  color: var(--dpad-light);
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  display: grid;
+  place-items: center;
+}
+.gb-dpad__btn:focus-visible {
+  outline-color: var(--lcd-white);
+  outline-offset: calc(var(--dot) * -2);
+}
+.gb-dpad__btn[data-dir="up"]    { top: 0; left: calc(var(--tile) * 2); }
+.gb-dpad__btn[data-dir="down"]  { bottom: 0; left: calc(var(--tile) * 2); }
+.gb-dpad__btn[data-dir="left"]  { left: 0; top: calc(var(--tile) * 2); }
+.gb-dpad__btn[data-dir="right"] { right: 0; top: calc(var(--tile) * 2); }
+.gb-dpad__center {
+  position: absolute;
+  left: calc(var(--tile) * 2 + var(--space-1));
+  top: calc(var(--tile) * 2 + var(--space-1));
+  width: calc(var(--tile) * 2 - var(--space-2));
+  height: calc(var(--tile) * 2 - var(--space-2));
+  border-radius: 50%;
+  background: var(--dpad-dark);
+  z-index: 1;
+  pointer-events: none;
+}
+/* The whole cross translates by one dot when any arm is pressed. */
+.gb-dpad:has(.gb-dpad__btn:active),
+.gb-dpad.is-pressed {
+  transform: translateY(var(--dot));
+}
+
+/* A / B. Round, purple, slanted up-right like the real pair. */
+.gb-ab {
+  grid-area: ab;
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-end;
+  padding-bottom: var(--space-3);
+}
+.gb-ab__btn {
+  width: calc(var(--tile) * 3);
+  height: calc(var(--tile) * 3);
+  border-radius: 50%;
+  background: var(--btn-ab);
+  color: var(--lcd-white);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  text-transform: uppercase;
+  box-shadow:
+    inset var(--dot) var(--dot) 0 0 var(--btn-ab-light),
+    inset calc(var(--dot) * -1) calc(var(--dot) * -1) 0 0 var(--btn-ab-dark),
+    0 var(--border-2) 0 0 var(--shell-shadow);
+  transition: transform var(--step-fast) var(--ease-step), box-shadow var(--step-fast) var(--ease-step);
+}
+.gb-ab__btn--b {
+  margin-bottom: calc(var(--tile) * -1);
+}
+.gb-ab__btn:active,
+.gb-ab__btn.is-pressed {
+  transform: translateY(var(--border-2));
+  box-shadow:
+    inset var(--dot) var(--dot) 0 0 var(--btn-ab-dark),
+    inset calc(var(--dot) * -1) calc(var(--dot) * -1) 0 0 var(--btn-ab-dark),
+    0 0 0 0 var(--shell-shadow);
+}
+.gb-ab__label {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  color: var(--shell-dark);
+  text-align: center;
+  margin-top: var(--space-1);
+}
+
+/* START / SELECT. Rubber pills, rotated 25 degrees on the real unit. We
+   keep them level: rotated pixel text is the one thing the grid forbids. */
+.gb-pills {
+  grid-area: pills;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+}
+.gb-pill {
+  display: grid;
+  gap: var(--space-1);
+  justify-items: center;
+}
+.gb-pill__btn {
+  width: calc(var(--tile) * 5);
+  height: calc(var(--tile) * 1.5);
+  border-radius: var(--radius-pill);
+  background: var(--rubber);
+  box-shadow:
+    inset 0 var(--dot) 0 0 var(--bezel-light),
+    inset 0 calc(var(--dot) * -1) 0 0 var(--rubber-dark),
+    0 var(--border-2) 0 0 var(--shell-shadow);
+  transition: transform var(--step-fast) var(--ease-step), box-shadow var(--step-fast) var(--ease-step);
+}
+.gb-pill__btn:active,
+.gb-pill__btn.is-pressed {
+  transform: translateY(var(--border-2));
+  box-shadow:
+    inset 0 var(--dot) 0 0 var(--rubber-dark),
+    0 0 0 0 var(--shell-shadow);
+}
+.gb-pill__label {
+  font-family: var(--font-label);
+  font-size: var(--text-label-xs);
+  color: var(--shell-dark);
+  text-transform: uppercase;
+}
+
+/* Speaker grille. Six slanted slots on the real unit; six level bars here. */
+.gb-device__grille {
+  justify-self: end;
+  display: grid;
+  grid-auto-flow: column;
+  gap: var(--space-1);
+  padding-right: var(--space-2);
+}
+.gb-device__grille i {
+  display: block;
+  width: var(--border-2);
+  height: calc(var(--tile) * 3);
+  background: var(--shell-dark);
+  box-shadow: var(--dot) 0 0 0 var(--shell-light);
+}
+
+/* ---- Phone: the device is the viewport ---------------------------------- */
+@media (max-width: 520px) {
+  .gb-stage {
+    padding: 0;
+  }
+  .gb-device {
+    width: 100%;
+    min-height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+    padding: var(--space-2) var(--space-2) var(--space-4);
+    grid-template-rows: auto 1fr auto auto;
+  }
+  .gb-bezel {
+    padding: var(--space-2);
+    border-radius: var(--radius-shell);
+  }
+  .gb-screen {
+    height: auto;
+    min-height: calc(100dvh - var(--tile) * 24);
+  }
+  .gb-deck {
+    gap: var(--space-2);
+  }
+  .gb-dpad {
+    width: calc(var(--tile) * 5);
+    height: calc(var(--tile) * 5);
+  }
+  .gb-dpad::before { left: calc(var(--tile) * 1.5 + var(--space-1)); width: calc(var(--tile) * 1.5); }
+  .gb-dpad::after  { top: calc(var(--tile) * 1.5 + var(--space-1)); height: calc(var(--tile) * 1.5); }
+  .gb-dpad__btn { width: calc(var(--tile) * 1.5 + var(--space-1)); height: calc(var(--tile) * 1.5 + var(--space-1)); }
+  .gb-dpad__btn[data-dir="up"],
+  .gb-dpad__btn[data-dir="down"]  { left: calc(var(--tile) * 1.5 + var(--space-1)); }
+  .gb-dpad__btn[data-dir="left"],
+  .gb-dpad__btn[data-dir="right"] { top: calc(var(--tile) * 1.5 + var(--space-1)); }
+  .gb-dpad__center {
+    left: calc(var(--tile) * 2);
+    top: calc(var(--tile) * 2);
+    width: var(--tile);
+    height: var(--tile);
+  }
+  .gb-ab__btn {
+    width: calc(var(--tile) * 2.5);
+    height: calc(var(--tile) * 2.5);
+  }
+}

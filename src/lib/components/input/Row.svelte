@@ -2,6 +2,7 @@
 import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
 import Ball from "../display/Ball.svelte";
+import { focusWhenCurrent } from "../nav/focus.svelte";
 
 let {
   number,
@@ -44,6 +45,7 @@ const no = $derived(String(number).padStart(3, "0"));
     rest.class,
   ]}
   aria-current={current ? "true" : undefined}
+  {@attach focusWhenCurrent(() => current)}
 >
   <span class="dex-row__no">{no}</span>
   {#if unseen}

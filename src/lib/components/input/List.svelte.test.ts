@@ -69,6 +69,32 @@ describe("List", () => {
     expect(items[2]).toHaveAttribute("aria-current", "true");
   });
 
+  it("moves focus to the row that becomes current, but not on mount", async () => {
+    const { container, rerender } = render(List, {
+      props: { rows, activeIndex: 0 },
+    });
+
+    expect(document.activeElement).toBe(document.body);
+
+    await rerender({ activeIndex: 2 });
+    expect(document.activeElement).toBe(rowsOf(container)[2]);
+  });
+
+  it("reports the row that gains focus through oncursor", async () => {
+    const user = userEvent.setup();
+    const oncursor = vi.fn();
+    const { container } = render(List, {
+      props: { rows, activeIndex: 0, oncursor },
+    });
+
+    await user.click(rowsOf(container)[1]);
+    expect(oncursor).toHaveBeenLastCalledWith(1);
+
+    await user.tab();
+    expect(document.activeElement).toBe(rowsOf(container)[2]);
+    expect(oncursor).toHaveBeenLastCalledWith(2);
+  });
+
   it("calls onactivate with the index of the clicked row, once", async () => {
     const onactivate = vi.fn();
     const { container } = render(List, {

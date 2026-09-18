@@ -165,6 +165,48 @@ describe("Menu", () => {
     expect(onactivate).toHaveBeenCalledWith(1);
   });
 
+  it("moves focus to the item that becomes current, but not on mount", async () => {
+    const { container, rerender } = render(Menu, {
+      props: { items: links, activeIndex: 0 },
+    });
+
+    expect(document.activeElement).toBe(document.body);
+
+    await rerender({ items: links, activeIndex: 2 });
+    expect(document.activeElement).toBe(items(container)[2]);
+
+    await rerender({ items: links, activeIndex: 1 });
+    expect(document.activeElement).toBe(items(container)[1]);
+  });
+
+  it("leaves focus in a text field while the cursor moves under it", async () => {
+    const field = document.createElement("input");
+    document.body.append(field);
+    const { rerender } = render(Menu, {
+      props: { items: links, activeIndex: 0 },
+    });
+    field.focus();
+
+    await rerender({ items: links, activeIndex: 2 });
+    expect(document.activeElement).toBe(field);
+    field.remove();
+  });
+
+  it("reports the item that gains focus through oncursor", async () => {
+    const user = userEvent.setup();
+    const oncursor = vi.fn();
+    const { container } = render(Menu, {
+      props: { items: buttons, activeIndex: 0, oncursor },
+    });
+
+    await user.tab();
+    await user.tab();
+    expect(oncursor).toHaveBeenLastCalledWith(1);
+
+    await user.click(items(container)[3]);
+    expect(oncursor).toHaveBeenLastCalledWith(3);
+  });
+
   it("adds the row modifier when asked", () => {
     const { container } = render(Menu, {
       props: { items: links, activeIndex: 0, row: true },

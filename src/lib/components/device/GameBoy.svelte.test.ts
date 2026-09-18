@@ -21,6 +21,31 @@ describe("GameBoy", () => {
     }
   });
 
+  it("shows a held button as pressed, on the cross for a direction", async () => {
+    const { container, rerender } = render(GameBoy, {
+      props: { pressed: "down" },
+    });
+
+    const dpad = container.querySelector(".gb-dpad");
+    const a = screen.getByRole("button", { name: "A" });
+    const start = screen.getByRole("button", { name: "Start" });
+
+    expect(dpad).toHaveClass("is-pressed");
+    expect(container.querySelectorAll(".is-pressed")).toHaveLength(1);
+
+    await rerender({ pressed: "a" });
+    expect(dpad).not.toHaveClass("is-pressed");
+    expect(a).toHaveClass("is-pressed");
+    expect(container.querySelectorAll(".is-pressed")).toHaveLength(1);
+
+    await rerender({ pressed: "start" });
+    expect(start).toHaveClass("is-pressed");
+    expect(container.querySelectorAll(".is-pressed")).toHaveLength(1);
+
+    await rerender({ pressed: null });
+    expect(container.querySelector(".is-pressed")).toBeNull();
+  });
+
   it("reports which deck button was pressed", async () => {
     const onpress = vi.fn();
     render(GameBoy, { props: { onpress } });

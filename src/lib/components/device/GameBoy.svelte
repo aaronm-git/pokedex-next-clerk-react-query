@@ -6,7 +6,12 @@ import type { DeckButton } from "./deck";
 let {
   children,
   onpress,
-}: { children?: Snippet; onpress?: (button: DeckButton) => void } = $props();
+  pressed = null,
+}: {
+  children?: Snippet;
+  onpress?: (button: DeckButton) => void;
+  pressed?: DeckButton | null;
+} = $props();
 </script>
 
 <div class="gb-stage">
@@ -28,7 +33,7 @@ let {
       </div>
     </div>
 
-    <Deck {onpress} />
+    <Deck {onpress} {pressed} />
 
     <div class="gb-device__grille">
       <i></i><i></i><i></i><i></i><i></i><i></i>

@@ -46,6 +46,20 @@ describe("GameBoy", () => {
     expect(container.querySelector(".is-pressed")).toBeNull();
   });
 
+  it("renders the LCD as the main landmark, inverted only when asked", async () => {
+    const { rerender } = render(GameBoy);
+
+    const lcd = screen.getByRole("main");
+    expect(lcd).toHaveClass("gb-screen");
+    expect(lcd).not.toHaveClass("gb-screen--inverted");
+    expect(screen.getByRole("group", { name: "Controls" })).toHaveClass(
+      "gb-deck",
+    );
+
+    await rerender({ inverted: true });
+    expect(lcd).toHaveClass("gb-screen--inverted");
+  });
+
   it("reports which deck button was pressed", async () => {
     const onpress = vi.fn();
     render(GameBoy, { props: { onpress } });

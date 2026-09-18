@@ -46,6 +46,29 @@ describe("Header", () => {
     expect(spans[1]).toHaveTextContent("Own 097");
   });
 
+  it("puts the value first when asked, and renders bare labels and bare values", () => {
+    const { container } = render(Header, {
+      props: {
+        title: "Favorites",
+        meta: [
+          { value: "12", label: "saved", valueFirst: true },
+          { label: "ash@pallet.town" },
+          { value: "001" },
+        ],
+      },
+    });
+
+    const spans = container.querySelectorAll(".dex-header__meta > span");
+    expect(spans).toHaveLength(3);
+    expect(spans[0]).toHaveTextContent("12 saved");
+    expect(spans[0].firstElementChild?.tagName).toBe("B");
+    expect(spans[0].querySelector("b")).toHaveTextContent("12");
+    expect(spans[1]).toHaveTextContent("ash@pallet.town");
+    expect(spans[1].querySelector("b")).toBeNull();
+    expect(spans[2].querySelector("b")).toHaveTextContent("001");
+    expect(spans[2].textContent?.trim()).toBe("001");
+  });
+
   it("omits the meta div when the list is empty", () => {
     const { container } = render(Header, {
       props: { title: "Pokédex", meta: [] },

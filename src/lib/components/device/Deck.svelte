@@ -16,7 +16,7 @@ const label = (button: DeckButton) =>
   button.charAt(0).toUpperCase() + button.slice(1);
 </script>
 
-<div class="gb-deck">
+<div class="gb-deck" role="group" aria-label="Controls">
   <div class={["gb-dpad", isDirection(pressed) && "is-pressed"]}>
     {#each DECK_DIRECTIONS as dir (dir)}
       <button

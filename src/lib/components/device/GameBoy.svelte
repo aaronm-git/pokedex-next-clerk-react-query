@@ -7,10 +7,13 @@ let {
   children,
   onpress,
   pressed = null,
+  inverted = false,
 }: {
   children?: Snippet;
   onpress?: (button: DeckButton) => void;
   pressed?: DeckButton | null;
+  /** Crystal-style white-on-black LCD, for the one screen that earns it. */
+  inverted?: boolean;
 } = $props();
 </script>
 
@@ -22,9 +25,12 @@ let {
     </div>
 
     <div class="gb-bezel">
-      <div class="gb-screen">
+      <!-- The LCD is the page's main content; the shell around it is chrome
+           and controls. One landmark, so assistive tech can jump straight
+           to the screen and past the deck. -->
+      <main class={["gb-screen", inverted && "gb-screen--inverted"]}>
         {@render children?.()}
-      </div>
+      </main>
       <div class="gb-bezel__label">
         <span>Game</span>
         <span class="c1">D</span><span class="c2">E</span><span class="c3">X</span>

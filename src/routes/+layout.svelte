@@ -1,4 +1,5 @@
 <script lang="ts">
+import { page } from "$app/state";
 import GameBoy from "$lib/components/device/GameBoy.svelte";
 import {
   createDeck,
@@ -13,6 +14,11 @@ let { children } = $props();
 // One deck for the whole app. Screens take it with `onDeck(handler)`; the
 // keyboard and the on-screen buttons both arrive through `deck.press`.
 const deck = setDeck(createDeck());
+
+// A page that wants the inverted LCD says so from its load function
+// (`inverted: true` in its data), because the screen element belongs to the
+// shell, not to the page.
+const inverted = $derived(page.data.inverted === true);
 </script>
 
 <svelte:head>
@@ -31,6 +37,6 @@ const deck = setDeck(createDeck());
   onblur={() => release(deck)}
 />
 
-<GameBoy onpress={deck.press} pressed={deck.pressed}>
+<GameBoy onpress={deck.press} pressed={deck.pressed} {inverted}>
   {@render children()}
 </GameBoy>

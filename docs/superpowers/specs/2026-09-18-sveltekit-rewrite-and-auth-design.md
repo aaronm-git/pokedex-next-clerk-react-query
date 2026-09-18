@@ -187,6 +187,21 @@ Each phase gets its own implementation plan.
    delete the Vercel project, and check Neon and MongoDB Atlas for stray
    databases, reporting rather than assuming any exist.
 
+## Rewrite, not port
+
+Nothing survives because it still compiles. This was decided after phase 1, when
+`src/lib/pokemon/queries.ts` passed type checking against a PokeAPI schema that
+had drifted by 11,000 lines, and I treated that as good news. It was not. The
+file was written in October 2025 for a React Query service layer that no longer
+exists.
+
+Phase 3 rewrites those five queries from scratch against the current schema and
+SvelteKit load functions. It does not port them.
+
+The schema itself is now vendored: `codegen` reads `schema.graphql` from disk and
+`codegen:schema` refreshes it from the live endpoint on request, so generated
+types are reproducible and upstream changes arrive in a reviewable commit.
+
 ## Out of scope
 
 Favorites still will not persist to the database. They live in a query cache

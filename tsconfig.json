@@ -15,7 +15,6 @@
         "name": "@0no-co/graphqlsp",
         "schema": "./schema.graphql"
       }
-    ],
-    "verbatimModuleSyntax": false
+    ]
   }
 }

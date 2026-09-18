@@ -10,6 +10,54 @@
 
 **Spec:** `docs/superpowers/specs/2026-09-18-sveltekit-rewrite-and-auth-design.md`
 
+## Authority: what binds you, and what does not
+
+**This plan is a suggestion, not a rule.** You have full autonomy over how the
+work gets done. Every piece of code in it is one person's guess at a reasonable
+shape, written before any of it existed. Where your model, your skills, or what
+you find in the codebase points somewhere better, go there. Reject my approach
+and say why; do not implement something you believe is wrong because a plan said
+so.
+
+Specifically, all of the following are advisory and you may override any of them:
+
+- The file and directory layout
+- Which components exist, how they are split, and what they are named
+- Prop names, signatures and types, including ones this plan calls load-bearing
+- Every code block, test and implementation shown here
+- Task ordering and boundaries, and whether a task should be split or merged
+- Testing strategy, and what is worth testing at all
+- The parent's review checklist, if you have a better one
+
+If a task turns out to be the wrong unit of work, restructure it. If a component
+this plan invents should not exist, do not build it. If the Svelte skills
+installed for this work recommend a pattern that contradicts something here, the
+skills win: they encode how Svelte is actually written, and this plan encodes how
+one Opus session guessed it might be.
+
+**Report every override.** Not for permission, for the record. Say what you
+rejected, what you did instead, and why. A plan that survives contact unchanged
+usually means nobody was thinking.
+
+### What is not advisory
+
+A short list, and it does not come from this plan. It comes from the project
+owner and the spec, and it is not yours to override. If you believe one of these
+is wrong, stop and say so rather than working around it:
+
+- **Plain CSS only.** No Tailwind, no CSS-in-JS, no utility framework, no
+  component library. This was chosen deliberately, against the alternatives, by
+  the owner.
+- **Never modify, move or delete anything under `src/lib/styles/` or
+  `docs/design/`.** Reviewed, signed-off design output.
+- **Svelte 5 runes.** No `export let`, `createEventDispatcher` or `<slot>`.
+- **pnpm.** Never npm.
+- **No data fetching in this phase.** Fixtures only; data is phase 3.
+- **WCAG AA**, keyboard operability, and `prefers-reduced-motion`.
+- **No deploy automation.** The Netlify Free plan caps at 300 credits a month.
+
+Everything else on this page is a suggestion.
+
 ## Global constraints
 
 - **Plain CSS only.** No Tailwind, no CSS-in-JS, no utility framework, no component library.
@@ -51,7 +99,16 @@ One component per file, colocated `Name.svelte.test.ts` beside it.
 
 ## Execution model
 
-The implementer for each task is a parent agent that fans work out to child agents, one child per component or small group, then reviews every child's output before reporting. The parent's review is not optional and must check, for each child's files:
+The implementer for each task is a parent agent that fans work out to child
+agents, one child per component or small group, then reviews every child's output
+before reporting. Children inherit the same autonomy the parent has: a child that
+thinks its brief is wrong should say so rather than building something it does
+not believe in, and a parent that receives that pushback should weigh it rather
+than overruling by default.
+
+The parent's review exists to catch what autonomy cannot, namely the things that
+are silently wrong rather than debatably wrong. It is not optional, and it must
+check, for each child's files:
 
 1. Every class used exists in the design system. `grep -o 'class="[^"]*"'` on the component, then confirm each token against `src/lib/styles/`.
 2. No `<style>` block contains a literal colour, `px`, `rem`, `ms` or `s` value.
@@ -59,7 +116,11 @@ The implementer for each task is a parent agent that fans work out to child agen
 4. The component's test asserts behaviour or rendered structure, not that a mock was called.
 5. The markup matches the style guide section it came from.
 
-A parent that reports DONE without having run those five checks has not finished the task.
+A parent that reports DONE without having run those five checks has not finished
+the task. Note that all five test the non-negotiable list above, not this plan's
+suggestions. A child that restructured its component, renamed its props or threw
+out the suggested test is not failing review for that; it is doing what it was
+told it could do, and the parent records the override and moves on.
 
 ---
 

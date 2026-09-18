@@ -14,6 +14,19 @@ pnpm only. Never run `npm install` or `npm run`. `package.json` pins the pnpm ve
 
 Svelte 5 runes only: `$props()`, `$state()`, `$derived()`, `$effect()`. Never use `export let`, `createEventDispatcher` or `<slot>`. Children are snippets rendered with `{@render children()}`; events are callback props.
 
+## Plans are suggestions
+
+An implementation plan in `docs/superpowers/plans/` is one session's guess at a
+reasonable shape, written before the code existed. You have full autonomy over
+how work gets done: reject an approach you think is wrong, restructure a task
+that is the wrong unit of work, and follow your skills over a plan's code when
+they disagree. Report what you overrode and why, for the record rather than for
+permission.
+
+The rules in this file are different. They came from the project owner, not from
+a plan, and they are not yours to override. If you think one is wrong, say so
+rather than working around it.
+
 ## This is a rewrite, not a port
 
 Nothing carries over because it happens to still work. Code written for the

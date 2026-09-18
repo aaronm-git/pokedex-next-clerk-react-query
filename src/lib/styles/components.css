@@ -447,6 +447,17 @@
   color: var(--lcd-paper);
   outline: none;
 }
+/* On the inverted panel ink sits on black (1.12:1), so the cursor flips
+   the other way: white on black, the same as the inverted primary button. */
+.gb-screen--inverted .dex-row:hover,
+.gb-screen--inverted .dex-row:focus-visible,
+.gb-screen--inverted .dex-row[aria-current="true"],
+.dex-box--inverted .dex-row:hover,
+.dex-box--inverted .dex-row:focus-visible,
+.dex-box--inverted .dex-row[aria-current="true"] {
+  background: var(--lcd-white);
+  color: var(--lcd-black);
+}
 .dex-row--unseen {
   color: var(--lcd-mid);
 }
@@ -529,6 +540,10 @@
 }
 .dex-bar__label {
   color: var(--lcd-mid);
+}
+.gb-screen--inverted .dex-bar__label,
+.dex-box--inverted .dex-bar__label {
+  color: var(--lcd-light);
 }
 .dex-bar__track {
   position: relative;
@@ -620,6 +635,10 @@
   border: var(--border-2) solid transparent;
   border-bottom: 0;
   margin-bottom: calc(var(--border-2) * -1);
+}
+.gb-screen--inverted .dex-tabs__tab,
+.dex-box--inverted .dex-tabs__tab {
+  color: var(--lcd-light);
 }
 .dex-tabs__tab:hover {
   color: currentColor;
@@ -744,6 +763,10 @@
   line-height: calc(var(--dot) * 6);
   text-transform: uppercase;
   color: var(--lcd-mid);
+}
+.gb-screen--inverted .dex-hints,
+.dex-box--inverted .dex-hints {
+  color: var(--lcd-light);
 }
 .dex-hints kbd {
   font: inherit;

@@ -63,14 +63,15 @@ Everything else on this page is a suggestion.
 - **Plain CSS only.** No Tailwind, no CSS-in-JS, no utility framework, no component library.
 - **Never modify, move or delete anything under `src/lib/styles/` or `docs/design/`.** Signed-off design output. If a needed style is missing, escalate; do not add it.
 - **Scoped `<style>` blocks are for arrangement, never appearance.** A block may position or space things using `var(--token)` values only. A literal colour, `px`, `rem` or duration inside a component `<style>` is a defect. New visual treatments escalate.
-- **Every class name must already exist** in `device.css`, `components.css` or `type.css`. An invented class is a silent no-op and is the single most likely failure in this phase. Grep before writing.
+- **Every class name must already exist** somewhere under `src/lib/styles/`. That includes `base.css`, which carries utilities like `visually-hidden`, not only `components.css`, `device.css` and `type.css`. An invented class is a silent no-op and is the single most likely failure in this phase. Grep before writing.
 - Svelte 5 runes only: `$props()`, `$state()`, `$derived()`, `$effect()`, callback props, `Snippet` with `{@render}`. Never `export let`, `createEventDispatcher` or `<slot>`.
 - Package manager is pnpm. Never npm.
 - No data fetching. No `@tanstack/svelte-query`. No network calls. Fixtures only.
 - WCAG AA. Every interactive element is reachable and operable by keyboard, and every control has an accessible name.
 - Respect `prefers-reduced-motion`; the design system already defines the tokens for it.
-- Commit messages end with:
-  `Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>`
+- Commit messages end with a `Co-Authored-By:` line naming **the model that
+  actually wrote the commit**, e.g. `Co-Authored-By: Claude Fable 5.1
+  <noreply@anthropic.com>`. Do not sign as a model that did not write it.
 
 ## Markup source of truth
 
@@ -114,6 +115,10 @@ check, for each child's files:
 2. No `<style>` block contains a literal colour, `px`, `rem`, `ms` or `s` value.
 3. Svelte 5 idioms only; no `export let`, `createEventDispatcher` or `<slot>`.
 4. The component's test asserts behaviour or rendered structure, not that a mock was called.
+5. No caller passes a literal value through `style=`. The layout primitives spread
+   `...rest`, which includes `style`, so `<Stack style="color: red">` lands a
+   literal on the element and routes around the no-literals rule. `style` carrying
+   data (`--value:NN`) or token values (`calc(var(--tile)*8)`) is fine. Grep for it.
 5. The markup matches the style guide section it came from.
 
 A parent that reports DONE without having run those five checks has not finished

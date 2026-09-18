@@ -43,31 +43,32 @@ improvement.
 
 ## Dependency replacement
 
-Everything React-specific comes out. 43 packages, including 26 Radix ones.
+Everything React-specific comes out. So does the entire styling stack, because
+the UI is being redesigned from scratch in plain CSS rather than ported.
 
 | Removed | Replacement |
 | --- | --- |
 | next, react, react-dom | @sveltejs/kit 2.70, svelte 5.57, vite 8.3 |
-| @radix-ui/* (26 packages), shadcn/ui | shadcn-svelte 1.7 on bits-ui 2.19 |
+| @radix-ui/* (26 packages), shadcn/ui | nothing, hand-written components |
+| tailwindcss, @tailwindcss/postcss, tw-animate-css | plain CSS with custom properties |
+| class-variance-authority, clsx, tailwind-merge | nothing, Svelte scoped styles |
 | @clerk/nextjs | better-auth 1.7.5 |
 | @tanstack/react-query and its two companions | @tanstack/svelte-query 6.2 |
-| next-themes | mode-watcher 1.1 |
-| lucide-react | @lucide/svelte 1.47 |
-| react-icons | @iconify/svelte 5.2 |
-| sonner | svelte-sonner 1.2 |
-| vaul | vaul-svelte 0.3 |
-| cmdk, input-otp, react-day-picker | bits-ui, via shadcn-svelte's Command, InputOTP and Calendar |
-| embla-carousel-react | embla-carousel-svelte 8.6 |
-| react-resizable-panels | paneforge 1.0 |
-| react-hook-form, @hookform/resolvers | sveltekit-superforms 2.30 with formsnap 2.0 |
-| recharts, react-chartjs-2, chart.js | layerchart 2.5 |
+| next-themes, lucide-react, react-icons | nothing, the design system supplies its own |
+| sonner, vaul, cmdk, input-otp, react-day-picker | nothing, hand-written |
+| embla-carousel-react, react-resizable-panels | nothing, hand-written if needed |
+| react-hook-form, @hookform/resolvers | sveltekit-superforms 2.30 with zod |
+| recharts, react-chartjs-2, chart.js | hand-drawn CSS stat bars |
 | @uidotdev/usehooks | Svelte 5 runes, no package needed |
 
-Kept as is: zod, clsx, tailwind-merge, class-variance-authority, tailwindcss 4,
-graphql-request, date-fns, biome, graphql-codegen. The generated GraphQL types
-in src/graphql carry over untouched.
+Kept: zod, graphql-request, date-fns, biome, graphql-codegen. The generated
+GraphQL types in src/graphql carry over untouched.
 
 Added: @sveltejs/adapter-netlify 6.0, pg 8.23, nodemailer 10.0.
+
+The dependency count drops hard. A Game Boy Pokédex needs a device shell, a
+screen, a d-pad, buttons, a list, a card, stat bars, a text field, a dialog and
+a toast. Call it a dozen components, not the 68 that exist now.
 
 ## Architecture
 
@@ -104,6 +105,24 @@ From is hire@aaronmolina.me, an alias already verified for send-as in Aaron's
 personal Gmail.
 
 The sent-confirmation screen tells people to check their spam folder.
+
+### Visual design
+
+The app looks and feels like a Pokédex on a Game Boy Color. Not a modern app
+with a retro accent, the whole thing: device chrome, LCD panel, dot-matrix
+type, buttons that depress.
+
+A Fable subagent owns this and delivers research notes, a static style guide
+page covering every component in every state, and production CSS under
+src/lib/styles. The style guide gets reviewed before any of it becomes Svelte
+components.
+
+Plain CSS with custom properties. Svelte's scoped style blocks mean no
+framework is needed. Press Start 2P and Jersey 15 Charted are already loaded
+and stay unless the research argues otherwise.
+
+The pixel grid is a hard constraint, so scaling on large modern screens is a
+design problem that gets solved explicitly rather than left to the browser.
 
 ### Demo login
 
@@ -153,8 +172,10 @@ Each phase gets its own implementation plan.
 
 1. SvelteKit skeleton. Scaffold, Tailwind 4, biome, adapter-netlify, the
    GraphQL codegen setup, and a working build. No features yet.
-2. UI port. The 68 component files move to shadcn-svelte, largest and most
-   mechanical phase.
+2. UI design and build. Not a port. The existing 68 shadcn components are
+   discarded. A Fable subagent owns the visual design and delivers a
+   researched design system in plain CSS, reviewed as a static style guide
+   before anything is built in Svelte.
 3. Feature port. Pokémon search, detail, dashboard and favorites, with
    @tanstack/svelte-query replacing the React Query setup.
 4. Database and auth. Netlify Database, Better Auth, magic link, email, demo
@@ -180,10 +201,14 @@ not part of this work.
 
 ## Risks
 
-The UI port is the bulk of the effort and the likeliest place to stall. 68
-files, roughly 7,200 lines. shadcn-svelte is a faithful port rather than a
-different design system, so it is translation, not redesign, but it is still
-most of the codebase.
+A custom design system is more work than adopting one, and it is the place
+this stalls if it stalls. The mitigation is that the style guide gets reviewed
+and signed off as a static HTML page before any of it becomes Svelte
+components, so a wrong direction is caught while it is still cheap.
+
+Pixel fonts and small type are a real accessibility risk. The design brief
+requires WCAG AA contrast and readable body copy, because a hiring manager
+squinting at the portfolio is a failure regardless of how authentic it looks.
 
 Gmail deliverability, discussed above, accepted knowingly.
 

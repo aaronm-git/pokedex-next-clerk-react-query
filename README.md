@@ -48,6 +48,10 @@ cd docs/design && python3 -m http.server 8000
 
 Then visit `http://localhost:8000/style-guide.html`.
 
+### Icons
+
+UI icons come from HackerNoon's [Pixel Icon Library](https://pixeliconlibrary.com) (MIT on [GitHub](https://github.com/hackernoon/pixel-icon-library), CC BY 4.0 on the website; credit to HackerNoon either way). The package is a devDependency only. `scripts/extract-icons.mjs` copies the handful the app uses into `src/lib/icons/paths.ts`, and `<Icon name="search" />` renders one of them inline as an SVG that inherits the LCD ink. To add an icon, put its library name in the script's list and run `pnpm run icons`. The Gen 1 glyphs the design system already draws (the menu cursor, the error X, the loading dots) are not icons from this set; they come from the pokered disassembly and stay as they are.
+
 ## Deployment
 
 The target is Netlify. `netlify.toml` sets the build command and pins Node 22 and pnpm 11, and `@sveltejs/adapter-netlify` produces the output. There is no deploy automation on purpose: the free plan has a small monthly credit budget and a production deploy eats a chunk of it, so deploys are done by hand.

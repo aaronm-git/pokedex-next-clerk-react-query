@@ -1,5 +1,6 @@
 schema {
   query: query_root
+  subscription: subscription_root
 }
 
 """whether this query should be cached (Hasura Cloud only)"""
@@ -249,6 +250,32 @@ type ability {
     """filter the rows returned"""
     where: pokemonabilitypast_bool_exp
   ): pokemonabilitypast_aggregate!
+  """An array relationship"""
+  pokemonformconditions(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """An aggregate relationship"""
+  pokemonformconditions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
 }
 
 """
@@ -358,6 +385,8 @@ input ability_bool_exp {
   pokemonabilities_aggregate: pokemonability_aggregate_bool_exp
   pokemonabilitypasts: pokemonabilitypast_bool_exp
   pokemonabilitypasts_aggregate: pokemonabilitypast_aggregate_bool_exp
+  pokemonformconditions: pokemonformcondition_bool_exp
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_bool_exp
 }
 
 """aggregate max on columns"""
@@ -405,6 +434,7 @@ input ability_order_by {
   name: order_by
   pokemonabilities_aggregate: pokemonability_aggregate_order_by
   pokemonabilitypasts_aggregate: pokemonabilitypast_aggregate_order_by
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_order_by
 }
 
 """
@@ -1982,18 +2012,18 @@ type berry {
     """filter the rows returned"""
     where: berryflavormap_bool_exp
   ): berryflavormap_aggregate!
-  growth_time: Int!
+  growth_time: Int
   id: Int!
   """An object relationship"""
   item: item
   item_id: Int
-  max_harvest: Int!
+  max_harvest: Int
   name: String!
-  natural_gift_power: Int!
+  natural_gift_power: Int
   natural_gift_type_id: Int
-  size: Int!
-  smoothness: Int!
-  soil_dryness: Int!
+  size: Int
+  smoothness: Int
+  soil_dryness: Int
   """An object relationship"""
   type: type
 }
@@ -5863,6 +5893,454 @@ input contesttypename_variance_order_by {
 }
 
 """
+columns and relationships of "pokemon_v2_currency"
+"""
+type currency {
+  """An array relationship"""
+  currencynames(
+    """distinct select on columns"""
+    distinct_on: [currencyname_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currencyname_order_by!]
+    """filter the rows returned"""
+    where: currencyname_bool_exp
+  ): [currencyname!]!
+  """An aggregate relationship"""
+  currencynames_aggregate(
+    """distinct select on columns"""
+    distinct_on: [currencyname_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currencyname_order_by!]
+    """filter the rows returned"""
+    where: currencyname_bool_exp
+  ): currencyname_aggregate!
+  id: Int!
+  """An array relationship"""
+  itemprices(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): [itemprice!]!
+  """An aggregate relationship"""
+  itemprices_aggregate(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): itemprice_aggregate!
+  name: String!
+}
+
+"""
+aggregated selection of "pokemon_v2_currency"
+"""
+type currency_aggregate {
+  aggregate: currency_aggregate_fields
+  nodes: [currency!]!
+}
+
+"""
+aggregate fields of "pokemon_v2_currency"
+"""
+type currency_aggregate_fields {
+  avg: currency_avg_fields
+  count(columns: [currency_select_column!], distinct: Boolean): Int!
+  max: currency_max_fields
+  min: currency_min_fields
+  stddev: currency_stddev_fields
+  stddev_pop: currency_stddev_pop_fields
+  stddev_samp: currency_stddev_samp_fields
+  sum: currency_sum_fields
+  var_pop: currency_var_pop_fields
+  var_samp: currency_var_samp_fields
+  variance: currency_variance_fields
+}
+
+"""aggregate avg on columns"""
+type currency_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_currency". All fields are combined with a logical 'AND'.
+"""
+input currency_bool_exp {
+  _and: [currency_bool_exp!]
+  _not: currency_bool_exp
+  _or: [currency_bool_exp!]
+  currencynames: currencyname_bool_exp
+  currencynames_aggregate: currencyname_aggregate_bool_exp
+  id: Int_comparison_exp
+  itemprices: itemprice_bool_exp
+  itemprices_aggregate: itemprice_aggregate_bool_exp
+  name: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type currency_max_fields {
+  id: Int
+  name: String
+}
+
+"""aggregate min on columns"""
+type currency_min_fields {
+  id: Int
+  name: String
+}
+
+"""Ordering options when selecting data from "pokemon_v2_currency"."""
+input currency_order_by {
+  currencynames_aggregate: currencyname_aggregate_order_by
+  id: order_by
+  itemprices_aggregate: itemprice_aggregate_order_by
+  name: order_by
+}
+
+"""
+select columns of table "pokemon_v2_currency"
+"""
+enum currency_select_column {
+  """column name"""
+  id
+  """column name"""
+  name
+}
+
+"""aggregate stddev on columns"""
+type currency_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type currency_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type currency_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type currency_sum_fields {
+  id: Int
+}
+
+"""aggregate var_pop on columns"""
+type currency_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type currency_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type currency_variance_fields {
+  id: Float
+}
+
+"""
+columns and relationships of "pokemon_v2_currencyname"
+"""
+type currencyname {
+  """An object relationship"""
+  currency: currency
+  currency_id: Int
+  id: Int!
+  """An object relationship"""
+  language: language
+  language_id: Int
+  name: String!
+}
+
+"""
+aggregated selection of "pokemon_v2_currencyname"
+"""
+type currencyname_aggregate {
+  aggregate: currencyname_aggregate_fields
+  nodes: [currencyname!]!
+}
+
+input currencyname_aggregate_bool_exp {
+  count: currencyname_aggregate_bool_exp_count
+}
+
+input currencyname_aggregate_bool_exp_count {
+  arguments: [currencyname_select_column!]
+  distinct: Boolean
+  filter: currencyname_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_currencyname"
+"""
+type currencyname_aggregate_fields {
+  avg: currencyname_avg_fields
+  count(columns: [currencyname_select_column!], distinct: Boolean): Int!
+  max: currencyname_max_fields
+  min: currencyname_min_fields
+  stddev: currencyname_stddev_fields
+  stddev_pop: currencyname_stddev_pop_fields
+  stddev_samp: currencyname_stddev_samp_fields
+  sum: currencyname_sum_fields
+  var_pop: currencyname_var_pop_fields
+  var_samp: currencyname_var_samp_fields
+  variance: currencyname_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_currencyname"
+"""
+input currencyname_aggregate_order_by {
+  avg: currencyname_avg_order_by
+  count: order_by
+  max: currencyname_max_order_by
+  min: currencyname_min_order_by
+  stddev: currencyname_stddev_order_by
+  stddev_pop: currencyname_stddev_pop_order_by
+  stddev_samp: currencyname_stddev_samp_order_by
+  sum: currencyname_sum_order_by
+  var_pop: currencyname_var_pop_order_by
+  var_samp: currencyname_var_samp_order_by
+  variance: currencyname_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type currencyname_avg_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_avg_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_currencyname". All fields are combined with a logical 'AND'.
+"""
+input currencyname_bool_exp {
+  _and: [currencyname_bool_exp!]
+  _not: currencyname_bool_exp
+  _or: [currencyname_bool_exp!]
+  currency: currency_bool_exp
+  currency_id: Int_comparison_exp
+  id: Int_comparison_exp
+  language: language_bool_exp
+  language_id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type currencyname_max_fields {
+  currency_id: Int
+  id: Int
+  language_id: Int
+  name: String
+}
+
+"""
+order by max() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_max_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type currencyname_min_fields {
+  currency_id: Int
+  id: Int
+  language_id: Int
+  name: String
+}
+
+"""
+order by min() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_min_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+  name: order_by
+}
+
+"""Ordering options when selecting data from "pokemon_v2_currencyname"."""
+input currencyname_order_by {
+  currency: currency_order_by
+  currency_id: order_by
+  id: order_by
+  language: language_order_by
+  language_id: order_by
+  name: order_by
+}
+
+"""
+select columns of table "pokemon_v2_currencyname"
+"""
+enum currencyname_select_column {
+  """column name"""
+  currency_id
+  """column name"""
+  id
+  """column name"""
+  language_id
+  """column name"""
+  name
+}
+
+"""aggregate stddev on columns"""
+type currencyname_stddev_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_stddev_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type currencyname_stddev_pop_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_stddev_pop_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type currencyname_stddev_samp_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_stddev_samp_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate sum on columns"""
+type currencyname_sum_fields {
+  currency_id: Int
+  id: Int
+  language_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_sum_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type currencyname_var_pop_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_var_pop_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type currencyname_var_samp_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_var_samp_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate variance on columns"""
+type currencyname_variance_fields {
+  currency_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_currencyname"
+"""
+input currencyname_variance_order_by {
+  currency_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""ordering argument of a cursor"""
+enum cursor_ordering {
+  """ascending ordering of the cursor"""
+  ASC
+  """descending ordering of the cursor"""
+  DESC
+}
+
+"""
 columns and relationships of "pokemon_v2_egggroup"
 """
 type egggroup {
@@ -9551,6 +10029,869 @@ input evolutiontriggername_variance_order_by {
 }
 
 """
+columns and relationships of "pokemon_v2_evolutionvariable"
+"""
+type evolutionvariable {
+  data_type: String!
+  """An array relationship"""
+  evolutionvariabledescriptions(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariabledescription_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariabledescription_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariabledescription_bool_exp
+  ): [evolutionvariabledescription!]!
+  """An aggregate relationship"""
+  evolutionvariabledescriptions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariabledescription_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariabledescription_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariabledescription_bool_exp
+  ): evolutionvariabledescription_aggregate!
+  """An array relationship"""
+  evolutionvariablenames(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariablename_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariablename_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariablename_bool_exp
+  ): [evolutionvariablename!]!
+  """An aggregate relationship"""
+  evolutionvariablenames_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariablename_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariablename_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariablename_bool_exp
+  ): evolutionvariablename_aggregate!
+  id: Int!
+  name: String!
+  symbol: String!
+  version_group_id: Int
+  """An object relationship"""
+  versiongroup: versiongroup
+}
+
+"""
+aggregated selection of "pokemon_v2_evolutionvariable"
+"""
+type evolutionvariable_aggregate {
+  aggregate: evolutionvariable_aggregate_fields
+  nodes: [evolutionvariable!]!
+}
+
+input evolutionvariable_aggregate_bool_exp {
+  count: evolutionvariable_aggregate_bool_exp_count
+}
+
+input evolutionvariable_aggregate_bool_exp_count {
+  arguments: [evolutionvariable_select_column!]
+  distinct: Boolean
+  filter: evolutionvariable_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_evolutionvariable"
+"""
+type evolutionvariable_aggregate_fields {
+  avg: evolutionvariable_avg_fields
+  count(columns: [evolutionvariable_select_column!], distinct: Boolean): Int!
+  max: evolutionvariable_max_fields
+  min: evolutionvariable_min_fields
+  stddev: evolutionvariable_stddev_fields
+  stddev_pop: evolutionvariable_stddev_pop_fields
+  stddev_samp: evolutionvariable_stddev_samp_fields
+  sum: evolutionvariable_sum_fields
+  var_pop: evolutionvariable_var_pop_fields
+  var_samp: evolutionvariable_var_samp_fields
+  variance: evolutionvariable_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_aggregate_order_by {
+  avg: evolutionvariable_avg_order_by
+  count: order_by
+  max: evolutionvariable_max_order_by
+  min: evolutionvariable_min_order_by
+  stddev: evolutionvariable_stddev_order_by
+  stddev_pop: evolutionvariable_stddev_pop_order_by
+  stddev_samp: evolutionvariable_stddev_samp_order_by
+  sum: evolutionvariable_sum_order_by
+  var_pop: evolutionvariable_var_pop_order_by
+  var_samp: evolutionvariable_var_samp_order_by
+  variance: evolutionvariable_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type evolutionvariable_avg_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_avg_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_evolutionvariable". All fields are combined with a logical 'AND'.
+"""
+input evolutionvariable_bool_exp {
+  _and: [evolutionvariable_bool_exp!]
+  _not: evolutionvariable_bool_exp
+  _or: [evolutionvariable_bool_exp!]
+  data_type: String_comparison_exp
+  evolutionvariabledescriptions: evolutionvariabledescription_bool_exp
+  evolutionvariabledescriptions_aggregate: evolutionvariabledescription_aggregate_bool_exp
+  evolutionvariablenames: evolutionvariablename_bool_exp
+  evolutionvariablenames_aggregate: evolutionvariablename_aggregate_bool_exp
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  symbol: String_comparison_exp
+  version_group_id: Int_comparison_exp
+  versiongroup: versiongroup_bool_exp
+}
+
+"""aggregate max on columns"""
+type evolutionvariable_max_fields {
+  data_type: String
+  id: Int
+  name: String
+  symbol: String
+  version_group_id: Int
+}
+
+"""
+order by max() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_max_order_by {
+  data_type: order_by
+  id: order_by
+  name: order_by
+  symbol: order_by
+  version_group_id: order_by
+}
+
+"""aggregate min on columns"""
+type evolutionvariable_min_fields {
+  data_type: String
+  id: Int
+  name: String
+  symbol: String
+  version_group_id: Int
+}
+
+"""
+order by min() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_min_order_by {
+  data_type: order_by
+  id: order_by
+  name: order_by
+  symbol: order_by
+  version_group_id: order_by
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_evolutionvariable".
+"""
+input evolutionvariable_order_by {
+  data_type: order_by
+  evolutionvariabledescriptions_aggregate: evolutionvariabledescription_aggregate_order_by
+  evolutionvariablenames_aggregate: evolutionvariablename_aggregate_order_by
+  id: order_by
+  name: order_by
+  symbol: order_by
+  version_group_id: order_by
+  versiongroup: versiongroup_order_by
+}
+
+"""
+select columns of table "pokemon_v2_evolutionvariable"
+"""
+enum evolutionvariable_select_column {
+  """column name"""
+  data_type
+  """column name"""
+  id
+  """column name"""
+  name
+  """column name"""
+  symbol
+  """column name"""
+  version_group_id
+}
+
+"""aggregate stddev on columns"""
+type evolutionvariable_stddev_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_stddev_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type evolutionvariable_stddev_pop_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_stddev_pop_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type evolutionvariable_stddev_samp_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_stddev_samp_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""aggregate sum on columns"""
+type evolutionvariable_sum_fields {
+  id: Int
+  version_group_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_sum_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type evolutionvariable_var_pop_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_var_pop_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type evolutionvariable_var_samp_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_var_samp_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""aggregate variance on columns"""
+type evolutionvariable_variance_fields {
+  id: Float
+  version_group_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_evolutionvariable"
+"""
+input evolutionvariable_variance_order_by {
+  id: order_by
+  version_group_id: order_by
+}
+
+"""
+columns and relationships of "pokemon_v2_evolutionvariabledescription"
+"""
+type evolutionvariabledescription {
+  description: String!
+  evolution_variable_id: Int
+  """An object relationship"""
+  evolutionvariable: evolutionvariable
+  id: Int!
+  """An object relationship"""
+  language: language
+  language_id: Int
+}
+
+"""
+aggregated selection of "pokemon_v2_evolutionvariabledescription"
+"""
+type evolutionvariabledescription_aggregate {
+  aggregate: evolutionvariabledescription_aggregate_fields
+  nodes: [evolutionvariabledescription!]!
+}
+
+input evolutionvariabledescription_aggregate_bool_exp {
+  count: evolutionvariabledescription_aggregate_bool_exp_count
+}
+
+input evolutionvariabledescription_aggregate_bool_exp_count {
+  arguments: [evolutionvariabledescription_select_column!]
+  distinct: Boolean
+  filter: evolutionvariabledescription_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_evolutionvariabledescription"
+"""
+type evolutionvariabledescription_aggregate_fields {
+  avg: evolutionvariabledescription_avg_fields
+  count(columns: [evolutionvariabledescription_select_column!], distinct: Boolean): Int!
+  max: evolutionvariabledescription_max_fields
+  min: evolutionvariabledescription_min_fields
+  stddev: evolutionvariabledescription_stddev_fields
+  stddev_pop: evolutionvariabledescription_stddev_pop_fields
+  stddev_samp: evolutionvariabledescription_stddev_samp_fields
+  sum: evolutionvariabledescription_sum_fields
+  var_pop: evolutionvariabledescription_var_pop_fields
+  var_samp: evolutionvariabledescription_var_samp_fields
+  variance: evolutionvariabledescription_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_aggregate_order_by {
+  avg: evolutionvariabledescription_avg_order_by
+  count: order_by
+  max: evolutionvariabledescription_max_order_by
+  min: evolutionvariabledescription_min_order_by
+  stddev: evolutionvariabledescription_stddev_order_by
+  stddev_pop: evolutionvariabledescription_stddev_pop_order_by
+  stddev_samp: evolutionvariabledescription_stddev_samp_order_by
+  sum: evolutionvariabledescription_sum_order_by
+  var_pop: evolutionvariabledescription_var_pop_order_by
+  var_samp: evolutionvariabledescription_var_samp_order_by
+  variance: evolutionvariabledescription_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type evolutionvariabledescription_avg_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_avg_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_evolutionvariabledescription". All fields are combined with a logical 'AND'.
+"""
+input evolutionvariabledescription_bool_exp {
+  _and: [evolutionvariabledescription_bool_exp!]
+  _not: evolutionvariabledescription_bool_exp
+  _or: [evolutionvariabledescription_bool_exp!]
+  description: String_comparison_exp
+  evolution_variable_id: Int_comparison_exp
+  evolutionvariable: evolutionvariable_bool_exp
+  id: Int_comparison_exp
+  language: language_bool_exp
+  language_id: Int_comparison_exp
+}
+
+"""aggregate max on columns"""
+type evolutionvariabledescription_max_fields {
+  description: String
+  evolution_variable_id: Int
+  id: Int
+  language_id: Int
+}
+
+"""
+order by max() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_max_order_by {
+  description: order_by
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate min on columns"""
+type evolutionvariabledescription_min_fields {
+  description: String
+  evolution_variable_id: Int
+  id: Int
+  language_id: Int
+}
+
+"""
+order by min() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_min_order_by {
+  description: order_by
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_evolutionvariabledescription".
+"""
+input evolutionvariabledescription_order_by {
+  description: order_by
+  evolution_variable_id: order_by
+  evolutionvariable: evolutionvariable_order_by
+  id: order_by
+  language: language_order_by
+  language_id: order_by
+}
+
+"""
+select columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+enum evolutionvariabledescription_select_column {
+  """column name"""
+  description
+  """column name"""
+  evolution_variable_id
+  """column name"""
+  id
+  """column name"""
+  language_id
+}
+
+"""aggregate stddev on columns"""
+type evolutionvariabledescription_stddev_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_stddev_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type evolutionvariabledescription_stddev_pop_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_stddev_pop_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type evolutionvariabledescription_stddev_samp_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_stddev_samp_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate sum on columns"""
+type evolutionvariabledescription_sum_fields {
+  evolution_variable_id: Int
+  id: Int
+  language_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_sum_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type evolutionvariabledescription_var_pop_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_var_pop_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type evolutionvariabledescription_var_samp_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_var_samp_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate variance on columns"""
+type evolutionvariabledescription_variance_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_evolutionvariabledescription"
+"""
+input evolutionvariabledescription_variance_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""
+columns and relationships of "pokemon_v2_evolutionvariablename"
+"""
+type evolutionvariablename {
+  evolution_variable_id: Int
+  """An object relationship"""
+  evolutionvariable: evolutionvariable
+  id: Int!
+  """An object relationship"""
+  language: language
+  language_id: Int
+  name: String!
+}
+
+"""
+aggregated selection of "pokemon_v2_evolutionvariablename"
+"""
+type evolutionvariablename_aggregate {
+  aggregate: evolutionvariablename_aggregate_fields
+  nodes: [evolutionvariablename!]!
+}
+
+input evolutionvariablename_aggregate_bool_exp {
+  count: evolutionvariablename_aggregate_bool_exp_count
+}
+
+input evolutionvariablename_aggregate_bool_exp_count {
+  arguments: [evolutionvariablename_select_column!]
+  distinct: Boolean
+  filter: evolutionvariablename_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_evolutionvariablename"
+"""
+type evolutionvariablename_aggregate_fields {
+  avg: evolutionvariablename_avg_fields
+  count(columns: [evolutionvariablename_select_column!], distinct: Boolean): Int!
+  max: evolutionvariablename_max_fields
+  min: evolutionvariablename_min_fields
+  stddev: evolutionvariablename_stddev_fields
+  stddev_pop: evolutionvariablename_stddev_pop_fields
+  stddev_samp: evolutionvariablename_stddev_samp_fields
+  sum: evolutionvariablename_sum_fields
+  var_pop: evolutionvariablename_var_pop_fields
+  var_samp: evolutionvariablename_var_samp_fields
+  variance: evolutionvariablename_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_aggregate_order_by {
+  avg: evolutionvariablename_avg_order_by
+  count: order_by
+  max: evolutionvariablename_max_order_by
+  min: evolutionvariablename_min_order_by
+  stddev: evolutionvariablename_stddev_order_by
+  stddev_pop: evolutionvariablename_stddev_pop_order_by
+  stddev_samp: evolutionvariablename_stddev_samp_order_by
+  sum: evolutionvariablename_sum_order_by
+  var_pop: evolutionvariablename_var_pop_order_by
+  var_samp: evolutionvariablename_var_samp_order_by
+  variance: evolutionvariablename_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type evolutionvariablename_avg_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_avg_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_evolutionvariablename". All fields are combined with a logical 'AND'.
+"""
+input evolutionvariablename_bool_exp {
+  _and: [evolutionvariablename_bool_exp!]
+  _not: evolutionvariablename_bool_exp
+  _or: [evolutionvariablename_bool_exp!]
+  evolution_variable_id: Int_comparison_exp
+  evolutionvariable: evolutionvariable_bool_exp
+  id: Int_comparison_exp
+  language: language_bool_exp
+  language_id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type evolutionvariablename_max_fields {
+  evolution_variable_id: Int
+  id: Int
+  language_id: Int
+  name: String
+}
+
+"""
+order by max() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_max_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+  name: order_by
+}
+
+"""aggregate min on columns"""
+type evolutionvariablename_min_fields {
+  evolution_variable_id: Int
+  id: Int
+  language_id: Int
+  name: String
+}
+
+"""
+order by min() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_min_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+  name: order_by
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_evolutionvariablename".
+"""
+input evolutionvariablename_order_by {
+  evolution_variable_id: order_by
+  evolutionvariable: evolutionvariable_order_by
+  id: order_by
+  language: language_order_by
+  language_id: order_by
+  name: order_by
+}
+
+"""
+select columns of table "pokemon_v2_evolutionvariablename"
+"""
+enum evolutionvariablename_select_column {
+  """column name"""
+  evolution_variable_id
+  """column name"""
+  id
+  """column name"""
+  language_id
+  """column name"""
+  name
+}
+
+"""aggregate stddev on columns"""
+type evolutionvariablename_stddev_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_stddev_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type evolutionvariablename_stddev_pop_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_stddev_pop_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type evolutionvariablename_stddev_samp_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_stddev_samp_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate sum on columns"""
+type evolutionvariablename_sum_fields {
+  evolution_variable_id: Int
+  id: Int
+  language_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_sum_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type evolutionvariablename_var_pop_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_var_pop_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type evolutionvariablename_var_samp_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_var_samp_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""aggregate variance on columns"""
+type evolutionvariablename_variance_fields {
+  evolution_variable_id: Float
+  id: Float
+  language_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_evolutionvariablename"
+"""
+input evolutionvariablename_variance_order_by {
+  evolution_variable_id: order_by
+  id: order_by
+  language_id: order_by
+}
+
+"""
 columns and relationships of "pokemon_v2_experience"
 """
 type experience {
@@ -9830,6 +11171,23 @@ input experience_variance_order_by {
   growth_rate_id: order_by
   id: order_by
   level: order_by
+}
+
+scalar float8
+
+"""
+Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'.
+"""
+input float8_comparison_exp {
+  _eq: float8
+  _gt: float8
+  _gte: float8
+  _in: [float8!]
+  _is_null: Boolean
+  _lt: float8
+  _lte: float8
+  _neq: float8
+  _nin: [float8!]
 }
 
 """
@@ -10188,6 +11546,32 @@ type generation {
     where: pokemonspecies_bool_exp
   ): pokemonspecies_aggregate!
   """An array relationship"""
+  pokemonstatpasts(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): [pokemonstatpast!]!
+  """An aggregate relationship"""
+  pokemonstatpasts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): pokemonstatpast_aggregate!
+  """An array relationship"""
   pokemontypepasts(
     """distinct select on columns"""
     distinct_on: [pokemontypepast_select_column!]
@@ -10414,6 +11798,8 @@ input generation_bool_exp {
   pokemonformgenerations_aggregate: pokemonformgeneration_aggregate_bool_exp
   pokemonspecies: pokemonspecies_bool_exp
   pokemonspecies_aggregate: pokemonspecies_aggregate_bool_exp
+  pokemonstatpasts: pokemonstatpast_bool_exp
+  pokemonstatpasts_aggregate: pokemonstatpast_aggregate_bool_exp
   pokemontypepasts: pokemontypepast_bool_exp
   pokemontypepasts_aggregate: pokemontypepast_aggregate_bool_exp
   region: region_bool_exp
@@ -10472,6 +11858,7 @@ input generation_order_by {
   pokemonabilitypasts_aggregate: pokemonabilitypast_aggregate_order_by
   pokemonformgenerations_aggregate: pokemonformgeneration_aggregate_order_by
   pokemonspecies_aggregate: pokemonspecies_aggregate_order_by
+  pokemonstatpasts_aggregate: pokemonstatpast_aggregate_order_by
   pokemontypepasts_aggregate: pokemontypepast_aggregate_order_by
   region: region_order_by
   region_id: order_by
@@ -11424,7 +12811,6 @@ type item {
     """filter the rows returned"""
     where: berry_bool_exp
   ): berry_aggregate!
-  cost: Int
   """An array relationship"""
   evolutionchains(
     """distinct select on columns"""
@@ -11590,6 +12976,32 @@ type item {
     where: itemname_bool_exp
   ): itemname_aggregate!
   """An array relationship"""
+  itemprices(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): [itemprice!]!
+  """An aggregate relationship"""
+  itemprices_aggregate(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): itemprice_aggregate!
+  """An array relationship"""
   itemsprites(
     """distinct select on columns"""
     distinct_on: [itemsprites_select_column!]
@@ -11668,6 +13080,32 @@ type item {
     """filter the rows returned"""
     where: pokemonevolution_bool_exp
   ): pokemonevolution_aggregate!
+  """An array relationship"""
+  pokemonformconditions(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """An aggregate relationship"""
+  pokemonformconditions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
   """An array relationship"""
   pokemonitems(
     """distinct select on columns"""
@@ -11751,7 +13189,6 @@ input item_aggregate_order_by {
 
 """aggregate avg on columns"""
 type item_avg_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -11762,7 +13199,6 @@ type item_avg_fields {
 order by avg() on columns of table "pokemon_v2_item"
 """
 input item_avg_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11780,7 +13216,6 @@ input item_bool_exp {
   _or: [item_bool_exp!]
   berries: berry_bool_exp
   berries_aggregate: berry_aggregate_bool_exp
-  cost: Int_comparison_exp
   evolutionchains: evolutionchain_bool_exp
   evolutionchains_aggregate: evolutionchain_aggregate_bool_exp
   fling_power: Int_comparison_exp
@@ -11799,6 +13234,8 @@ input item_bool_exp {
   itemgameindices_aggregate: itemgameindex_aggregate_bool_exp
   itemnames: itemname_bool_exp
   itemnames_aggregate: itemname_aggregate_bool_exp
+  itemprices: itemprice_bool_exp
+  itemprices_aggregate: itemprice_aggregate_bool_exp
   itemsprites: itemsprites_bool_exp
   itemsprites_aggregate: itemsprites_aggregate_bool_exp
   machines: machine_bool_exp
@@ -11806,13 +13243,14 @@ input item_bool_exp {
   name: String_comparison_exp
   pokemonevolutions: pokemonevolution_bool_exp
   pokemonevolutions_aggregate: pokemonevolution_aggregate_bool_exp
+  pokemonformconditions: pokemonformcondition_bool_exp
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_bool_exp
   pokemonitems: pokemonitem_bool_exp
   pokemonitems_aggregate: pokemonitem_aggregate_bool_exp
 }
 
 """aggregate max on columns"""
 type item_max_fields {
-  cost: Int
   fling_power: Int
   id: Int
   item_category_id: Int
@@ -11824,7 +13262,6 @@ type item_max_fields {
 order by max() on columns of table "pokemon_v2_item"
 """
 input item_max_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11834,7 +13271,6 @@ input item_max_order_by {
 
 """aggregate min on columns"""
 type item_min_fields {
-  cost: Int
   fling_power: Int
   id: Int
   item_category_id: Int
@@ -11846,7 +13282,6 @@ type item_min_fields {
 order by min() on columns of table "pokemon_v2_item"
 """
 input item_min_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11858,7 +13293,6 @@ input item_min_order_by {
 input item_order_by {
   PokemonevolutionsByHeldItemId_aggregate: pokemonevolution_aggregate_order_by
   berries_aggregate: berry_aggregate_order_by
-  cost: order_by
   evolutionchains_aggregate: evolutionchain_aggregate_order_by
   fling_power: order_by
   id: order_by
@@ -11871,10 +13305,12 @@ input item_order_by {
   itemflingeffect: itemflingeffect_order_by
   itemgameindices_aggregate: itemgameindex_aggregate_order_by
   itemnames_aggregate: itemname_aggregate_order_by
+  itemprices_aggregate: itemprice_aggregate_order_by
   itemsprites_aggregate: itemsprites_aggregate_order_by
   machines_aggregate: machine_aggregate_order_by
   name: order_by
   pokemonevolutions_aggregate: pokemonevolution_aggregate_order_by
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_order_by
   pokemonitems_aggregate: pokemonitem_aggregate_order_by
 }
 
@@ -11882,8 +13318,6 @@ input item_order_by {
 select columns of table "pokemon_v2_item"
 """
 enum item_select_column {
-  """column name"""
-  cost
   """column name"""
   fling_power
   """column name"""
@@ -11898,7 +13332,6 @@ enum item_select_column {
 
 """aggregate stddev on columns"""
 type item_stddev_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -11909,7 +13342,6 @@ type item_stddev_fields {
 order by stddev() on columns of table "pokemon_v2_item"
 """
 input item_stddev_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11918,7 +13350,6 @@ input item_stddev_order_by {
 
 """aggregate stddev_pop on columns"""
 type item_stddev_pop_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -11929,7 +13360,6 @@ type item_stddev_pop_fields {
 order by stddev_pop() on columns of table "pokemon_v2_item"
 """
 input item_stddev_pop_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11938,7 +13368,6 @@ input item_stddev_pop_order_by {
 
 """aggregate stddev_samp on columns"""
 type item_stddev_samp_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -11949,7 +13378,6 @@ type item_stddev_samp_fields {
 order by stddev_samp() on columns of table "pokemon_v2_item"
 """
 input item_stddev_samp_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11958,7 +13386,6 @@ input item_stddev_samp_order_by {
 
 """aggregate sum on columns"""
 type item_sum_fields {
-  cost: Int
   fling_power: Int
   id: Int
   item_category_id: Int
@@ -11969,7 +13396,6 @@ type item_sum_fields {
 order by sum() on columns of table "pokemon_v2_item"
 """
 input item_sum_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11978,7 +13404,6 @@ input item_sum_order_by {
 
 """aggregate var_pop on columns"""
 type item_var_pop_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -11989,7 +13414,6 @@ type item_var_pop_fields {
 order by var_pop() on columns of table "pokemon_v2_item"
 """
 input item_var_pop_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -11998,7 +13422,6 @@ input item_var_pop_order_by {
 
 """aggregate var_samp on columns"""
 type item_var_samp_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -12009,7 +13432,6 @@ type item_var_samp_fields {
 order by var_samp() on columns of table "pokemon_v2_item"
 """
 input item_var_samp_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -12018,7 +13440,6 @@ input item_var_samp_order_by {
 
 """aggregate variance on columns"""
 type item_variance_fields {
-  cost: Float
   fling_power: Float
   id: Float
   item_category_id: Float
@@ -12029,7 +13450,6 @@ type item_variance_fields {
 order by variance() on columns of table "pokemon_v2_item"
 """
 input item_variance_order_by {
-  cost: order_by
   fling_power: order_by
   id: order_by
   item_category_id: order_by
@@ -15632,6 +17052,366 @@ input itempocketname_variance_order_by {
 }
 
 """
+columns and relationships of "pokemon_v2_itemprice"
+"""
+type itemprice {
+  """An object relationship"""
+  currency: currency
+  currency_id: Int
+  id: Int!
+  """An object relationship"""
+  item: item
+  item_id: Int
+  purchase_price: Int
+  sell_price: Int
+  version_group_id: Int
+  """An object relationship"""
+  versiongroup: versiongroup
+}
+
+"""
+aggregated selection of "pokemon_v2_itemprice"
+"""
+type itemprice_aggregate {
+  aggregate: itemprice_aggregate_fields
+  nodes: [itemprice!]!
+}
+
+input itemprice_aggregate_bool_exp {
+  count: itemprice_aggregate_bool_exp_count
+}
+
+input itemprice_aggregate_bool_exp_count {
+  arguments: [itemprice_select_column!]
+  distinct: Boolean
+  filter: itemprice_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_itemprice"
+"""
+type itemprice_aggregate_fields {
+  avg: itemprice_avg_fields
+  count(columns: [itemprice_select_column!], distinct: Boolean): Int!
+  max: itemprice_max_fields
+  min: itemprice_min_fields
+  stddev: itemprice_stddev_fields
+  stddev_pop: itemprice_stddev_pop_fields
+  stddev_samp: itemprice_stddev_samp_fields
+  sum: itemprice_sum_fields
+  var_pop: itemprice_var_pop_fields
+  var_samp: itemprice_var_samp_fields
+  variance: itemprice_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_itemprice"
+"""
+input itemprice_aggregate_order_by {
+  avg: itemprice_avg_order_by
+  count: order_by
+  max: itemprice_max_order_by
+  min: itemprice_min_order_by
+  stddev: itemprice_stddev_order_by
+  stddev_pop: itemprice_stddev_pop_order_by
+  stddev_samp: itemprice_stddev_samp_order_by
+  sum: itemprice_sum_order_by
+  var_pop: itemprice_var_pop_order_by
+  var_samp: itemprice_var_samp_order_by
+  variance: itemprice_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type itemprice_avg_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_avg_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_itemprice". All fields are combined with a logical 'AND'.
+"""
+input itemprice_bool_exp {
+  _and: [itemprice_bool_exp!]
+  _not: itemprice_bool_exp
+  _or: [itemprice_bool_exp!]
+  currency: currency_bool_exp
+  currency_id: Int_comparison_exp
+  id: Int_comparison_exp
+  item: item_bool_exp
+  item_id: Int_comparison_exp
+  purchase_price: Int_comparison_exp
+  sell_price: Int_comparison_exp
+  version_group_id: Int_comparison_exp
+  versiongroup: versiongroup_bool_exp
+}
+
+"""aggregate max on columns"""
+type itemprice_max_fields {
+  currency_id: Int
+  id: Int
+  item_id: Int
+  purchase_price: Int
+  sell_price: Int
+  version_group_id: Int
+}
+
+"""
+order by max() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_max_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""aggregate min on columns"""
+type itemprice_min_fields {
+  currency_id: Int
+  id: Int
+  item_id: Int
+  purchase_price: Int
+  sell_price: Int
+  version_group_id: Int
+}
+
+"""
+order by min() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_min_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""Ordering options when selecting data from "pokemon_v2_itemprice"."""
+input itemprice_order_by {
+  currency: currency_order_by
+  currency_id: order_by
+  id: order_by
+  item: item_order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+  versiongroup: versiongroup_order_by
+}
+
+"""
+select columns of table "pokemon_v2_itemprice"
+"""
+enum itemprice_select_column {
+  """column name"""
+  currency_id
+  """column name"""
+  id
+  """column name"""
+  item_id
+  """column name"""
+  purchase_price
+  """column name"""
+  sell_price
+  """column name"""
+  version_group_id
+}
+
+"""aggregate stddev on columns"""
+type itemprice_stddev_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_stddev_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type itemprice_stddev_pop_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_stddev_pop_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type itemprice_stddev_samp_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_stddev_samp_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""
+Streaming cursor of the table "itemprice"
+"""
+input itemprice_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: itemprice_stream_cursor_value_input!
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input itemprice_stream_cursor_value_input {
+  currency_id: Int
+  id: Int
+  item_id: Int
+  purchase_price: Int
+  sell_price: Int
+  version_group_id: Int
+}
+
+"""aggregate sum on columns"""
+type itemprice_sum_fields {
+  currency_id: Int
+  id: Int
+  item_id: Int
+  purchase_price: Int
+  sell_price: Int
+  version_group_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_sum_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type itemprice_var_pop_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_var_pop_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type itemprice_var_samp_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_var_samp_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""aggregate variance on columns"""
+type itemprice_variance_fields {
+  currency_id: Float
+  id: Float
+  item_id: Float
+  purchase_price: Float
+  sell_price: Float
+  version_group_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_itemprice"
+"""
+input itemprice_variance_order_by {
+  currency_id: order_by
+  id: order_by
+  item_id: order_by
+  purchase_price: order_by
+  sell_price: order_by
+  version_group_id: order_by
+}
+
+"""
 columns and relationships of "pokemon_v2_itemsprites"
 """
 type itemsprites {
@@ -15897,6 +17677,12 @@ input jsonb_comparison_exp {
   _has_keys_any: [String!]
   _in: [jsonb!]
   _is_null: Boolean
+  """does the jsonpath return any item for the specified JSON value"""
+  _jsonb_path_exists: String
+  """
+  does the jsonpath predicate check return true for the specified JSON value
+  """
+  _jsonb_path_match: String
   _lt: jsonb
   _lte: jsonb
   _neq: jsonb
@@ -16194,6 +17980,32 @@ type language {
     where: contesttypename_bool_exp
   ): contesttypename_aggregate!
   """An array relationship"""
+  currencynames(
+    """distinct select on columns"""
+    distinct_on: [currencyname_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currencyname_order_by!]
+    """filter the rows returned"""
+    where: currencyname_bool_exp
+  ): [currencyname!]!
+  """An aggregate relationship"""
+  currencynames_aggregate(
+    """distinct select on columns"""
+    distinct_on: [currencyname_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currencyname_order_by!]
+    """filter the rows returned"""
+    where: currencyname_bool_exp
+  ): currencyname_aggregate!
+  """An array relationship"""
   egggroupnames(
     """distinct select on columns"""
     distinct_on: [egggroupname_select_column!]
@@ -16323,6 +18135,58 @@ type language {
     """filter the rows returned"""
     where: evolutiontriggername_bool_exp
   ): evolutiontriggername_aggregate!
+  """An array relationship"""
+  evolutionvariabledescriptions(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariabledescription_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariabledescription_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariabledescription_bool_exp
+  ): [evolutionvariabledescription!]!
+  """An aggregate relationship"""
+  evolutionvariabledescriptions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariabledescription_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariabledescription_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariabledescription_bool_exp
+  ): evolutionvariabledescription_aggregate!
+  """An array relationship"""
+  evolutionvariablenames(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariablename_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariablename_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariablename_bool_exp
+  ): [evolutionvariablename!]!
+  """An aggregate relationship"""
+  evolutionvariablenames_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariablename_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariablename_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariablename_bool_exp
+  ): evolutionvariablename_aggregate!
   """An array relationship"""
   generationnames(
     """distinct select on columns"""
@@ -17214,6 +19078,32 @@ type language {
     where: pokemoncolorname_bool_exp
   ): pokemoncolorname_aggregate!
   """An array relationship"""
+  pokemonformflavortexts(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): [pokemonformflavortext!]!
+  """An aggregate relationship"""
+  pokemonformflavortexts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): pokemonformflavortext_aggregate!
+  """An array relationship"""
   pokemonformnames(
     """distinct select on columns"""
     distinct_on: [pokemonformname_select_column!]
@@ -17561,6 +19451,8 @@ input language_bool_exp {
   contesteffectflavortexts_aggregate: contesteffectflavortext_aggregate_bool_exp
   contesttypenames: contesttypename_bool_exp
   contesttypenames_aggregate: contesttypename_aggregate_bool_exp
+  currencynames: currencyname_bool_exp
+  currencynames_aggregate: currencyname_aggregate_bool_exp
   egggroupnames: egggroupname_bool_exp
   egggroupnames_aggregate: egggroupname_aggregate_bool_exp
   encounterconditionnames: encounterconditionname_bool_exp
@@ -17571,6 +19463,10 @@ input language_bool_exp {
   encountermethodnames_aggregate: encountermethodname_aggregate_bool_exp
   evolutiontriggernames: evolutiontriggername_bool_exp
   evolutiontriggernames_aggregate: evolutiontriggername_aggregate_bool_exp
+  evolutionvariabledescriptions: evolutionvariabledescription_bool_exp
+  evolutionvariabledescriptions_aggregate: evolutionvariabledescription_aggregate_bool_exp
+  evolutionvariablenames: evolutionvariablename_bool_exp
+  evolutionvariablenames_aggregate: evolutionvariablename_aggregate_bool_exp
   generationnames: generationname_bool_exp
   generationnames_aggregate: generationname_aggregate_bool_exp
   growthratedescriptions: growthratedescription_bool_exp
@@ -17645,6 +19541,8 @@ input language_bool_exp {
   pokedexnames_aggregate: pokedexname_aggregate_bool_exp
   pokemoncolornames: pokemoncolorname_bool_exp
   pokemoncolornames_aggregate: pokemoncolorname_aggregate_bool_exp
+  pokemonformflavortexts: pokemonformflavortext_bool_exp
+  pokemonformflavortexts_aggregate: pokemonformflavortext_aggregate_bool_exp
   pokemonformnames: pokemonformname_bool_exp
   pokemonformnames_aggregate: pokemonformname_aggregate_bool_exp
   pokemonhabitatnames: pokemonhabitatname_bool_exp
@@ -17700,11 +19598,14 @@ input language_order_by {
   contesteffecteffecttexts_aggregate: contesteffecteffecttext_aggregate_order_by
   contesteffectflavortexts_aggregate: contesteffectflavortext_aggregate_order_by
   contesttypenames_aggregate: contesttypename_aggregate_order_by
+  currencynames_aggregate: currencyname_aggregate_order_by
   egggroupnames_aggregate: egggroupname_aggregate_order_by
   encounterconditionnames_aggregate: encounterconditionname_aggregate_order_by
   encounterconditionvaluenames_aggregate: encounterconditionvaluename_aggregate_order_by
   encountermethodnames_aggregate: encountermethodname_aggregate_order_by
   evolutiontriggernames_aggregate: evolutiontriggername_aggregate_order_by
+  evolutionvariabledescriptions_aggregate: evolutionvariabledescription_aggregate_order_by
+  evolutionvariablenames_aggregate: evolutionvariablename_aggregate_order_by
   generationnames_aggregate: generationname_aggregate_order_by
   growthratedescriptions_aggregate: growthratedescription_aggregate_order_by
   id: order_by
@@ -17745,6 +19646,7 @@ input language_order_by {
   pokedexdescriptions_aggregate: pokedexdescription_aggregate_order_by
   pokedexnames_aggregate: pokedexname_aggregate_order_by
   pokemoncolornames_aggregate: pokemoncolorname_aggregate_order_by
+  pokemonformflavortexts_aggregate: pokemonformflavortext_aggregate_order_by
   pokemonformnames_aggregate: pokemonformname_aggregate_order_by
   pokemonhabitatnames_aggregate: pokemonhabitatname_aggregate_order_by
   pokemonshapenames_aggregate: pokemonshapename_aggregate_order_by
@@ -20578,7 +22480,7 @@ type move {
   movetarget: movetarget
   name: String!
   """An array relationship"""
-  pokemonevolutions(
+  pokemonevolutionsByKnownMoveId(
     """distinct select on columns"""
     distinct_on: [pokemonevolution_select_column!]
     """limit the number of rows returned"""
@@ -20591,7 +22493,7 @@ type move {
     where: pokemonevolution_bool_exp
   ): [pokemonevolution!]!
   """An aggregate relationship"""
-  pokemonevolutions_aggregate(
+  pokemonevolutionsByKnownMoveId_aggregate(
     """distinct select on columns"""
     distinct_on: [pokemonevolution_select_column!]
     """limit the number of rows returned"""
@@ -20603,6 +22505,58 @@ type move {
     """filter the rows returned"""
     where: pokemonevolution_bool_exp
   ): pokemonevolution_aggregate!
+  """An array relationship"""
+  pokemonevolutionsByUsedMoveId(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): [pokemonevolution!]!
+  """An aggregate relationship"""
+  pokemonevolutionsByUsedMoveId_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): pokemonevolution_aggregate!
+  """An array relationship"""
+  pokemonformconditions(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """An aggregate relationship"""
+  pokemonformconditions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
   """An array relationship"""
   pokemonmoves(
     """distinct select on columns"""
@@ -20801,8 +22755,12 @@ input move_bool_exp {
   movenames_aggregate: movename_aggregate_bool_exp
   movetarget: movetarget_bool_exp
   name: String_comparison_exp
-  pokemonevolutions: pokemonevolution_bool_exp
-  pokemonevolutions_aggregate: pokemonevolution_aggregate_bool_exp
+  pokemonevolutionsByKnownMoveId: pokemonevolution_bool_exp
+  pokemonevolutionsByKnownMoveId_aggregate: pokemonevolution_aggregate_bool_exp
+  pokemonevolutionsByUsedMoveId: pokemonevolution_bool_exp
+  pokemonevolutionsByUsedMoveId_aggregate: pokemonevolution_aggregate_bool_exp
+  pokemonformconditions: pokemonformcondition_bool_exp
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_bool_exp
   pokemonmoves: pokemonmove_bool_exp
   pokemonmoves_aggregate: pokemonmove_aggregate_bool_exp
   power: Int_comparison_exp
@@ -20925,7 +22883,9 @@ input move_order_by {
   movenames_aggregate: movename_aggregate_order_by
   movetarget: movetarget_order_by
   name: order_by
-  pokemonevolutions_aggregate: pokemonevolution_aggregate_order_by
+  pokemonevolutionsByKnownMoveId_aggregate: pokemonevolution_aggregate_order_by
+  pokemonevolutionsByUsedMoveId_aggregate: pokemonevolution_aggregate_order_by
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_order_by
   pokemonmoves_aggregate: pokemonmove_aggregate_order_by
   power: order_by
   pp: order_by
@@ -32746,6 +34706,32 @@ type pokemon {
     where: pokemonsprites_bool_exp
   ): pokemonsprites_aggregate!
   """An array relationship"""
+  pokemonstatpasts(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): [pokemonstatpast!]!
+  """An aggregate relationship"""
+  pokemonstatpasts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): pokemonstatpast_aggregate!
+  """An array relationship"""
   pokemonstats(
     """distinct select on columns"""
     distinct_on: [pokemonstat_select_column!]
@@ -32950,6 +34936,8 @@ input pokemon_bool_exp {
   pokemonspecy: pokemonspecies_bool_exp
   pokemonsprites: pokemonsprites_bool_exp
   pokemonsprites_aggregate: pokemonsprites_aggregate_bool_exp
+  pokemonstatpasts: pokemonstatpast_bool_exp
+  pokemonstatpasts_aggregate: pokemonstatpast_aggregate_bool_exp
   pokemonstats: pokemonstat_bool_exp
   pokemonstats_aggregate: pokemonstat_aggregate_bool_exp
   pokemontypepasts: pokemontypepast_bool_exp
@@ -33026,6 +35014,7 @@ input pokemon_order_by {
   pokemonmoves_aggregate: pokemonmove_aggregate_order_by
   pokemonspecy: pokemonspecies_order_by
   pokemonsprites_aggregate: pokemonsprites_aggregate_order_by
+  pokemonstatpasts_aggregate: pokemonstatpast_aggregate_order_by
   pokemonstats_aggregate: pokemonstat_aggregate_order_by
   pokemontypepasts_aggregate: pokemontypepast_aggregate_order_by
   pokemontypes_aggregate: pokemontype_aggregate_order_by
@@ -35146,16 +37135,21 @@ type pokemonevolution {
   PokemonspecyByTradeSpeciesId: pokemonspecies
   """An object relationship"""
   TypeByPartyTypeId: type
+  condition_expression: String!
   evolution_item_id: Int
   evolution_trigger_id: Int
   """An object relationship"""
   evolutiontrigger: evolutiontrigger
+  """An object relationship"""
+  evolved_pokemon_form: pokemonform
+  evolved_pokemon_form_id: Int
   evolved_species_id: Int
   """An object relationship"""
   gender: gender
   gender_id: Int
   held_item_id: Int
   id: Int!
+  is_default: Boolean!
   """An object relationship"""
   item: item
   known_move_id: Int
@@ -35165,21 +37159,40 @@ type pokemonevolution {
   location_id: Int
   min_affection: Int
   min_beauty: Int
+  min_damage_taken: Int
   min_happiness: Int
   min_level: Int
+  min_move_count: Int
+  min_steps: Int
   """An object relationship"""
   move: move
+  nature_bitmask: Int
+  near_special_rock: Boolean!
+  needs_multiplayer: Boolean!
   needs_overworld_rain: Boolean!
   party_species_id: Int
   party_type_id: Int
+  percentage_chance: float8
   """An object relationship"""
   pokemonspecy: pokemonspecies
+  """An object relationship"""
+  region: region
+  region_id: Int
   relative_physical_stats: Int
-  time_of_day: String
+  """An object relationship"""
+  required_pokemon_form: pokemonform
+  required_pokemon_form_id: Int
+  time_of_day: String!
   trade_species_id: Int
   turn_upside_down: Boolean!
   """An object relationship"""
   type: type
+  used_move_id: Int
+  """An object relationship"""
+  usedmove: move
+  version_group_id: Int
+  """An object relationship"""
+  versiongroup: versiongroup
 }
 
 """
@@ -35191,9 +37204,24 @@ type pokemonevolution_aggregate {
 }
 
 input pokemonevolution_aggregate_bool_exp {
+  avg: pokemonevolution_aggregate_bool_exp_avg
   bool_and: pokemonevolution_aggregate_bool_exp_bool_and
   bool_or: pokemonevolution_aggregate_bool_exp_bool_or
+  corr: pokemonevolution_aggregate_bool_exp_corr
   count: pokemonevolution_aggregate_bool_exp_count
+  covar_samp: pokemonevolution_aggregate_bool_exp_covar_samp
+  max: pokemonevolution_aggregate_bool_exp_max
+  min: pokemonevolution_aggregate_bool_exp_min
+  stddev_samp: pokemonevolution_aggregate_bool_exp_stddev_samp
+  sum: pokemonevolution_aggregate_bool_exp_sum
+  var_samp: pokemonevolution_aggregate_bool_exp_var_samp
+}
+
+input pokemonevolution_aggregate_bool_exp_avg {
+  arguments: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_avg_arguments_columns!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
 }
 
 input pokemonevolution_aggregate_bool_exp_bool_and {
@@ -35210,11 +37238,70 @@ input pokemonevolution_aggregate_bool_exp_bool_or {
   predicate: Boolean_comparison_exp!
 }
 
+input pokemonevolution_aggregate_bool_exp_corr {
+  arguments: pokemonevolution_aggregate_bool_exp_corr_arguments!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_corr_arguments {
+  X: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_corr_arguments_columns!
+  Y: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_corr_arguments_columns!
+}
+
 input pokemonevolution_aggregate_bool_exp_count {
   arguments: [pokemonevolution_select_column!]
   distinct: Boolean
   filter: pokemonevolution_bool_exp
   predicate: Int_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_covar_samp {
+  arguments: pokemonevolution_aggregate_bool_exp_covar_samp_arguments!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_covar_samp_arguments {
+  X: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_covar_samp_arguments_columns!
+  Y: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_covar_samp_arguments_columns!
+}
+
+input pokemonevolution_aggregate_bool_exp_max {
+  arguments: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_max_arguments_columns!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_min {
+  arguments: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_min_arguments_columns!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_stddev_samp {
+  arguments: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_stddev_samp_arguments_columns!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_sum {
+  arguments: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_sum_arguments_columns!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
+}
+
+input pokemonevolution_aggregate_bool_exp_var_samp {
+  arguments: pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_var_samp_arguments_columns!
+  distinct: Boolean
+  filter: pokemonevolution_bool_exp
+  predicate: float8_comparison_exp!
 }
 
 """
@@ -35255,6 +37342,7 @@ input pokemonevolution_aggregate_order_by {
 type pokemonevolution_avg_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35264,12 +37352,21 @@ type pokemonevolution_avg_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35278,6 +37375,7 @@ order by avg() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_avg_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35287,12 +37385,21 @@ input pokemonevolution_avg_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """
@@ -35306,14 +37413,18 @@ input pokemonevolution_bool_exp {
   _and: [pokemonevolution_bool_exp!]
   _not: pokemonevolution_bool_exp
   _or: [pokemonevolution_bool_exp!]
+  condition_expression: String_comparison_exp
   evolution_item_id: Int_comparison_exp
   evolution_trigger_id: Int_comparison_exp
   evolutiontrigger: evolutiontrigger_bool_exp
+  evolved_pokemon_form: pokemonform_bool_exp
+  evolved_pokemon_form_id: Int_comparison_exp
   evolved_species_id: Int_comparison_exp
   gender: gender_bool_exp
   gender_id: Int_comparison_exp
   held_item_id: Int_comparison_exp
   id: Int_comparison_exp
+  is_default: Boolean_comparison_exp
   item: item_bool_exp
   known_move_id: Int_comparison_exp
   known_move_type_id: Int_comparison_exp
@@ -35321,24 +37432,41 @@ input pokemonevolution_bool_exp {
   location_id: Int_comparison_exp
   min_affection: Int_comparison_exp
   min_beauty: Int_comparison_exp
+  min_damage_taken: Int_comparison_exp
   min_happiness: Int_comparison_exp
   min_level: Int_comparison_exp
+  min_move_count: Int_comparison_exp
+  min_steps: Int_comparison_exp
   move: move_bool_exp
+  nature_bitmask: Int_comparison_exp
+  near_special_rock: Boolean_comparison_exp
+  needs_multiplayer: Boolean_comparison_exp
   needs_overworld_rain: Boolean_comparison_exp
   party_species_id: Int_comparison_exp
   party_type_id: Int_comparison_exp
+  percentage_chance: float8_comparison_exp
   pokemonspecy: pokemonspecies_bool_exp
+  region: region_bool_exp
+  region_id: Int_comparison_exp
   relative_physical_stats: Int_comparison_exp
+  required_pokemon_form: pokemonform_bool_exp
+  required_pokemon_form_id: Int_comparison_exp
   time_of_day: String_comparison_exp
   trade_species_id: Int_comparison_exp
   turn_upside_down: Boolean_comparison_exp
   type: type_bool_exp
+  used_move_id: Int_comparison_exp
+  usedmove: move_bool_exp
+  version_group_id: Int_comparison_exp
+  versiongroup: versiongroup_bool_exp
 }
 
 """aggregate max on columns"""
 type pokemonevolution_max_fields {
+  condition_expression: String
   evolution_item_id: Int
   evolution_trigger_id: Int
+  evolved_pokemon_form_id: Int
   evolved_species_id: Int
   gender_id: Int
   held_item_id: Int
@@ -35348,21 +37476,32 @@ type pokemonevolution_max_fields {
   location_id: Int
   min_affection: Int
   min_beauty: Int
+  min_damage_taken: Int
   min_happiness: Int
   min_level: Int
+  min_move_count: Int
+  min_steps: Int
+  nature_bitmask: Int
   party_species_id: Int
   party_type_id: Int
+  percentage_chance: float8
+  region_id: Int
   relative_physical_stats: Int
+  required_pokemon_form_id: Int
   time_of_day: String
   trade_species_id: Int
+  used_move_id: Int
+  version_group_id: Int
 }
 
 """
 order by max() on columns of table "pokemon_v2_pokemonevolution"
 """
 input pokemonevolution_max_order_by {
+  condition_expression: order_by
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35372,19 +37511,30 @@ input pokemonevolution_max_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   time_of_day: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate min on columns"""
 type pokemonevolution_min_fields {
+  condition_expression: String
   evolution_item_id: Int
   evolution_trigger_id: Int
+  evolved_pokemon_form_id: Int
   evolved_species_id: Int
   gender_id: Int
   held_item_id: Int
@@ -35394,21 +37544,32 @@ type pokemonevolution_min_fields {
   location_id: Int
   min_affection: Int
   min_beauty: Int
+  min_damage_taken: Int
   min_happiness: Int
   min_level: Int
+  min_move_count: Int
+  min_steps: Int
+  nature_bitmask: Int
   party_species_id: Int
   party_type_id: Int
+  percentage_chance: float8
+  region_id: Int
   relative_physical_stats: Int
+  required_pokemon_form_id: Int
   time_of_day: String
   trade_species_id: Int
+  used_move_id: Int
+  version_group_id: Int
 }
 
 """
 order by min() on columns of table "pokemon_v2_pokemonevolution"
 """
 input pokemonevolution_min_order_by {
+  condition_expression: order_by
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35418,13 +37579,22 @@ input pokemonevolution_min_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   time_of_day: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """
@@ -35435,14 +37605,18 @@ input pokemonevolution_order_by {
   PokemonspecyByPartySpeciesId: pokemonspecies_order_by
   PokemonspecyByTradeSpeciesId: pokemonspecies_order_by
   TypeByPartyTypeId: type_order_by
+  condition_expression: order_by
   evolution_item_id: order_by
   evolution_trigger_id: order_by
   evolutiontrigger: evolutiontrigger_order_by
+  evolved_pokemon_form: pokemonform_order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender: gender_order_by
   gender_id: order_by
   held_item_id: order_by
   id: order_by
+  is_default: order_by
   item: item_order_by
   known_move_id: order_by
   known_move_type_id: order_by
@@ -35450,18 +37624,33 @@ input pokemonevolution_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
   move: move_order_by
+  nature_bitmask: order_by
+  near_special_rock: order_by
+  needs_multiplayer: order_by
   needs_overworld_rain: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
   pokemonspecy: pokemonspecies_order_by
+  region: region_order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form: pokemonform_order_by
+  required_pokemon_form_id: order_by
   time_of_day: order_by
   trade_species_id: order_by
   turn_upside_down: order_by
   type: type_order_by
+  used_move_id: order_by
+  usedmove: move_order_by
+  version_group_id: order_by
+  versiongroup: versiongroup_order_by
 }
 
 """
@@ -35469,9 +37658,13 @@ select columns of table "pokemon_v2_pokemonevolution"
 """
 enum pokemonevolution_select_column {
   """column name"""
+  condition_expression
+  """column name"""
   evolution_item_id
   """column name"""
   evolution_trigger_id
+  """column name"""
+  evolved_pokemon_form_id
   """column name"""
   evolved_species_id
   """column name"""
@@ -35480,6 +37673,8 @@ enum pokemonevolution_select_column {
   held_item_id
   """column name"""
   id
+  """column name"""
+  is_default
   """column name"""
   known_move_id
   """column name"""
@@ -35491,9 +37686,21 @@ enum pokemonevolution_select_column {
   """column name"""
   min_beauty
   """column name"""
+  min_damage_taken
+  """column name"""
   min_happiness
   """column name"""
   min_level
+  """column name"""
+  min_move_count
+  """column name"""
+  min_steps
+  """column name"""
+  nature_bitmask
+  """column name"""
+  near_special_rock
+  """column name"""
+  needs_multiplayer
   """column name"""
   needs_overworld_rain
   """column name"""
@@ -35501,19 +37708,43 @@ enum pokemonevolution_select_column {
   """column name"""
   party_type_id
   """column name"""
+  percentage_chance
+  """column name"""
+  region_id
+  """column name"""
   relative_physical_stats
+  """column name"""
+  required_pokemon_form_id
   """column name"""
   time_of_day
   """column name"""
   trade_species_id
   """column name"""
   turn_upside_down
+  """column name"""
+  used_move_id
+  """column name"""
+  version_group_id
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_avg_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_avg_arguments_columns {
+  """column name"""
+  percentage_chance
 }
 
 """
 select "pokemonevolution_aggregate_bool_exp_bool_and_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
 """
 enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_bool_and_arguments_columns {
+  """column name"""
+  is_default
+  """column name"""
+  near_special_rock
+  """column name"""
+  needs_multiplayer
   """column name"""
   needs_overworld_rain
   """column name"""
@@ -35525,15 +37756,78 @@ select "pokemonevolution_aggregate_bool_exp_bool_or_arguments_columns" columns o
 """
 enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_bool_or_arguments_columns {
   """column name"""
+  is_default
+  """column name"""
+  near_special_rock
+  """column name"""
+  needs_multiplayer
+  """column name"""
   needs_overworld_rain
   """column name"""
   turn_upside_down
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_corr_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_corr_arguments_columns {
+  """column name"""
+  percentage_chance
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_covar_samp_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_covar_samp_arguments_columns {
+  """column name"""
+  percentage_chance
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_max_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_max_arguments_columns {
+  """column name"""
+  percentage_chance
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_min_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_min_arguments_columns {
+  """column name"""
+  percentage_chance
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_stddev_samp_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_stddev_samp_arguments_columns {
+  """column name"""
+  percentage_chance
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_sum_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_sum_arguments_columns {
+  """column name"""
+  percentage_chance
+}
+
+"""
+select "pokemonevolution_aggregate_bool_exp_var_samp_arguments_columns" columns of table "pokemon_v2_pokemonevolution"
+"""
+enum pokemonevolution_select_column_pokemonevolution_aggregate_bool_exp_var_samp_arguments_columns {
+  """column name"""
+  percentage_chance
 }
 
 """aggregate stddev on columns"""
 type pokemonevolution_stddev_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35543,12 +37837,21 @@ type pokemonevolution_stddev_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35557,6 +37860,7 @@ order by stddev() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_stddev_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35566,18 +37870,28 @@ input pokemonevolution_stddev_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate stddev_pop on columns"""
 type pokemonevolution_stddev_pop_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35587,12 +37901,21 @@ type pokemonevolution_stddev_pop_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35601,6 +37924,7 @@ order by stddev_pop() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_stddev_pop_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35610,18 +37934,28 @@ input pokemonevolution_stddev_pop_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate stddev_samp on columns"""
 type pokemonevolution_stddev_samp_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35631,12 +37965,21 @@ type pokemonevolution_stddev_samp_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35645,6 +37988,7 @@ order by stddev_samp() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_stddev_samp_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35654,18 +37998,28 @@ input pokemonevolution_stddev_samp_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate sum on columns"""
 type pokemonevolution_sum_fields {
   evolution_item_id: Int
   evolution_trigger_id: Int
+  evolved_pokemon_form_id: Int
   evolved_species_id: Int
   gender_id: Int
   held_item_id: Int
@@ -35675,12 +38029,21 @@ type pokemonevolution_sum_fields {
   location_id: Int
   min_affection: Int
   min_beauty: Int
+  min_damage_taken: Int
   min_happiness: Int
   min_level: Int
+  min_move_count: Int
+  min_steps: Int
+  nature_bitmask: Int
   party_species_id: Int
   party_type_id: Int
+  percentage_chance: float8
+  region_id: Int
   relative_physical_stats: Int
+  required_pokemon_form_id: Int
   trade_species_id: Int
+  used_move_id: Int
+  version_group_id: Int
 }
 
 """
@@ -35689,6 +38052,7 @@ order by sum() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_sum_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35698,18 +38062,28 @@ input pokemonevolution_sum_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate var_pop on columns"""
 type pokemonevolution_var_pop_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35719,12 +38093,21 @@ type pokemonevolution_var_pop_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35733,6 +38116,7 @@ order by var_pop() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_var_pop_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35742,18 +38126,28 @@ input pokemonevolution_var_pop_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate var_samp on columns"""
 type pokemonevolution_var_samp_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35763,12 +38157,21 @@ type pokemonevolution_var_samp_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35777,6 +38180,7 @@ order by var_samp() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_var_samp_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35786,18 +38190,28 @@ input pokemonevolution_var_samp_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """aggregate variance on columns"""
 type pokemonevolution_variance_fields {
   evolution_item_id: Float
   evolution_trigger_id: Float
+  evolved_pokemon_form_id: Float
   evolved_species_id: Float
   gender_id: Float
   held_item_id: Float
@@ -35807,12 +38221,21 @@ type pokemonevolution_variance_fields {
   location_id: Float
   min_affection: Float
   min_beauty: Float
+  min_damage_taken: Float
   min_happiness: Float
   min_level: Float
+  min_move_count: Float
+  min_steps: Float
+  nature_bitmask: Float
   party_species_id: Float
   party_type_id: Float
+  percentage_chance: Float
+  region_id: Float
   relative_physical_stats: Float
+  required_pokemon_form_id: Float
   trade_species_id: Float
+  used_move_id: Float
+  version_group_id: Float
 }
 
 """
@@ -35821,6 +38244,7 @@ order by variance() on columns of table "pokemon_v2_pokemonevolution"
 input pokemonevolution_variance_order_by {
   evolution_item_id: order_by
   evolution_trigger_id: order_by
+  evolved_pokemon_form_id: order_by
   evolved_species_id: order_by
   gender_id: order_by
   held_item_id: order_by
@@ -35830,18 +38254,79 @@ input pokemonevolution_variance_order_by {
   location_id: order_by
   min_affection: order_by
   min_beauty: order_by
+  min_damage_taken: order_by
   min_happiness: order_by
   min_level: order_by
+  min_move_count: order_by
+  min_steps: order_by
+  nature_bitmask: order_by
   party_species_id: order_by
   party_type_id: order_by
+  percentage_chance: order_by
+  region_id: order_by
   relative_physical_stats: order_by
+  required_pokemon_form_id: order_by
   trade_species_id: order_by
+  used_move_id: order_by
+  version_group_id: order_by
 }
 
 """
 columns and relationships of "pokemon_v2_pokemonform"
 """
 type pokemonform {
+  """An array relationship"""
+  PokemonevolutionsByRequiredPokemonFormId(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): [pokemonevolution!]!
+  """An aggregate relationship"""
+  PokemonevolutionsByRequiredPokemonFormId_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): pokemonevolution_aggregate!
+  """An array relationship"""
+  PokemonformconditionsByPokemonFormId(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """An aggregate relationship"""
+  PokemonformconditionsByPokemonFormId_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
   form_name: String!
   form_order: Int
   id: Int!
@@ -35853,6 +38338,84 @@ type pokemonform {
   """An object relationship"""
   pokemon: pokemon
   pokemon_id: Int
+  """An array relationship"""
+  pokemonevolutions(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): [pokemonevolution!]!
+  """An aggregate relationship"""
+  pokemonevolutions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): pokemonevolution_aggregate!
+  """An array relationship"""
+  pokemonformconditions(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """An aggregate relationship"""
+  pokemonformconditions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
+  """An array relationship"""
+  pokemonformflavortexts(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): [pokemonformflavortext!]!
+  """An aggregate relationship"""
+  pokemonformflavortexts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): pokemonformflavortext_aggregate!
   """An array relationship"""
   pokemonformgenerations(
     """distinct select on columns"""
@@ -36055,6 +38618,10 @@ input pokemonform_avg_order_by {
 Boolean expression to filter rows from the table "pokemon_v2_pokemonform". All fields are combined with a logical 'AND'.
 """
 input pokemonform_bool_exp {
+  PokemonevolutionsByRequiredPokemonFormId: pokemonevolution_bool_exp
+  PokemonevolutionsByRequiredPokemonFormId_aggregate: pokemonevolution_aggregate_bool_exp
+  PokemonformconditionsByPokemonFormId: pokemonformcondition_bool_exp
+  PokemonformconditionsByPokemonFormId_aggregate: pokemonformcondition_aggregate_bool_exp
   _and: [pokemonform_bool_exp!]
   _not: pokemonform_bool_exp
   _or: [pokemonform_bool_exp!]
@@ -36068,6 +38635,12 @@ input pokemonform_bool_exp {
   order: Int_comparison_exp
   pokemon: pokemon_bool_exp
   pokemon_id: Int_comparison_exp
+  pokemonevolutions: pokemonevolution_bool_exp
+  pokemonevolutions_aggregate: pokemonevolution_aggregate_bool_exp
+  pokemonformconditions: pokemonformcondition_bool_exp
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_bool_exp
+  pokemonformflavortexts: pokemonformflavortext_bool_exp
+  pokemonformflavortexts_aggregate: pokemonformflavortext_aggregate_bool_exp
   pokemonformgenerations: pokemonformgeneration_bool_exp
   pokemonformgenerations_aggregate: pokemonformgeneration_aggregate_bool_exp
   pokemonformnames: pokemonformname_bool_exp
@@ -36130,6 +38703,8 @@ input pokemonform_min_order_by {
 
 """Ordering options when selecting data from "pokemon_v2_pokemonform"."""
 input pokemonform_order_by {
+  PokemonevolutionsByRequiredPokemonFormId_aggregate: pokemonevolution_aggregate_order_by
+  PokemonformconditionsByPokemonFormId_aggregate: pokemonformcondition_aggregate_order_by
   form_name: order_by
   form_order: order_by
   id: order_by
@@ -36140,6 +38715,9 @@ input pokemonform_order_by {
   order: order_by
   pokemon: pokemon_order_by
   pokemon_id: order_by
+  pokemonevolutions_aggregate: pokemonevolution_aggregate_order_by
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_order_by
+  pokemonformflavortexts_aggregate: pokemonformflavortext_aggregate_order_by
   pokemonformgenerations_aggregate: pokemonformgeneration_aggregate_order_by
   pokemonformnames_aggregate: pokemonformname_aggregate_order_by
   pokemonformsprites_aggregate: pokemonformsprites_aggregate_order_by
@@ -36336,6 +38914,686 @@ input pokemonform_variance_order_by {
   order: order_by
   pokemon_id: order_by
   version_group_id: order_by
+}
+
+"""
+columns and relationships of "pokemon_v2_pokemonformcondition"
+"""
+type pokemonformcondition {
+  """An object relationship"""
+  ability: ability
+  ability_id: Int
+  """An object relationship"""
+  base_form: pokemonform
+  base_form_id: Int
+  form_trigger_id: Int!
+  id: Int!
+  """An object relationship"""
+  item: item
+  item_id: Int
+  """An object relationship"""
+  move: move
+  move_id: Int
+  """An object relationship"""
+  pokemon_form: pokemonform
+  pokemon_form_id: Int
+  """An object relationship"""
+  pokemonformtrigger: pokemonformtrigger!
+}
+
+"""
+aggregated selection of "pokemon_v2_pokemonformcondition"
+"""
+type pokemonformcondition_aggregate {
+  aggregate: pokemonformcondition_aggregate_fields
+  nodes: [pokemonformcondition!]!
+}
+
+input pokemonformcondition_aggregate_bool_exp {
+  count: pokemonformcondition_aggregate_bool_exp_count
+}
+
+input pokemonformcondition_aggregate_bool_exp_count {
+  arguments: [pokemonformcondition_select_column!]
+  distinct: Boolean
+  filter: pokemonformcondition_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_pokemonformcondition"
+"""
+type pokemonformcondition_aggregate_fields {
+  avg: pokemonformcondition_avg_fields
+  count(columns: [pokemonformcondition_select_column!], distinct: Boolean): Int!
+  max: pokemonformcondition_max_fields
+  min: pokemonformcondition_min_fields
+  stddev: pokemonformcondition_stddev_fields
+  stddev_pop: pokemonformcondition_stddev_pop_fields
+  stddev_samp: pokemonformcondition_stddev_samp_fields
+  sum: pokemonformcondition_sum_fields
+  var_pop: pokemonformcondition_var_pop_fields
+  var_samp: pokemonformcondition_var_samp_fields
+  variance: pokemonformcondition_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_aggregate_order_by {
+  avg: pokemonformcondition_avg_order_by
+  count: order_by
+  max: pokemonformcondition_max_order_by
+  min: pokemonformcondition_min_order_by
+  stddev: pokemonformcondition_stddev_order_by
+  stddev_pop: pokemonformcondition_stddev_pop_order_by
+  stddev_samp: pokemonformcondition_stddev_samp_order_by
+  sum: pokemonformcondition_sum_order_by
+  var_pop: pokemonformcondition_var_pop_order_by
+  var_samp: pokemonformcondition_var_samp_order_by
+  variance: pokemonformcondition_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type pokemonformcondition_avg_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_avg_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_pokemonformcondition". All fields are combined with a logical 'AND'.
+"""
+input pokemonformcondition_bool_exp {
+  _and: [pokemonformcondition_bool_exp!]
+  _not: pokemonformcondition_bool_exp
+  _or: [pokemonformcondition_bool_exp!]
+  ability: ability_bool_exp
+  ability_id: Int_comparison_exp
+  base_form: pokemonform_bool_exp
+  base_form_id: Int_comparison_exp
+  form_trigger_id: Int_comparison_exp
+  id: Int_comparison_exp
+  item: item_bool_exp
+  item_id: Int_comparison_exp
+  move: move_bool_exp
+  move_id: Int_comparison_exp
+  pokemon_form: pokemonform_bool_exp
+  pokemon_form_id: Int_comparison_exp
+  pokemonformtrigger: pokemonformtrigger_bool_exp
+}
+
+"""aggregate max on columns"""
+type pokemonformcondition_max_fields {
+  ability_id: Int
+  base_form_id: Int
+  form_trigger_id: Int
+  id: Int
+  item_id: Int
+  move_id: Int
+  pokemon_form_id: Int
+}
+
+"""
+order by max() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_max_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate min on columns"""
+type pokemonformcondition_min_fields {
+  ability_id: Int
+  base_form_id: Int
+  form_trigger_id: Int
+  id: Int
+  item_id: Int
+  move_id: Int
+  pokemon_form_id: Int
+}
+
+"""
+order by min() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_min_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_pokemonformcondition".
+"""
+input pokemonformcondition_order_by {
+  ability: ability_order_by
+  ability_id: order_by
+  base_form: pokemonform_order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item: item_order_by
+  item_id: order_by
+  move: move_order_by
+  move_id: order_by
+  pokemon_form: pokemonform_order_by
+  pokemon_form_id: order_by
+  pokemonformtrigger: pokemonformtrigger_order_by
+}
+
+"""
+select columns of table "pokemon_v2_pokemonformcondition"
+"""
+enum pokemonformcondition_select_column {
+  """column name"""
+  ability_id
+  """column name"""
+  base_form_id
+  """column name"""
+  form_trigger_id
+  """column name"""
+  id
+  """column name"""
+  item_id
+  """column name"""
+  move_id
+  """column name"""
+  pokemon_form_id
+}
+
+"""aggregate stddev on columns"""
+type pokemonformcondition_stddev_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_stddev_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type pokemonformcondition_stddev_pop_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_stddev_pop_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type pokemonformcondition_stddev_samp_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_stddev_samp_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate sum on columns"""
+type pokemonformcondition_sum_fields {
+  ability_id: Int
+  base_form_id: Int
+  form_trigger_id: Int
+  id: Int
+  item_id: Int
+  move_id: Int
+  pokemon_form_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_sum_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type pokemonformcondition_var_pop_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_var_pop_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type pokemonformcondition_var_samp_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_var_samp_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""aggregate variance on columns"""
+type pokemonformcondition_variance_fields {
+  ability_id: Float
+  base_form_id: Float
+  form_trigger_id: Float
+  id: Float
+  item_id: Float
+  move_id: Float
+  pokemon_form_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_pokemonformcondition"
+"""
+input pokemonformcondition_variance_order_by {
+  ability_id: order_by
+  base_form_id: order_by
+  form_trigger_id: order_by
+  id: order_by
+  item_id: order_by
+  move_id: order_by
+  pokemon_form_id: order_by
+}
+
+"""
+columns and relationships of "pokemon_v2_pokemonformflavortext"
+"""
+type pokemonformflavortext {
+  flavor_text: String!
+  id: Int!
+  """An object relationship"""
+  language: language
+  language_id: Int
+  pokemon_form_id: Int
+  """An object relationship"""
+  pokemonform: pokemonform
+  """An object relationship"""
+  version: version
+  version_id: Int
+}
+
+"""
+aggregated selection of "pokemon_v2_pokemonformflavortext"
+"""
+type pokemonformflavortext_aggregate {
+  aggregate: pokemonformflavortext_aggregate_fields
+  nodes: [pokemonformflavortext!]!
+}
+
+input pokemonformflavortext_aggregate_bool_exp {
+  count: pokemonformflavortext_aggregate_bool_exp_count
+}
+
+input pokemonformflavortext_aggregate_bool_exp_count {
+  arguments: [pokemonformflavortext_select_column!]
+  distinct: Boolean
+  filter: pokemonformflavortext_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_pokemonformflavortext"
+"""
+type pokemonformflavortext_aggregate_fields {
+  avg: pokemonformflavortext_avg_fields
+  count(columns: [pokemonformflavortext_select_column!], distinct: Boolean): Int!
+  max: pokemonformflavortext_max_fields
+  min: pokemonformflavortext_min_fields
+  stddev: pokemonformflavortext_stddev_fields
+  stddev_pop: pokemonformflavortext_stddev_pop_fields
+  stddev_samp: pokemonformflavortext_stddev_samp_fields
+  sum: pokemonformflavortext_sum_fields
+  var_pop: pokemonformflavortext_var_pop_fields
+  var_samp: pokemonformflavortext_var_samp_fields
+  variance: pokemonformflavortext_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_aggregate_order_by {
+  avg: pokemonformflavortext_avg_order_by
+  count: order_by
+  max: pokemonformflavortext_max_order_by
+  min: pokemonformflavortext_min_order_by
+  stddev: pokemonformflavortext_stddev_order_by
+  stddev_pop: pokemonformflavortext_stddev_pop_order_by
+  stddev_samp: pokemonformflavortext_stddev_samp_order_by
+  sum: pokemonformflavortext_sum_order_by
+  var_pop: pokemonformflavortext_var_pop_order_by
+  var_samp: pokemonformflavortext_var_samp_order_by
+  variance: pokemonformflavortext_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type pokemonformflavortext_avg_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_avg_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_pokemonformflavortext". All fields are combined with a logical 'AND'.
+"""
+input pokemonformflavortext_bool_exp {
+  _and: [pokemonformflavortext_bool_exp!]
+  _not: pokemonformflavortext_bool_exp
+  _or: [pokemonformflavortext_bool_exp!]
+  flavor_text: String_comparison_exp
+  id: Int_comparison_exp
+  language: language_bool_exp
+  language_id: Int_comparison_exp
+  pokemon_form_id: Int_comparison_exp
+  pokemonform: pokemonform_bool_exp
+  version: version_bool_exp
+  version_id: Int_comparison_exp
+}
+
+"""aggregate max on columns"""
+type pokemonformflavortext_max_fields {
+  flavor_text: String
+  id: Int
+  language_id: Int
+  pokemon_form_id: Int
+  version_id: Int
+}
+
+"""
+order by max() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_max_order_by {
+  flavor_text: order_by
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate min on columns"""
+type pokemonformflavortext_min_fields {
+  flavor_text: String
+  id: Int
+  language_id: Int
+  pokemon_form_id: Int
+  version_id: Int
+}
+
+"""
+order by min() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_min_order_by {
+  flavor_text: order_by
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_pokemonformflavortext".
+"""
+input pokemonformflavortext_order_by {
+  flavor_text: order_by
+  id: order_by
+  language: language_order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  pokemonform: pokemonform_order_by
+  version: version_order_by
+  version_id: order_by
+}
+
+"""
+select columns of table "pokemon_v2_pokemonformflavortext"
+"""
+enum pokemonformflavortext_select_column {
+  """column name"""
+  flavor_text
+  """column name"""
+  id
+  """column name"""
+  language_id
+  """column name"""
+  pokemon_form_id
+  """column name"""
+  version_id
+}
+
+"""aggregate stddev on columns"""
+type pokemonformflavortext_stddev_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_stddev_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type pokemonformflavortext_stddev_pop_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_stddev_pop_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type pokemonformflavortext_stddev_samp_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_stddev_samp_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate sum on columns"""
+type pokemonformflavortext_sum_fields {
+  id: Int
+  language_id: Int
+  pokemon_form_id: Int
+  version_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_sum_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type pokemonformflavortext_var_pop_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_var_pop_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type pokemonformflavortext_var_samp_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_var_samp_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
+}
+
+"""aggregate variance on columns"""
+type pokemonformflavortext_variance_fields {
+  id: Float
+  language_id: Float
+  pokemon_form_id: Float
+  version_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_pokemonformflavortext"
+"""
+input pokemonformflavortext_variance_order_by {
+  id: order_by
+  language_id: order_by
+  pokemon_form_id: order_by
+  version_id: order_by
 }
 
 """
@@ -37147,6 +40405,149 @@ order by variance() on columns of table "pokemon_v2_pokemonformsprites"
 input pokemonformsprites_variance_order_by {
   id: order_by
   pokemon_form_id: order_by
+}
+
+"""
+columns and relationships of "pokemon_v2_pokemonformtrigger"
+"""
+type pokemonformtrigger {
+  id: Int!
+  name: String!
+  """An array relationship"""
+  pokemonformconditions(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """An aggregate relationship"""
+  pokemonformconditions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
+}
+
+"""
+aggregated selection of "pokemon_v2_pokemonformtrigger"
+"""
+type pokemonformtrigger_aggregate {
+  aggregate: pokemonformtrigger_aggregate_fields
+  nodes: [pokemonformtrigger!]!
+}
+
+"""
+aggregate fields of "pokemon_v2_pokemonformtrigger"
+"""
+type pokemonformtrigger_aggregate_fields {
+  avg: pokemonformtrigger_avg_fields
+  count(columns: [pokemonformtrigger_select_column!], distinct: Boolean): Int!
+  max: pokemonformtrigger_max_fields
+  min: pokemonformtrigger_min_fields
+  stddev: pokemonformtrigger_stddev_fields
+  stddev_pop: pokemonformtrigger_stddev_pop_fields
+  stddev_samp: pokemonformtrigger_stddev_samp_fields
+  sum: pokemonformtrigger_sum_fields
+  var_pop: pokemonformtrigger_var_pop_fields
+  var_samp: pokemonformtrigger_var_samp_fields
+  variance: pokemonformtrigger_variance_fields
+}
+
+"""aggregate avg on columns"""
+type pokemonformtrigger_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_pokemonformtrigger". All fields are combined with a logical 'AND'.
+"""
+input pokemonformtrigger_bool_exp {
+  _and: [pokemonformtrigger_bool_exp!]
+  _not: pokemonformtrigger_bool_exp
+  _or: [pokemonformtrigger_bool_exp!]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+  pokemonformconditions: pokemonformcondition_bool_exp
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_bool_exp
+}
+
+"""aggregate max on columns"""
+type pokemonformtrigger_max_fields {
+  id: Int
+  name: String
+}
+
+"""aggregate min on columns"""
+type pokemonformtrigger_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_pokemonformtrigger".
+"""
+input pokemonformtrigger_order_by {
+  id: order_by
+  name: order_by
+  pokemonformconditions_aggregate: pokemonformcondition_aggregate_order_by
+}
+
+"""
+select columns of table "pokemon_v2_pokemonformtrigger"
+"""
+enum pokemonformtrigger_select_column {
+  """column name"""
+  id
+  """column name"""
+  name
+}
+
+"""aggregate stddev on columns"""
+type pokemonformtrigger_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type pokemonformtrigger_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type pokemonformtrigger_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type pokemonformtrigger_sum_fields {
+  id: Int
+}
+
+"""aggregate var_pop on columns"""
+type pokemonformtrigger_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type pokemonformtrigger_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type pokemonformtrigger_variance_fields {
+  id: Float
 }
 
 """
@@ -41665,6 +45066,348 @@ input pokemonstat_variance_order_by {
 }
 
 """
+columns and relationships of "pokemon_v2_pokemonstatpast"
+"""
+type pokemonstatpast {
+  base_stat: Int!
+  effort: Int!
+  """An object relationship"""
+  generation: generation
+  generation_id: Int
+  id: Int!
+  """An object relationship"""
+  pokemon: pokemon
+  pokemon_id: Int
+  """An object relationship"""
+  stat: stat
+  stat_id: Int
+}
+
+"""
+aggregated selection of "pokemon_v2_pokemonstatpast"
+"""
+type pokemonstatpast_aggregate {
+  aggregate: pokemonstatpast_aggregate_fields
+  nodes: [pokemonstatpast!]!
+}
+
+input pokemonstatpast_aggregate_bool_exp {
+  count: pokemonstatpast_aggregate_bool_exp_count
+}
+
+input pokemonstatpast_aggregate_bool_exp_count {
+  arguments: [pokemonstatpast_select_column!]
+  distinct: Boolean
+  filter: pokemonstatpast_bool_exp
+  predicate: Int_comparison_exp!
+}
+
+"""
+aggregate fields of "pokemon_v2_pokemonstatpast"
+"""
+type pokemonstatpast_aggregate_fields {
+  avg: pokemonstatpast_avg_fields
+  count(columns: [pokemonstatpast_select_column!], distinct: Boolean): Int!
+  max: pokemonstatpast_max_fields
+  min: pokemonstatpast_min_fields
+  stddev: pokemonstatpast_stddev_fields
+  stddev_pop: pokemonstatpast_stddev_pop_fields
+  stddev_samp: pokemonstatpast_stddev_samp_fields
+  sum: pokemonstatpast_sum_fields
+  var_pop: pokemonstatpast_var_pop_fields
+  var_samp: pokemonstatpast_var_samp_fields
+  variance: pokemonstatpast_variance_fields
+}
+
+"""
+order by aggregate values of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_aggregate_order_by {
+  avg: pokemonstatpast_avg_order_by
+  count: order_by
+  max: pokemonstatpast_max_order_by
+  min: pokemonstatpast_min_order_by
+  stddev: pokemonstatpast_stddev_order_by
+  stddev_pop: pokemonstatpast_stddev_pop_order_by
+  stddev_samp: pokemonstatpast_stddev_samp_order_by
+  sum: pokemonstatpast_sum_order_by
+  var_pop: pokemonstatpast_var_pop_order_by
+  var_samp: pokemonstatpast_var_samp_order_by
+  variance: pokemonstatpast_variance_order_by
+}
+
+"""aggregate avg on columns"""
+type pokemonstatpast_avg_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by avg() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_avg_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "pokemon_v2_pokemonstatpast". All fields are combined with a logical 'AND'.
+"""
+input pokemonstatpast_bool_exp {
+  _and: [pokemonstatpast_bool_exp!]
+  _not: pokemonstatpast_bool_exp
+  _or: [pokemonstatpast_bool_exp!]
+  base_stat: Int_comparison_exp
+  effort: Int_comparison_exp
+  generation: generation_bool_exp
+  generation_id: Int_comparison_exp
+  id: Int_comparison_exp
+  pokemon: pokemon_bool_exp
+  pokemon_id: Int_comparison_exp
+  stat: stat_bool_exp
+  stat_id: Int_comparison_exp
+}
+
+"""aggregate max on columns"""
+type pokemonstatpast_max_fields {
+  base_stat: Int
+  effort: Int
+  generation_id: Int
+  id: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+"""
+order by max() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_max_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate min on columns"""
+type pokemonstatpast_min_fields {
+  base_stat: Int
+  effort: Int
+  generation_id: Int
+  id: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+"""
+order by min() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_min_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""
+Ordering options when selecting data from "pokemon_v2_pokemonstatpast".
+"""
+input pokemonstatpast_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation: generation_order_by
+  generation_id: order_by
+  id: order_by
+  pokemon: pokemon_order_by
+  pokemon_id: order_by
+  stat: stat_order_by
+  stat_id: order_by
+}
+
+"""
+select columns of table "pokemon_v2_pokemonstatpast"
+"""
+enum pokemonstatpast_select_column {
+  """column name"""
+  base_stat
+  """column name"""
+  effort
+  """column name"""
+  generation_id
+  """column name"""
+  id
+  """column name"""
+  pokemon_id
+  """column name"""
+  stat_id
+}
+
+"""aggregate stddev on columns"""
+type pokemonstatpast_stddev_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by stddev() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_stddev_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type pokemonstatpast_stddev_pop_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_stddev_pop_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type pokemonstatpast_stddev_samp_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_stddev_samp_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate sum on columns"""
+type pokemonstatpast_sum_fields {
+  base_stat: Int
+  effort: Int
+  generation_id: Int
+  id: Int
+  pokemon_id: Int
+  stat_id: Int
+}
+
+"""
+order by sum() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_sum_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate var_pop on columns"""
+type pokemonstatpast_var_pop_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by var_pop() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_var_pop_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type pokemonstatpast_var_samp_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by var_samp() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_var_samp_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""aggregate variance on columns"""
+type pokemonstatpast_variance_fields {
+  base_stat: Float
+  effort: Float
+  generation_id: Float
+  id: Float
+  pokemon_id: Float
+  stat_id: Float
+}
+
+"""
+order by variance() on columns of table "pokemon_v2_pokemonstatpast"
+"""
+input pokemonstatpast_variance_order_by {
+  base_stat: order_by
+  effort: order_by
+  generation_id: order_by
+  id: order_by
+  pokemon_id: order_by
+  stat_id: order_by
+}
+
+"""
 columns and relationships of "pokemon_v2_pokemontype"
 """
 type pokemontype {
@@ -42869,6 +46612,66 @@ type query_root {
     where: contesttypename_bool_exp
   ): contesttypename_aggregate!
   """
+  fetch data from the table: "pokemon_v2_currency"
+  """
+  currency(
+    """distinct select on columns"""
+    distinct_on: [currency_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currency_order_by!]
+    """filter the rows returned"""
+    where: currency_bool_exp
+  ): [currency!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_currency"
+  """
+  currency_aggregate(
+    """distinct select on columns"""
+    distinct_on: [currency_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currency_order_by!]
+    """filter the rows returned"""
+    where: currency_bool_exp
+  ): currency_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_currencyname"
+  """
+  currencyname(
+    """distinct select on columns"""
+    distinct_on: [currencyname_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currencyname_order_by!]
+    """filter the rows returned"""
+    where: currencyname_bool_exp
+  ): [currencyname!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_currencyname"
+  """
+  currencyname_aggregate(
+    """distinct select on columns"""
+    distinct_on: [currencyname_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [currencyname_order_by!]
+    """filter the rows returned"""
+    where: currencyname_bool_exp
+  ): currencyname_aggregate!
+  """
   fetch data from the table: "pokemon_v2_egggroup"
   """
   egggroup(
@@ -43288,6 +47091,96 @@ type query_root {
     """filter the rows returned"""
     where: evolutiontriggername_bool_exp
   ): evolutiontriggername_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_evolutionvariable"
+  """
+  evolutionvariable(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariable_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariable_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariable_bool_exp
+  ): [evolutionvariable!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_evolutionvariable"
+  """
+  evolutionvariable_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariable_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariable_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariable_bool_exp
+  ): evolutionvariable_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_evolutionvariabledescription"
+  """
+  evolutionvariabledescription(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariabledescription_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariabledescription_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariabledescription_bool_exp
+  ): [evolutionvariabledescription!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_evolutionvariabledescription"
+  """
+  evolutionvariabledescription_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariabledescription_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariabledescription_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariabledescription_bool_exp
+  ): evolutionvariabledescription_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_evolutionvariablename"
+  """
+  evolutionvariablename(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariablename_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariablename_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariablename_bool_exp
+  ): [evolutionvariablename!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_evolutionvariablename"
+  """
+  evolutionvariablename_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariablename_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariablename_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariablename_bool_exp
+  ): evolutionvariablename_aggregate!
   """
   fetch data from the table: "pokemon_v2_experience"
   """
@@ -43918,6 +47811,40 @@ type query_root {
     """filter the rows returned"""
     where: itempocketname_bool_exp
   ): itempocketname_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_itemprice"
+  """
+  itemprice(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): [itemprice!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_itemprice"
+  """
+  itemprice_aggregate(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): itemprice_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_itemprice" using primary key columns
+  """
+  itemprice_by_pk(id: Int!): itemprice
   """An array relationship"""
   itemsprites(
     """distinct select on columns"""
@@ -45767,6 +49694,66 @@ type query_root {
     where: pokemonform_bool_exp
   ): pokemonform_aggregate!
   """
+  fetch data from the table: "pokemon_v2_pokemonformcondition"
+  """
+  pokemonformcondition(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): [pokemonformcondition!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_pokemonformcondition"
+  """
+  pokemonformcondition_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformcondition_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformcondition_order_by!]
+    """filter the rows returned"""
+    where: pokemonformcondition_bool_exp
+  ): pokemonformcondition_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_pokemonformflavortext"
+  """
+  pokemonformflavortext(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): [pokemonformflavortext!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_pokemonformflavortext"
+  """
+  pokemonformflavortext_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): pokemonformflavortext_aggregate!
+  """
   fetch data from the table: "pokemon_v2_pokemonformgeneration"
   """
   pokemonformgeneration(
@@ -45852,6 +49839,36 @@ type query_root {
     """filter the rows returned"""
     where: pokemonformsprites_bool_exp
   ): pokemonformsprites_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_pokemonformtrigger"
+  """
+  pokemonformtrigger(
+    """distinct select on columns"""
+    distinct_on: [pokemonformtrigger_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformtrigger_order_by!]
+    """filter the rows returned"""
+    where: pokemonformtrigger_bool_exp
+  ): [pokemonformtrigger!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_pokemonformtrigger"
+  """
+  pokemonformtrigger_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformtrigger_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformtrigger_order_by!]
+    """filter the rows returned"""
+    where: pokemonformtrigger_bool_exp
+  ): pokemonformtrigger_aggregate!
   """
   fetch data from the table: "pokemon_v2_pokemonformtype"
   """
@@ -46264,6 +50281,36 @@ type query_root {
     """filter the rows returned"""
     where: pokemonstat_bool_exp
   ): pokemonstat_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_pokemonstatpast"
+  """
+  pokemonstatpast(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): [pokemonstatpast!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_pokemonstatpast"
+  """
+  pokemonstatpast_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): pokemonstatpast_aggregate!
   """
   fetch data from the table: "pokemon_v2_pokemontype"
   """
@@ -46923,6 +50970,32 @@ type region {
     where: pokedex_bool_exp
   ): pokedex_aggregate!
   """An array relationship"""
+  pokemonevolutions(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): [pokemonevolution!]!
+  """An aggregate relationship"""
+  pokemonevolutions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): pokemonevolution_aggregate!
+  """An array relationship"""
   regionnames(
     """distinct select on columns"""
     distinct_on: [regionname_select_column!]
@@ -47022,6 +51095,8 @@ input region_bool_exp {
   name: String_comparison_exp
   pokedexes: pokedex_bool_exp
   pokedexes_aggregate: pokedex_aggregate_bool_exp
+  pokemonevolutions: pokemonevolution_bool_exp
+  pokemonevolutions_aggregate: pokemonevolution_aggregate_bool_exp
   regionnames: regionname_bool_exp
   regionnames_aggregate: regionname_aggregate_bool_exp
   versiongroupregions: versiongroupregion_bool_exp
@@ -47048,6 +51123,7 @@ input region_order_by {
   locations_aggregate: location_aggregate_order_by
   name: order_by
   pokedexes_aggregate: pokedex_aggregate_order_by
+  pokemonevolutions_aggregate: pokemonevolution_aggregate_order_by
   regionnames_aggregate: regionname_aggregate_order_by
   versiongroupregions_aggregate: versiongroupregion_aggregate_order_by
 }
@@ -47483,6 +51559,32 @@ type stat {
     where: nature_bool_exp
   ): nature_aggregate!
   """An array relationship"""
+  pokemonstatpasts(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): [pokemonstatpast!]!
+  """An aggregate relationship"""
+  pokemonstatpasts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonstatpast_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonstatpast_order_by!]
+    """filter the rows returned"""
+    where: pokemonstatpast_bool_exp
+  ): pokemonstatpast_aggregate!
+  """An array relationship"""
   pokemonstats(
     """distinct select on columns"""
     distinct_on: [pokemonstat_select_column!]
@@ -47642,6 +51744,8 @@ input stat_bool_exp {
   name: String_comparison_exp
   natures: nature_bool_exp
   natures_aggregate: nature_aggregate_bool_exp
+  pokemonstatpasts: pokemonstatpast_bool_exp
+  pokemonstatpasts_aggregate: pokemonstatpast_aggregate_bool_exp
   pokemonstats: pokemonstat_bool_exp
   pokemonstats_aggregate: pokemonstat_aggregate_bool_exp
   statnames: statname_bool_exp
@@ -47696,6 +51800,7 @@ input stat_order_by {
   movemetastatchanges_aggregate: movemetastatchange_aggregate_order_by
   name: order_by
   natures_aggregate: nature_aggregate_order_by
+  pokemonstatpasts_aggregate: pokemonstatpast_aggregate_order_by
   pokemonstats_aggregate: pokemonstat_aggregate_order_by
   statnames_aggregate: statname_aggregate_order_by
 }
@@ -48112,6 +52217,54 @@ input statname_variance_order_by {
   id: order_by
   language_id: order_by
   stat_id: order_by
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "pokemon_v2_itemprice"
+  """
+  itemprice(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): [itemprice!]!
+  """
+  fetch aggregated fields from the table: "pokemon_v2_itemprice"
+  """
+  itemprice_aggregate(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): itemprice_aggregate!
+  """
+  fetch data from the table: "pokemon_v2_itemprice" using primary key columns
+  """
+  itemprice_by_pk(id: Int!): itemprice
+  """
+  fetch data from the table in a streaming manner: "pokemon_v2_itemprice"
+  """
+  itemprice_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+    """cursor to stream the results returned by the query"""
+    cursor: [itemprice_stream_cursor_input]!
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): [itemprice!]!
 }
 
 """
@@ -50723,6 +54876,32 @@ type version {
   ): locationareaencounterrate_aggregate!
   name: String!
   """An array relationship"""
+  pokemonformflavortexts(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): [pokemonformflavortext!]!
+  """An aggregate relationship"""
+  pokemonformflavortexts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonformflavortext_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonformflavortext_order_by!]
+    """filter the rows returned"""
+    where: pokemonformflavortext_bool_exp
+  ): pokemonformflavortext_aggregate!
+  """An array relationship"""
   pokemongameindices(
     """distinct select on columns"""
     distinct_on: [pokemongameindex_select_column!]
@@ -50911,6 +55090,8 @@ input version_bool_exp {
   locationareaencounterrates: locationareaencounterrate_bool_exp
   locationareaencounterrates_aggregate: locationareaencounterrate_aggregate_bool_exp
   name: String_comparison_exp
+  pokemonformflavortexts: pokemonformflavortext_bool_exp
+  pokemonformflavortexts_aggregate: pokemonformflavortext_aggregate_bool_exp
   pokemongameindices: pokemongameindex_bool_exp
   pokemongameindices_aggregate: pokemongameindex_aggregate_bool_exp
   pokemonitems: pokemonitem_bool_exp
@@ -50961,6 +55142,7 @@ input version_order_by {
   id: order_by
   locationareaencounterrates_aggregate: locationareaencounterrate_aggregate_order_by
   name: order_by
+  pokemonformflavortexts_aggregate: pokemonformflavortext_aggregate_order_by
   pokemongameindices_aggregate: pokemongameindex_aggregate_order_by
   pokemonitems_aggregate: pokemonitem_aggregate_order_by
   pokemonspeciesflavortexts_aggregate: pokemonspeciesflavortext_aggregate_order_by
@@ -51161,6 +55343,32 @@ type versiongroup {
     """filter the rows returned"""
     where: encounterslot_bool_exp
   ): encounterslot_aggregate!
+  """An array relationship"""
+  evolutionvariables(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariable_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariable_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariable_bool_exp
+  ): [evolutionvariable!]!
+  """An aggregate relationship"""
+  evolutionvariables_aggregate(
+    """distinct select on columns"""
+    distinct_on: [evolutionvariable_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [evolutionvariable_order_by!]
+    """filter the rows returned"""
+    where: evolutionvariable_bool_exp
+  ): evolutionvariable_aggregate!
   """An object relationship"""
   generation: generation
   generation_id: Int
@@ -51191,6 +55399,32 @@ type versiongroup {
     """filter the rows returned"""
     where: itemflavortext_bool_exp
   ): itemflavortext_aggregate!
+  """An array relationship"""
+  itemprices(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): [itemprice!]!
+  """An aggregate relationship"""
+  itemprices_aggregate(
+    """distinct select on columns"""
+    distinct_on: [itemprice_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [itemprice_order_by!]
+    """filter the rows returned"""
+    where: itemprice_bool_exp
+  ): itemprice_aggregate!
   """An array relationship"""
   machines(
     """distinct select on columns"""
@@ -51323,6 +55557,32 @@ type versiongroup {
     """filter the rows returned"""
     where: pokedexversiongroup_bool_exp
   ): pokedexversiongroup_aggregate!
+  """An array relationship"""
+  pokemonevolutions(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): [pokemonevolution!]!
+  """An aggregate relationship"""
+  pokemonevolutions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [pokemonevolution_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [pokemonevolution_order_by!]
+    """filter the rows returned"""
+    where: pokemonevolution_bool_exp
+  ): pokemonevolution_aggregate!
   """An array relationship"""
   pokemonforms(
     """distinct select on columns"""
@@ -51537,11 +55797,15 @@ input versiongroup_bool_exp {
   abilityflavortexts_aggregate: abilityflavortext_aggregate_bool_exp
   encounterslots: encounterslot_bool_exp
   encounterslots_aggregate: encounterslot_aggregate_bool_exp
+  evolutionvariables: evolutionvariable_bool_exp
+  evolutionvariables_aggregate: evolutionvariable_aggregate_bool_exp
   generation: generation_bool_exp
   generation_id: Int_comparison_exp
   id: Int_comparison_exp
   itemflavortexts: itemflavortext_bool_exp
   itemflavortexts_aggregate: itemflavortext_aggregate_bool_exp
+  itemprices: itemprice_bool_exp
+  itemprices_aggregate: itemprice_aggregate_bool_exp
   machines: machine_bool_exp
   machines_aggregate: machine_aggregate_bool_exp
   movechanges: movechange_bool_exp
@@ -51554,6 +55818,8 @@ input versiongroup_bool_exp {
   order: Int_comparison_exp
   pokedexversiongroups: pokedexversiongroup_bool_exp
   pokedexversiongroups_aggregate: pokedexversiongroup_aggregate_bool_exp
+  pokemonevolutions: pokemonevolution_bool_exp
+  pokemonevolutions_aggregate: pokemonevolution_aggregate_bool_exp
   pokemonforms: pokemonform_bool_exp
   pokemonforms_aggregate: pokemonform_aggregate_bool_exp
   pokemonmoves: pokemonmove_bool_exp
@@ -51607,10 +55873,12 @@ input versiongroup_order_by {
   abilitychanges_aggregate: abilitychange_aggregate_order_by
   abilityflavortexts_aggregate: abilityflavortext_aggregate_order_by
   encounterslots_aggregate: encounterslot_aggregate_order_by
+  evolutionvariables_aggregate: evolutionvariable_aggregate_order_by
   generation: generation_order_by
   generation_id: order_by
   id: order_by
   itemflavortexts_aggregate: itemflavortext_aggregate_order_by
+  itemprices_aggregate: itemprice_aggregate_order_by
   machines_aggregate: machine_aggregate_order_by
   movechanges_aggregate: movechange_aggregate_order_by
   moveeffectchanges_aggregate: moveeffectchange_aggregate_order_by
@@ -51618,6 +55886,7 @@ input versiongroup_order_by {
   name: order_by
   order: order_by
   pokedexversiongroups_aggregate: pokedexversiongroup_aggregate_order_by
+  pokemonevolutions_aggregate: pokemonevolution_aggregate_order_by
   pokemonforms_aggregate: pokemonform_aggregate_order_by
   pokemonmoves_aggregate: pokemonmove_aggregate_order_by
   versiongroupmovelearnmethods_aggregate: versiongroupmovelearnmethod_aggregate_order_by

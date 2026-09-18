@@ -173,10 +173,12 @@ Each phase gets its own implementation plan.
 1. SvelteKit skeleton. Scaffold, biome, vitest, adapter-netlify, the GraphQL
    codegen setup, the design system wired into the root layout, and a working
    build. No features yet.
-2. UI design and build. Not a port. The existing 68 shadcn components are
-   discarded. A Fable subagent owns the visual design and delivers a
-   researched design system in plain CSS, reviewed as a static style guide
-   before anything is built in Svelte.
+2. UI build. Not a port; the 68 shadcn components are discarded. The design
+   itself is done: a Fable subagent researched and delivered the Game Boy Color
+   design system in plain CSS, reviewed as a static style guide. What remains is
+   the Svelte component library that consumes it, the six screens on fixtures,
+   and deck plus keyboard navigation. Plan:
+   docs/superpowers/plans/2026-09-18-phase-2-component-library.md
 3. Feature port. Pokémon search, detail, dashboard and favorites, with
    @tanstack/svelte-query replacing the React Query setup.
 4. Database and auth. Netlify Database, Better Auth, magic link, email, demo

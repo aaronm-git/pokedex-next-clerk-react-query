@@ -1,7 +1,10 @@
 <script lang="ts">
+import GameBoy from "$lib/components/device/GameBoy.svelte";
 import "$styles/index.css";
 
-const { children } = $props();
+let { children } = $props();
 </script>
 
-{@render children()}
+<GameBoy>
+  {@render children()}
+</GameBoy>

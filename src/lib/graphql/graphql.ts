@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  float8: { input: any; output: any; }
   jsonb: { input: any; output: any; }
 };
 
@@ -109,6 +110,10 @@ export type Ability = {
   pokemonabilitypasts: Array<Pokemonabilitypast>;
   /** An aggregate relationship */
   pokemonabilitypasts_aggregate: Pokemonabilitypast_Aggregate;
+  /** An array relationship */
+  pokemonformconditions: Array<Pokemonformcondition>;
+  /** An aggregate relationship */
+  pokemonformconditions_aggregate: Pokemonformcondition_Aggregate;
 };
 
 
@@ -231,6 +236,26 @@ export type AbilityPokemonabilitypasts_AggregateArgs = {
   where?: InputMaybe<Pokemonabilitypast_Bool_Exp>;
 };
 
+
+/** columns and relationships of "pokemon_v2_ability" */
+export type AbilityPokemonformconditionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_ability" */
+export type AbilityPokemonformconditions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
 /** aggregated selection of "pokemon_v2_ability" */
 export type Ability_Aggregate = {
   __typename?: 'ability_aggregate';
@@ -338,6 +363,8 @@ export type Ability_Bool_Exp = {
   pokemonabilities_aggregate?: InputMaybe<Pokemonability_Aggregate_Bool_Exp>;
   pokemonabilitypasts?: InputMaybe<Pokemonabilitypast_Bool_Exp>;
   pokemonabilitypasts_aggregate?: InputMaybe<Pokemonabilitypast_Aggregate_Bool_Exp>;
+  pokemonformconditions?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp>;
 };
 
 /** aggregate max on columns */
@@ -383,6 +410,7 @@ export type Ability_Order_By = {
   name?: InputMaybe<Order_By>;
   pokemonabilities_aggregate?: InputMaybe<Pokemonability_Aggregate_Order_By>;
   pokemonabilitypasts_aggregate?: InputMaybe<Pokemonabilitypast_Aggregate_Order_By>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Order_By>;
 };
 
 /** select columns of table "pokemon_v2_ability" */
@@ -1856,18 +1884,18 @@ export type Berry = {
   berryflavormaps: Array<Berryflavormap>;
   /** An aggregate relationship */
   berryflavormaps_aggregate: Berryflavormap_Aggregate;
-  growth_time: Scalars['Int']['output'];
+  growth_time?: Maybe<Scalars['Int']['output']>;
   id: Scalars['Int']['output'];
   /** An object relationship */
   item?: Maybe<Item>;
   item_id?: Maybe<Scalars['Int']['output']>;
-  max_harvest: Scalars['Int']['output'];
+  max_harvest?: Maybe<Scalars['Int']['output']>;
   name: Scalars['String']['output'];
-  natural_gift_power: Scalars['Int']['output'];
+  natural_gift_power?: Maybe<Scalars['Int']['output']>;
   natural_gift_type_id?: Maybe<Scalars['Int']['output']>;
-  size: Scalars['Int']['output'];
-  smoothness: Scalars['Int']['output'];
-  soil_dryness: Scalars['Int']['output'];
+  size?: Maybe<Scalars['Int']['output']>;
+  smoothness?: Maybe<Scalars['Int']['output']>;
+  soil_dryness?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
   type?: Maybe<Type>;
 };
@@ -5617,6 +5645,448 @@ export type Contesttypename_Variance_Order_By = {
   language_id?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "pokemon_v2_currency" */
+export type Currency = {
+  __typename?: 'currency';
+  /** An array relationship */
+  currencynames: Array<Currencyname>;
+  /** An aggregate relationship */
+  currencynames_aggregate: Currencyname_Aggregate;
+  id: Scalars['Int']['output'];
+  /** An array relationship */
+  itemprices: Array<Itemprice>;
+  /** An aggregate relationship */
+  itemprices_aggregate: Itemprice_Aggregate;
+  name: Scalars['String']['output'];
+};
+
+
+/** columns and relationships of "pokemon_v2_currency" */
+export type CurrencyCurrencynamesArgs = {
+  distinct_on?: InputMaybe<Array<Currencyname_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currencyname_Order_By>>;
+  where?: InputMaybe<Currencyname_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_currency" */
+export type CurrencyCurrencynames_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Currencyname_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currencyname_Order_By>>;
+  where?: InputMaybe<Currencyname_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_currency" */
+export type CurrencyItempricesArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_currency" */
+export type CurrencyItemprices_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+/** aggregated selection of "pokemon_v2_currency" */
+export type Currency_Aggregate = {
+  __typename?: 'currency_aggregate';
+  aggregate?: Maybe<Currency_Aggregate_Fields>;
+  nodes: Array<Currency>;
+};
+
+/** aggregate fields of "pokemon_v2_currency" */
+export type Currency_Aggregate_Fields = {
+  __typename?: 'currency_aggregate_fields';
+  avg?: Maybe<Currency_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Currency_Max_Fields>;
+  min?: Maybe<Currency_Min_Fields>;
+  stddev?: Maybe<Currency_Stddev_Fields>;
+  stddev_pop?: Maybe<Currency_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Currency_Stddev_Samp_Fields>;
+  sum?: Maybe<Currency_Sum_Fields>;
+  var_pop?: Maybe<Currency_Var_Pop_Fields>;
+  var_samp?: Maybe<Currency_Var_Samp_Fields>;
+  variance?: Maybe<Currency_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_currency" */
+export type Currency_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Currency_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Currency_Avg_Fields = {
+  __typename?: 'currency_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_currency". All fields are combined with a logical 'AND'. */
+export type Currency_Bool_Exp = {
+  _and?: InputMaybe<Array<Currency_Bool_Exp>>;
+  _not?: InputMaybe<Currency_Bool_Exp>;
+  _or?: InputMaybe<Array<Currency_Bool_Exp>>;
+  currencynames?: InputMaybe<Currencyname_Bool_Exp>;
+  currencynames_aggregate?: InputMaybe<Currencyname_Aggregate_Bool_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  itemprices?: InputMaybe<Itemprice_Bool_Exp>;
+  itemprices_aggregate?: InputMaybe<Itemprice_Aggregate_Bool_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Currency_Max_Fields = {
+  __typename?: 'currency_max_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Currency_Min_Fields = {
+  __typename?: 'currency_min_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_currency". */
+export type Currency_Order_By = {
+  currencynames_aggregate?: InputMaybe<Currencyname_Aggregate_Order_By>;
+  id?: InputMaybe<Order_By>;
+  itemprices_aggregate?: InputMaybe<Itemprice_Aggregate_Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pokemon_v2_currency" */
+export enum Currency_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** aggregate stddev on columns */
+export type Currency_Stddev_Fields = {
+  __typename?: 'currency_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Currency_Stddev_Pop_Fields = {
+  __typename?: 'currency_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Currency_Stddev_Samp_Fields = {
+  __typename?: 'currency_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate sum on columns */
+export type Currency_Sum_Fields = {
+  __typename?: 'currency_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Currency_Var_Pop_Fields = {
+  __typename?: 'currency_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Currency_Var_Samp_Fields = {
+  __typename?: 'currency_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Currency_Variance_Fields = {
+  __typename?: 'currency_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** columns and relationships of "pokemon_v2_currencyname" */
+export type Currencyname = {
+  __typename?: 'currencyname';
+  /** An object relationship */
+  currency?: Maybe<Currency>;
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  language?: Maybe<Language>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  name: Scalars['String']['output'];
+};
+
+/** aggregated selection of "pokemon_v2_currencyname" */
+export type Currencyname_Aggregate = {
+  __typename?: 'currencyname_aggregate';
+  aggregate?: Maybe<Currencyname_Aggregate_Fields>;
+  nodes: Array<Currencyname>;
+};
+
+export type Currencyname_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Currencyname_Aggregate_Bool_Exp_Count>;
+};
+
+export type Currencyname_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Currencyname_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Currencyname_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_currencyname" */
+export type Currencyname_Aggregate_Fields = {
+  __typename?: 'currencyname_aggregate_fields';
+  avg?: Maybe<Currencyname_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Currencyname_Max_Fields>;
+  min?: Maybe<Currencyname_Min_Fields>;
+  stddev?: Maybe<Currencyname_Stddev_Fields>;
+  stddev_pop?: Maybe<Currencyname_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Currencyname_Stddev_Samp_Fields>;
+  sum?: Maybe<Currencyname_Sum_Fields>;
+  var_pop?: Maybe<Currencyname_Var_Pop_Fields>;
+  var_samp?: Maybe<Currencyname_Var_Samp_Fields>;
+  variance?: Maybe<Currencyname_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_currencyname" */
+export type Currencyname_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Currencyname_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_currencyname" */
+export type Currencyname_Aggregate_Order_By = {
+  avg?: InputMaybe<Currencyname_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Currencyname_Max_Order_By>;
+  min?: InputMaybe<Currencyname_Min_Order_By>;
+  stddev?: InputMaybe<Currencyname_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Currencyname_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Currencyname_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Currencyname_Sum_Order_By>;
+  var_pop?: InputMaybe<Currencyname_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Currencyname_Var_Samp_Order_By>;
+  variance?: InputMaybe<Currencyname_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Currencyname_Avg_Fields = {
+  __typename?: 'currencyname_avg_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Avg_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_currencyname". All fields are combined with a logical 'AND'. */
+export type Currencyname_Bool_Exp = {
+  _and?: InputMaybe<Array<Currencyname_Bool_Exp>>;
+  _not?: InputMaybe<Currencyname_Bool_Exp>;
+  _or?: InputMaybe<Array<Currencyname_Bool_Exp>>;
+  currency?: InputMaybe<Currency_Bool_Exp>;
+  currency_id?: InputMaybe<Int_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  language?: InputMaybe<Language_Bool_Exp>;
+  language_id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Currencyname_Max_Fields = {
+  __typename?: 'currencyname_max_fields';
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Max_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Currencyname_Min_Fields = {
+  __typename?: 'currencyname_min_fields';
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Min_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_currencyname". */
+export type Currencyname_Order_By = {
+  currency?: InputMaybe<Currency_Order_By>;
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language?: InputMaybe<Language_Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pokemon_v2_currencyname" */
+export enum Currencyname_Select_Column {
+  /** column name */
+  CurrencyId = 'currency_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LanguageId = 'language_id',
+  /** column name */
+  Name = 'name'
+}
+
+/** aggregate stddev on columns */
+export type Currencyname_Stddev_Fields = {
+  __typename?: 'currencyname_stddev_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Stddev_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Currencyname_Stddev_Pop_Fields = {
+  __typename?: 'currencyname_stddev_pop_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Stddev_Pop_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Currencyname_Stddev_Samp_Fields = {
+  __typename?: 'currencyname_stddev_samp_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Stddev_Samp_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Currencyname_Sum_Fields = {
+  __typename?: 'currencyname_sum_fields';
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Sum_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Currencyname_Var_Pop_Fields = {
+  __typename?: 'currencyname_var_pop_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Var_Pop_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Currencyname_Var_Samp_Fields = {
+  __typename?: 'currencyname_var_samp_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Var_Samp_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Currencyname_Variance_Fields = {
+  __typename?: 'currencyname_variance_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_currencyname" */
+export type Currencyname_Variance_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** ordering argument of a cursor */
+export enum Cursor_Ordering {
+  /** ascending ordering of the cursor */
+  Asc = 'ASC',
+  /** descending ordering of the cursor */
+  Desc = 'DESC'
+}
+
 /** columns and relationships of "pokemon_v2_egggroup" */
 export type Egggroup = {
   __typename?: 'egggroup';
@@ -9175,6 +9645,823 @@ export type Evolutiontriggername_Variance_Order_By = {
   language_id?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable = {
+  __typename?: 'evolutionvariable';
+  data_type: Scalars['String']['output'];
+  /** An array relationship */
+  evolutionvariabledescriptions: Array<Evolutionvariabledescription>;
+  /** An aggregate relationship */
+  evolutionvariabledescriptions_aggregate: Evolutionvariabledescription_Aggregate;
+  /** An array relationship */
+  evolutionvariablenames: Array<Evolutionvariablename>;
+  /** An aggregate relationship */
+  evolutionvariablenames_aggregate: Evolutionvariablename_Aggregate;
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  symbol: Scalars['String']['output'];
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  versiongroup?: Maybe<Versiongroup>;
+};
+
+
+/** columns and relationships of "pokemon_v2_evolutionvariable" */
+export type EvolutionvariableEvolutionvariabledescriptionsArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariabledescription_Order_By>>;
+  where?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_evolutionvariable" */
+export type EvolutionvariableEvolutionvariabledescriptions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariabledescription_Order_By>>;
+  where?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_evolutionvariable" */
+export type EvolutionvariableEvolutionvariablenamesArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariablename_Order_By>>;
+  where?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_evolutionvariable" */
+export type EvolutionvariableEvolutionvariablenames_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariablename_Order_By>>;
+  where?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+};
+
+/** aggregated selection of "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Aggregate = {
+  __typename?: 'evolutionvariable_aggregate';
+  aggregate?: Maybe<Evolutionvariable_Aggregate_Fields>;
+  nodes: Array<Evolutionvariable>;
+};
+
+export type Evolutionvariable_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Evolutionvariable_Aggregate_Bool_Exp_Count>;
+};
+
+export type Evolutionvariable_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Evolutionvariable_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Evolutionvariable_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Aggregate_Fields = {
+  __typename?: 'evolutionvariable_aggregate_fields';
+  avg?: Maybe<Evolutionvariable_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Evolutionvariable_Max_Fields>;
+  min?: Maybe<Evolutionvariable_Min_Fields>;
+  stddev?: Maybe<Evolutionvariable_Stddev_Fields>;
+  stddev_pop?: Maybe<Evolutionvariable_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Evolutionvariable_Stddev_Samp_Fields>;
+  sum?: Maybe<Evolutionvariable_Sum_Fields>;
+  var_pop?: Maybe<Evolutionvariable_Var_Pop_Fields>;
+  var_samp?: Maybe<Evolutionvariable_Var_Samp_Fields>;
+  variance?: Maybe<Evolutionvariable_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Evolutionvariable_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Aggregate_Order_By = {
+  avg?: InputMaybe<Evolutionvariable_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Evolutionvariable_Max_Order_By>;
+  min?: InputMaybe<Evolutionvariable_Min_Order_By>;
+  stddev?: InputMaybe<Evolutionvariable_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Evolutionvariable_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Evolutionvariable_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Evolutionvariable_Sum_Order_By>;
+  var_pop?: InputMaybe<Evolutionvariable_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Evolutionvariable_Var_Samp_Order_By>;
+  variance?: InputMaybe<Evolutionvariable_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Evolutionvariable_Avg_Fields = {
+  __typename?: 'evolutionvariable_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_evolutionvariable". All fields are combined with a logical 'AND'. */
+export type Evolutionvariable_Bool_Exp = {
+  _and?: InputMaybe<Array<Evolutionvariable_Bool_Exp>>;
+  _not?: InputMaybe<Evolutionvariable_Bool_Exp>;
+  _or?: InputMaybe<Array<Evolutionvariable_Bool_Exp>>;
+  data_type?: InputMaybe<String_Comparison_Exp>;
+  evolutionvariabledescriptions?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+  evolutionvariabledescriptions_aggregate?: InputMaybe<Evolutionvariabledescription_Aggregate_Bool_Exp>;
+  evolutionvariablenames?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+  evolutionvariablenames_aggregate?: InputMaybe<Evolutionvariablename_Aggregate_Bool_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  symbol?: InputMaybe<String_Comparison_Exp>;
+  version_group_id?: InputMaybe<Int_Comparison_Exp>;
+  versiongroup?: InputMaybe<Versiongroup_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Evolutionvariable_Max_Fields = {
+  __typename?: 'evolutionvariable_max_fields';
+  data_type?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  symbol?: Maybe<Scalars['String']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Max_Order_By = {
+  data_type?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  symbol?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Evolutionvariable_Min_Fields = {
+  __typename?: 'evolutionvariable_min_fields';
+  data_type?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  symbol?: Maybe<Scalars['String']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Min_Order_By = {
+  data_type?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  symbol?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_evolutionvariable". */
+export type Evolutionvariable_Order_By = {
+  data_type?: InputMaybe<Order_By>;
+  evolutionvariabledescriptions_aggregate?: InputMaybe<Evolutionvariabledescription_Aggregate_Order_By>;
+  evolutionvariablenames_aggregate?: InputMaybe<Evolutionvariablename_Aggregate_Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  symbol?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+  versiongroup?: InputMaybe<Versiongroup_Order_By>;
+};
+
+/** select columns of table "pokemon_v2_evolutionvariable" */
+export enum Evolutionvariable_Select_Column {
+  /** column name */
+  DataType = 'data_type',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Symbol = 'symbol',
+  /** column name */
+  VersionGroupId = 'version_group_id'
+}
+
+/** aggregate stddev on columns */
+export type Evolutionvariable_Stddev_Fields = {
+  __typename?: 'evolutionvariable_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Evolutionvariable_Stddev_Pop_Fields = {
+  __typename?: 'evolutionvariable_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Evolutionvariable_Stddev_Samp_Fields = {
+  __typename?: 'evolutionvariable_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Evolutionvariable_Sum_Fields = {
+  __typename?: 'evolutionvariable_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Evolutionvariable_Var_Pop_Fields = {
+  __typename?: 'evolutionvariable_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Evolutionvariable_Var_Samp_Fields = {
+  __typename?: 'evolutionvariable_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Evolutionvariable_Variance_Fields = {
+  __typename?: 'evolutionvariable_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_evolutionvariable" */
+export type Evolutionvariable_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription = {
+  __typename?: 'evolutionvariabledescription';
+  description: Scalars['String']['output'];
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  evolutionvariable?: Maybe<Evolutionvariable>;
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  language?: Maybe<Language>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregated selection of "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Aggregate = {
+  __typename?: 'evolutionvariabledescription_aggregate';
+  aggregate?: Maybe<Evolutionvariabledescription_Aggregate_Fields>;
+  nodes: Array<Evolutionvariabledescription>;
+};
+
+export type Evolutionvariabledescription_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Evolutionvariabledescription_Aggregate_Bool_Exp_Count>;
+};
+
+export type Evolutionvariabledescription_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Aggregate_Fields = {
+  __typename?: 'evolutionvariabledescription_aggregate_fields';
+  avg?: Maybe<Evolutionvariabledescription_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Evolutionvariabledescription_Max_Fields>;
+  min?: Maybe<Evolutionvariabledescription_Min_Fields>;
+  stddev?: Maybe<Evolutionvariabledescription_Stddev_Fields>;
+  stddev_pop?: Maybe<Evolutionvariabledescription_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Evolutionvariabledescription_Stddev_Samp_Fields>;
+  sum?: Maybe<Evolutionvariabledescription_Sum_Fields>;
+  var_pop?: Maybe<Evolutionvariabledescription_Var_Pop_Fields>;
+  var_samp?: Maybe<Evolutionvariabledescription_Var_Samp_Fields>;
+  variance?: Maybe<Evolutionvariabledescription_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Aggregate_Order_By = {
+  avg?: InputMaybe<Evolutionvariabledescription_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Evolutionvariabledescription_Max_Order_By>;
+  min?: InputMaybe<Evolutionvariabledescription_Min_Order_By>;
+  stddev?: InputMaybe<Evolutionvariabledescription_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Evolutionvariabledescription_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Evolutionvariabledescription_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Evolutionvariabledescription_Sum_Order_By>;
+  var_pop?: InputMaybe<Evolutionvariabledescription_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Evolutionvariabledescription_Var_Samp_Order_By>;
+  variance?: InputMaybe<Evolutionvariabledescription_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Evolutionvariabledescription_Avg_Fields = {
+  __typename?: 'evolutionvariabledescription_avg_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Avg_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_evolutionvariabledescription". All fields are combined with a logical 'AND'. */
+export type Evolutionvariabledescription_Bool_Exp = {
+  _and?: InputMaybe<Array<Evolutionvariabledescription_Bool_Exp>>;
+  _not?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+  _or?: InputMaybe<Array<Evolutionvariabledescription_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  evolution_variable_id?: InputMaybe<Int_Comparison_Exp>;
+  evolutionvariable?: InputMaybe<Evolutionvariable_Bool_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  language?: InputMaybe<Language_Bool_Exp>;
+  language_id?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Evolutionvariabledescription_Max_Fields = {
+  __typename?: 'evolutionvariabledescription_max_fields';
+  description?: Maybe<Scalars['String']['output']>;
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Max_Order_By = {
+  description?: InputMaybe<Order_By>;
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Evolutionvariabledescription_Min_Fields = {
+  __typename?: 'evolutionvariabledescription_min_fields';
+  description?: Maybe<Scalars['String']['output']>;
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Min_Order_By = {
+  description?: InputMaybe<Order_By>;
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_evolutionvariabledescription". */
+export type Evolutionvariabledescription_Order_By = {
+  description?: InputMaybe<Order_By>;
+  evolution_variable_id?: InputMaybe<Order_By>;
+  evolutionvariable?: InputMaybe<Evolutionvariable_Order_By>;
+  id?: InputMaybe<Order_By>;
+  language?: InputMaybe<Language_Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pokemon_v2_evolutionvariabledescription" */
+export enum Evolutionvariabledescription_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  EvolutionVariableId = 'evolution_variable_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LanguageId = 'language_id'
+}
+
+/** aggregate stddev on columns */
+export type Evolutionvariabledescription_Stddev_Fields = {
+  __typename?: 'evolutionvariabledescription_stddev_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Stddev_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Evolutionvariabledescription_Stddev_Pop_Fields = {
+  __typename?: 'evolutionvariabledescription_stddev_pop_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Stddev_Pop_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Evolutionvariabledescription_Stddev_Samp_Fields = {
+  __typename?: 'evolutionvariabledescription_stddev_samp_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Stddev_Samp_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Evolutionvariabledescription_Sum_Fields = {
+  __typename?: 'evolutionvariabledescription_sum_fields';
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Sum_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Evolutionvariabledescription_Var_Pop_Fields = {
+  __typename?: 'evolutionvariabledescription_var_pop_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Var_Pop_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Evolutionvariabledescription_Var_Samp_Fields = {
+  __typename?: 'evolutionvariabledescription_var_samp_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Var_Samp_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Evolutionvariabledescription_Variance_Fields = {
+  __typename?: 'evolutionvariabledescription_variance_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_evolutionvariabledescription" */
+export type Evolutionvariabledescription_Variance_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename = {
+  __typename?: 'evolutionvariablename';
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  evolutionvariable?: Maybe<Evolutionvariable>;
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  language?: Maybe<Language>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  name: Scalars['String']['output'];
+};
+
+/** aggregated selection of "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Aggregate = {
+  __typename?: 'evolutionvariablename_aggregate';
+  aggregate?: Maybe<Evolutionvariablename_Aggregate_Fields>;
+  nodes: Array<Evolutionvariablename>;
+};
+
+export type Evolutionvariablename_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Evolutionvariablename_Aggregate_Bool_Exp_Count>;
+};
+
+export type Evolutionvariablename_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Aggregate_Fields = {
+  __typename?: 'evolutionvariablename_aggregate_fields';
+  avg?: Maybe<Evolutionvariablename_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Evolutionvariablename_Max_Fields>;
+  min?: Maybe<Evolutionvariablename_Min_Fields>;
+  stddev?: Maybe<Evolutionvariablename_Stddev_Fields>;
+  stddev_pop?: Maybe<Evolutionvariablename_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Evolutionvariablename_Stddev_Samp_Fields>;
+  sum?: Maybe<Evolutionvariablename_Sum_Fields>;
+  var_pop?: Maybe<Evolutionvariablename_Var_Pop_Fields>;
+  var_samp?: Maybe<Evolutionvariablename_Var_Samp_Fields>;
+  variance?: Maybe<Evolutionvariablename_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Aggregate_Order_By = {
+  avg?: InputMaybe<Evolutionvariablename_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Evolutionvariablename_Max_Order_By>;
+  min?: InputMaybe<Evolutionvariablename_Min_Order_By>;
+  stddev?: InputMaybe<Evolutionvariablename_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Evolutionvariablename_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Evolutionvariablename_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Evolutionvariablename_Sum_Order_By>;
+  var_pop?: InputMaybe<Evolutionvariablename_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Evolutionvariablename_Var_Samp_Order_By>;
+  variance?: InputMaybe<Evolutionvariablename_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Evolutionvariablename_Avg_Fields = {
+  __typename?: 'evolutionvariablename_avg_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Avg_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_evolutionvariablename". All fields are combined with a logical 'AND'. */
+export type Evolutionvariablename_Bool_Exp = {
+  _and?: InputMaybe<Array<Evolutionvariablename_Bool_Exp>>;
+  _not?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+  _or?: InputMaybe<Array<Evolutionvariablename_Bool_Exp>>;
+  evolution_variable_id?: InputMaybe<Int_Comparison_Exp>;
+  evolutionvariable?: InputMaybe<Evolutionvariable_Bool_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  language?: InputMaybe<Language_Bool_Exp>;
+  language_id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Evolutionvariablename_Max_Fields = {
+  __typename?: 'evolutionvariablename_max_fields';
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Max_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Evolutionvariablename_Min_Fields = {
+  __typename?: 'evolutionvariablename_min_fields';
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Min_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_evolutionvariablename". */
+export type Evolutionvariablename_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  evolutionvariable?: InputMaybe<Evolutionvariable_Order_By>;
+  id?: InputMaybe<Order_By>;
+  language?: InputMaybe<Language_Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pokemon_v2_evolutionvariablename" */
+export enum Evolutionvariablename_Select_Column {
+  /** column name */
+  EvolutionVariableId = 'evolution_variable_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LanguageId = 'language_id',
+  /** column name */
+  Name = 'name'
+}
+
+/** aggregate stddev on columns */
+export type Evolutionvariablename_Stddev_Fields = {
+  __typename?: 'evolutionvariablename_stddev_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Stddev_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Evolutionvariablename_Stddev_Pop_Fields = {
+  __typename?: 'evolutionvariablename_stddev_pop_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Stddev_Pop_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Evolutionvariablename_Stddev_Samp_Fields = {
+  __typename?: 'evolutionvariablename_stddev_samp_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Stddev_Samp_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Evolutionvariablename_Sum_Fields = {
+  __typename?: 'evolutionvariablename_sum_fields';
+  evolution_variable_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Sum_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Evolutionvariablename_Var_Pop_Fields = {
+  __typename?: 'evolutionvariablename_var_pop_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Var_Pop_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Evolutionvariablename_Var_Samp_Fields = {
+  __typename?: 'evolutionvariablename_var_samp_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Var_Samp_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Evolutionvariablename_Variance_Fields = {
+  __typename?: 'evolutionvariablename_variance_fields';
+  evolution_variable_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_evolutionvariablename" */
+export type Evolutionvariablename_Variance_Order_By = {
+  evolution_variable_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "pokemon_v2_experience" */
 export type Experience = {
   __typename?: 'experience';
@@ -9445,6 +10732,19 @@ export type Experience_Variance_Order_By = {
   level?: InputMaybe<Order_By>;
 };
 
+/** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
+export type Float8_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['float8']['input']>;
+  _gt?: InputMaybe<Scalars['float8']['input']>;
+  _gte?: InputMaybe<Scalars['float8']['input']>;
+  _in?: InputMaybe<Array<Scalars['float8']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['float8']['input']>;
+  _lte?: InputMaybe<Scalars['float8']['input']>;
+  _neq?: InputMaybe<Scalars['float8']['input']>;
+  _nin?: InputMaybe<Array<Scalars['float8']['input']>>;
+};
+
 /** columns and relationships of "pokemon_v2_gender" */
 export type Gender = {
   __typename?: 'gender';
@@ -9632,6 +10932,10 @@ export type Generation = {
   /** An aggregate relationship */
   pokemonspecies_aggregate: Pokemonspecies_Aggregate;
   /** An array relationship */
+  pokemonstatpasts: Array<Pokemonstatpast>;
+  /** An aggregate relationship */
+  pokemonstatpasts_aggregate: Pokemonstatpast_Aggregate;
+  /** An array relationship */
   pokemontypepasts: Array<Pokemontypepast>;
   /** An aggregate relationship */
   pokemontypepasts_aggregate: Pokemontypepast_Aggregate;
@@ -9814,6 +11118,26 @@ export type GenerationPokemonspecies_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokemonspecies_Order_By>>;
   where?: InputMaybe<Pokemonspecies_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_generation" */
+export type GenerationPokemonstatpastsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_generation" */
+export type GenerationPokemonstatpasts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
 };
 
 
@@ -10008,6 +11332,8 @@ export type Generation_Bool_Exp = {
   pokemonformgenerations_aggregate?: InputMaybe<Pokemonformgeneration_Aggregate_Bool_Exp>;
   pokemonspecies?: InputMaybe<Pokemonspecies_Bool_Exp>;
   pokemonspecies_aggregate?: InputMaybe<Pokemonspecies_Aggregate_Bool_Exp>;
+  pokemonstatpasts?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+  pokemonstatpasts_aggregate?: InputMaybe<Pokemonstatpast_Aggregate_Bool_Exp>;
   pokemontypepasts?: InputMaybe<Pokemontypepast_Bool_Exp>;
   pokemontypepasts_aggregate?: InputMaybe<Pokemontypepast_Aggregate_Bool_Exp>;
   region?: InputMaybe<Region_Bool_Exp>;
@@ -10064,6 +11390,7 @@ export type Generation_Order_By = {
   pokemonabilitypasts_aggregate?: InputMaybe<Pokemonabilitypast_Aggregate_Order_By>;
   pokemonformgenerations_aggregate?: InputMaybe<Pokemonformgeneration_Aggregate_Order_By>;
   pokemonspecies_aggregate?: InputMaybe<Pokemonspecies_Aggregate_Order_By>;
+  pokemonstatpasts_aggregate?: InputMaybe<Pokemonstatpast_Aggregate_Order_By>;
   pokemontypepasts_aggregate?: InputMaybe<Pokemontypepast_Aggregate_Order_By>;
   region?: InputMaybe<Region_Order_By>;
   region_id?: InputMaybe<Order_By>;
@@ -10938,7 +12265,6 @@ export type Item = {
   berries: Array<Berry>;
   /** An aggregate relationship */
   berries_aggregate: Berry_Aggregate;
-  cost?: Maybe<Scalars['Int']['output']>;
   /** An array relationship */
   evolutionchains: Array<Evolutionchain>;
   /** An aggregate relationship */
@@ -10972,6 +12298,10 @@ export type Item = {
   /** An aggregate relationship */
   itemnames_aggregate: Itemname_Aggregate;
   /** An array relationship */
+  itemprices: Array<Itemprice>;
+  /** An aggregate relationship */
+  itemprices_aggregate: Itemprice_Aggregate;
+  /** An array relationship */
   itemsprites: Array<Itemsprites>;
   /** An aggregate relationship */
   itemsprites_aggregate: Itemsprites_Aggregate;
@@ -10984,6 +12314,10 @@ export type Item = {
   pokemonevolutions: Array<Pokemonevolution>;
   /** An aggregate relationship */
   pokemonevolutions_aggregate: Pokemonevolution_Aggregate;
+  /** An array relationship */
+  pokemonformconditions: Array<Pokemonformcondition>;
+  /** An aggregate relationship */
+  pokemonformconditions_aggregate: Pokemonformcondition_Aggregate;
   /** An array relationship */
   pokemonitems: Array<Pokemonitem>;
   /** An aggregate relationship */
@@ -11152,6 +12486,26 @@ export type ItemItemnames_AggregateArgs = {
 
 
 /** columns and relationships of "pokemon_v2_item" */
+export type ItemItempricesArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_item" */
+export type ItemItemprices_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_item" */
 export type ItemItemspritesArgs = {
   distinct_on?: InputMaybe<Array<Itemsprites_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -11208,6 +12562,26 @@ export type ItemPokemonevolutions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
   where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_item" */
+export type ItemPokemonformconditionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_item" */
+export type ItemPokemonformconditions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
 };
 
 
@@ -11289,7 +12663,6 @@ export type Item_Aggregate_Order_By = {
 /** aggregate avg on columns */
 export type Item_Avg_Fields = {
   __typename?: 'item_avg_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11298,7 +12671,6 @@ export type Item_Avg_Fields = {
 
 /** order by avg() on columns of table "pokemon_v2_item" */
 export type Item_Avg_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11314,7 +12686,6 @@ export type Item_Bool_Exp = {
   _or?: InputMaybe<Array<Item_Bool_Exp>>;
   berries?: InputMaybe<Berry_Bool_Exp>;
   berries_aggregate?: InputMaybe<Berry_Aggregate_Bool_Exp>;
-  cost?: InputMaybe<Int_Comparison_Exp>;
   evolutionchains?: InputMaybe<Evolutionchain_Bool_Exp>;
   evolutionchains_aggregate?: InputMaybe<Evolutionchain_Aggregate_Bool_Exp>;
   fling_power?: InputMaybe<Int_Comparison_Exp>;
@@ -11333,6 +12704,8 @@ export type Item_Bool_Exp = {
   itemgameindices_aggregate?: InputMaybe<Itemgameindex_Aggregate_Bool_Exp>;
   itemnames?: InputMaybe<Itemname_Bool_Exp>;
   itemnames_aggregate?: InputMaybe<Itemname_Aggregate_Bool_Exp>;
+  itemprices?: InputMaybe<Itemprice_Bool_Exp>;
+  itemprices_aggregate?: InputMaybe<Itemprice_Aggregate_Bool_Exp>;
   itemsprites?: InputMaybe<Itemsprites_Bool_Exp>;
   itemsprites_aggregate?: InputMaybe<Itemsprites_Aggregate_Bool_Exp>;
   machines?: InputMaybe<Machine_Bool_Exp>;
@@ -11340,6 +12713,8 @@ export type Item_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   pokemonevolutions?: InputMaybe<Pokemonevolution_Bool_Exp>;
   pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
+  pokemonformconditions?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp>;
   pokemonitems?: InputMaybe<Pokemonitem_Bool_Exp>;
   pokemonitems_aggregate?: InputMaybe<Pokemonitem_Aggregate_Bool_Exp>;
 };
@@ -11347,7 +12722,6 @@ export type Item_Bool_Exp = {
 /** aggregate max on columns */
 export type Item_Max_Fields = {
   __typename?: 'item_max_fields';
-  cost?: Maybe<Scalars['Int']['output']>;
   fling_power?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   item_category_id?: Maybe<Scalars['Int']['output']>;
@@ -11357,7 +12731,6 @@ export type Item_Max_Fields = {
 
 /** order by max() on columns of table "pokemon_v2_item" */
 export type Item_Max_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11368,7 +12741,6 @@ export type Item_Max_Order_By = {
 /** aggregate min on columns */
 export type Item_Min_Fields = {
   __typename?: 'item_min_fields';
-  cost?: Maybe<Scalars['Int']['output']>;
   fling_power?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   item_category_id?: Maybe<Scalars['Int']['output']>;
@@ -11378,7 +12750,6 @@ export type Item_Min_Fields = {
 
 /** order by min() on columns of table "pokemon_v2_item" */
 export type Item_Min_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11390,7 +12761,6 @@ export type Item_Min_Order_By = {
 export type Item_Order_By = {
   PokemonevolutionsByHeldItemId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
   berries_aggregate?: InputMaybe<Berry_Aggregate_Order_By>;
-  cost?: InputMaybe<Order_By>;
   evolutionchains_aggregate?: InputMaybe<Evolutionchain_Aggregate_Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -11403,17 +12773,17 @@ export type Item_Order_By = {
   itemflingeffect?: InputMaybe<Itemflingeffect_Order_By>;
   itemgameindices_aggregate?: InputMaybe<Itemgameindex_Aggregate_Order_By>;
   itemnames_aggregate?: InputMaybe<Itemname_Aggregate_Order_By>;
+  itemprices_aggregate?: InputMaybe<Itemprice_Aggregate_Order_By>;
   itemsprites_aggregate?: InputMaybe<Itemsprites_Aggregate_Order_By>;
   machines_aggregate?: InputMaybe<Machine_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
   pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Order_By>;
   pokemonitems_aggregate?: InputMaybe<Pokemonitem_Aggregate_Order_By>;
 };
 
 /** select columns of table "pokemon_v2_item" */
 export enum Item_Select_Column {
-  /** column name */
-  Cost = 'cost',
   /** column name */
   FlingPower = 'fling_power',
   /** column name */
@@ -11429,7 +12799,6 @@ export enum Item_Select_Column {
 /** aggregate stddev on columns */
 export type Item_Stddev_Fields = {
   __typename?: 'item_stddev_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11438,7 +12807,6 @@ export type Item_Stddev_Fields = {
 
 /** order by stddev() on columns of table "pokemon_v2_item" */
 export type Item_Stddev_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11448,7 +12816,6 @@ export type Item_Stddev_Order_By = {
 /** aggregate stddev_pop on columns */
 export type Item_Stddev_Pop_Fields = {
   __typename?: 'item_stddev_pop_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11457,7 +12824,6 @@ export type Item_Stddev_Pop_Fields = {
 
 /** order by stddev_pop() on columns of table "pokemon_v2_item" */
 export type Item_Stddev_Pop_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11467,7 +12833,6 @@ export type Item_Stddev_Pop_Order_By = {
 /** aggregate stddev_samp on columns */
 export type Item_Stddev_Samp_Fields = {
   __typename?: 'item_stddev_samp_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11476,7 +12841,6 @@ export type Item_Stddev_Samp_Fields = {
 
 /** order by stddev_samp() on columns of table "pokemon_v2_item" */
 export type Item_Stddev_Samp_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11486,7 +12850,6 @@ export type Item_Stddev_Samp_Order_By = {
 /** aggregate sum on columns */
 export type Item_Sum_Fields = {
   __typename?: 'item_sum_fields';
-  cost?: Maybe<Scalars['Int']['output']>;
   fling_power?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   item_category_id?: Maybe<Scalars['Int']['output']>;
@@ -11495,7 +12858,6 @@ export type Item_Sum_Fields = {
 
 /** order by sum() on columns of table "pokemon_v2_item" */
 export type Item_Sum_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11505,7 +12867,6 @@ export type Item_Sum_Order_By = {
 /** aggregate var_pop on columns */
 export type Item_Var_Pop_Fields = {
   __typename?: 'item_var_pop_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11514,7 +12875,6 @@ export type Item_Var_Pop_Fields = {
 
 /** order by var_pop() on columns of table "pokemon_v2_item" */
 export type Item_Var_Pop_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11524,7 +12884,6 @@ export type Item_Var_Pop_Order_By = {
 /** aggregate var_samp on columns */
 export type Item_Var_Samp_Fields = {
   __typename?: 'item_var_samp_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11533,7 +12892,6 @@ export type Item_Var_Samp_Fields = {
 
 /** order by var_samp() on columns of table "pokemon_v2_item" */
 export type Item_Var_Samp_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -11543,7 +12901,6 @@ export type Item_Var_Samp_Order_By = {
 /** aggregate variance on columns */
 export type Item_Variance_Fields = {
   __typename?: 'item_variance_fields';
-  cost?: Maybe<Scalars['Float']['output']>;
   fling_power?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['Float']['output']>;
   item_category_id?: Maybe<Scalars['Float']['output']>;
@@ -11552,7 +12909,6 @@ export type Item_Variance_Fields = {
 
 /** order by variance() on columns of table "pokemon_v2_item" */
 export type Item_Variance_Order_By = {
-  cost?: InputMaybe<Order_By>;
   fling_power?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   item_category_id?: InputMaybe<Order_By>;
@@ -15022,6 +16378,352 @@ export type Itempocketname_Variance_Order_By = {
   language_id?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "pokemon_v2_itemprice" */
+export type Itemprice = {
+  __typename?: 'itemprice';
+  /** An object relationship */
+  currency?: Maybe<Currency>;
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  item?: Maybe<Item>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  purchase_price?: Maybe<Scalars['Int']['output']>;
+  sell_price?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  versiongroup?: Maybe<Versiongroup>;
+};
+
+/** aggregated selection of "pokemon_v2_itemprice" */
+export type Itemprice_Aggregate = {
+  __typename?: 'itemprice_aggregate';
+  aggregate?: Maybe<Itemprice_Aggregate_Fields>;
+  nodes: Array<Itemprice>;
+};
+
+export type Itemprice_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Itemprice_Aggregate_Bool_Exp_Count>;
+};
+
+export type Itemprice_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Itemprice_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Itemprice_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_itemprice" */
+export type Itemprice_Aggregate_Fields = {
+  __typename?: 'itemprice_aggregate_fields';
+  avg?: Maybe<Itemprice_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Itemprice_Max_Fields>;
+  min?: Maybe<Itemprice_Min_Fields>;
+  stddev?: Maybe<Itemprice_Stddev_Fields>;
+  stddev_pop?: Maybe<Itemprice_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Itemprice_Stddev_Samp_Fields>;
+  sum?: Maybe<Itemprice_Sum_Fields>;
+  var_pop?: Maybe<Itemprice_Var_Pop_Fields>;
+  var_samp?: Maybe<Itemprice_Var_Samp_Fields>;
+  variance?: Maybe<Itemprice_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_itemprice" */
+export type Itemprice_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Itemprice_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_itemprice" */
+export type Itemprice_Aggregate_Order_By = {
+  avg?: InputMaybe<Itemprice_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Itemprice_Max_Order_By>;
+  min?: InputMaybe<Itemprice_Min_Order_By>;
+  stddev?: InputMaybe<Itemprice_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Itemprice_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Itemprice_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Itemprice_Sum_Order_By>;
+  var_pop?: InputMaybe<Itemprice_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Itemprice_Var_Samp_Order_By>;
+  variance?: InputMaybe<Itemprice_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Itemprice_Avg_Fields = {
+  __typename?: 'itemprice_avg_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Avg_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_itemprice". All fields are combined with a logical 'AND'. */
+export type Itemprice_Bool_Exp = {
+  _and?: InputMaybe<Array<Itemprice_Bool_Exp>>;
+  _not?: InputMaybe<Itemprice_Bool_Exp>;
+  _or?: InputMaybe<Array<Itemprice_Bool_Exp>>;
+  currency?: InputMaybe<Currency_Bool_Exp>;
+  currency_id?: InputMaybe<Int_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  item?: InputMaybe<Item_Bool_Exp>;
+  item_id?: InputMaybe<Int_Comparison_Exp>;
+  purchase_price?: InputMaybe<Int_Comparison_Exp>;
+  sell_price?: InputMaybe<Int_Comparison_Exp>;
+  version_group_id?: InputMaybe<Int_Comparison_Exp>;
+  versiongroup?: InputMaybe<Versiongroup_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Itemprice_Max_Fields = {
+  __typename?: 'itemprice_max_fields';
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  purchase_price?: Maybe<Scalars['Int']['output']>;
+  sell_price?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Max_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Itemprice_Min_Fields = {
+  __typename?: 'itemprice_min_fields';
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  purchase_price?: Maybe<Scalars['Int']['output']>;
+  sell_price?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Min_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_itemprice". */
+export type Itemprice_Order_By = {
+  currency?: InputMaybe<Currency_Order_By>;
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item?: InputMaybe<Item_Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+  versiongroup?: InputMaybe<Versiongroup_Order_By>;
+};
+
+/** select columns of table "pokemon_v2_itemprice" */
+export enum Itemprice_Select_Column {
+  /** column name */
+  CurrencyId = 'currency_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ItemId = 'item_id',
+  /** column name */
+  PurchasePrice = 'purchase_price',
+  /** column name */
+  SellPrice = 'sell_price',
+  /** column name */
+  VersionGroupId = 'version_group_id'
+}
+
+/** aggregate stddev on columns */
+export type Itemprice_Stddev_Fields = {
+  __typename?: 'itemprice_stddev_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Stddev_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Itemprice_Stddev_Pop_Fields = {
+  __typename?: 'itemprice_stddev_pop_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Stddev_Pop_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Itemprice_Stddev_Samp_Fields = {
+  __typename?: 'itemprice_stddev_samp_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Stddev_Samp_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "itemprice" */
+export type Itemprice_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Itemprice_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Itemprice_Stream_Cursor_Value_Input = {
+  currency_id?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  item_id?: InputMaybe<Scalars['Int']['input']>;
+  purchase_price?: InputMaybe<Scalars['Int']['input']>;
+  sell_price?: InputMaybe<Scalars['Int']['input']>;
+  version_group_id?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Itemprice_Sum_Fields = {
+  __typename?: 'itemprice_sum_fields';
+  currency_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  purchase_price?: Maybe<Scalars['Int']['output']>;
+  sell_price?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Sum_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Itemprice_Var_Pop_Fields = {
+  __typename?: 'itemprice_var_pop_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Var_Pop_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Itemprice_Var_Samp_Fields = {
+  __typename?: 'itemprice_var_samp_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Var_Samp_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Itemprice_Variance_Fields = {
+  __typename?: 'itemprice_variance_fields';
+  currency_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  purchase_price?: Maybe<Scalars['Float']['output']>;
+  sell_price?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_itemprice" */
+export type Itemprice_Variance_Order_By = {
+  currency_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  purchase_price?: InputMaybe<Order_By>;
+  sell_price?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "pokemon_v2_itemsprites" */
 export type Itemsprites = {
   __typename?: 'itemsprites';
@@ -15275,6 +16977,10 @@ export type Jsonb_Comparison_Exp = {
   _has_keys_any?: InputMaybe<Array<Scalars['String']['input']>>;
   _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
   _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  /** does the jsonpath return any item for the specified JSON value */
+  _jsonb_path_exists?: InputMaybe<Scalars['String']['input']>;
+  /** does the jsonpath predicate check return true for the specified JSON value */
+  _jsonb_path_match?: InputMaybe<Scalars['String']['input']>;
   _lt?: InputMaybe<Scalars['jsonb']['input']>;
   _lte?: InputMaybe<Scalars['jsonb']['input']>;
   _neq?: InputMaybe<Scalars['jsonb']['input']>;
@@ -15329,6 +17035,10 @@ export type Language = {
   /** An aggregate relationship */
   contesttypenames_aggregate: Contesttypename_Aggregate;
   /** An array relationship */
+  currencynames: Array<Currencyname>;
+  /** An aggregate relationship */
+  currencynames_aggregate: Currencyname_Aggregate;
+  /** An array relationship */
   egggroupnames: Array<Egggroupname>;
   /** An aggregate relationship */
   egggroupnames_aggregate: Egggroupname_Aggregate;
@@ -15348,6 +17058,14 @@ export type Language = {
   evolutiontriggernames: Array<Evolutiontriggername>;
   /** An aggregate relationship */
   evolutiontriggernames_aggregate: Evolutiontriggername_Aggregate;
+  /** An array relationship */
+  evolutionvariabledescriptions: Array<Evolutionvariabledescription>;
+  /** An aggregate relationship */
+  evolutionvariabledescriptions_aggregate: Evolutionvariabledescription_Aggregate;
+  /** An array relationship */
+  evolutionvariablenames: Array<Evolutionvariablename>;
+  /** An aggregate relationship */
+  evolutionvariablenames_aggregate: Evolutionvariablename_Aggregate;
   /** An array relationship */
   generationnames: Array<Generationname>;
   /** An aggregate relationship */
@@ -15490,6 +17208,10 @@ export type Language = {
   pokemoncolornames: Array<Pokemoncolorname>;
   /** An aggregate relationship */
   pokemoncolornames_aggregate: Pokemoncolorname_Aggregate;
+  /** An array relationship */
+  pokemonformflavortexts: Array<Pokemonformflavortext>;
+  /** An aggregate relationship */
+  pokemonformflavortexts_aggregate: Pokemonformflavortext_Aggregate;
   /** An array relationship */
   pokemonformnames: Array<Pokemonformname>;
   /** An aggregate relationship */
@@ -15758,6 +17480,26 @@ export type LanguageContesttypenames_AggregateArgs = {
 
 
 /** columns and relationships of "pokemon_v2_language" */
+export type LanguageCurrencynamesArgs = {
+  distinct_on?: InputMaybe<Array<Currencyname_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currencyname_Order_By>>;
+  where?: InputMaybe<Currencyname_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
+export type LanguageCurrencynames_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Currencyname_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currencyname_Order_By>>;
+  where?: InputMaybe<Currencyname_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
 export type LanguageEgggroupnamesArgs = {
   distinct_on?: InputMaybe<Array<Egggroupname_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -15854,6 +17596,46 @@ export type LanguageEvolutiontriggernames_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Evolutiontriggername_Order_By>>;
   where?: InputMaybe<Evolutiontriggername_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
+export type LanguageEvolutionvariabledescriptionsArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariabledescription_Order_By>>;
+  where?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
+export type LanguageEvolutionvariabledescriptions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariabledescription_Order_By>>;
+  where?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
+export type LanguageEvolutionvariablenamesArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariablename_Order_By>>;
+  where?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
+export type LanguageEvolutionvariablenames_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariablename_Order_By>>;
+  where?: InputMaybe<Evolutionvariablename_Bool_Exp>;
 };
 
 
@@ -16538,6 +18320,26 @@ export type LanguagePokemoncolornames_AggregateArgs = {
 
 
 /** columns and relationships of "pokemon_v2_language" */
+export type LanguagePokemonformflavortextsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
+export type LanguagePokemonformflavortexts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_language" */
 export type LanguagePokemonformnamesArgs = {
   distinct_on?: InputMaybe<Array<Pokemonformname_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -16820,6 +18622,8 @@ export type Language_Bool_Exp = {
   contesteffectflavortexts_aggregate?: InputMaybe<Contesteffectflavortext_Aggregate_Bool_Exp>;
   contesttypenames?: InputMaybe<Contesttypename_Bool_Exp>;
   contesttypenames_aggregate?: InputMaybe<Contesttypename_Aggregate_Bool_Exp>;
+  currencynames?: InputMaybe<Currencyname_Bool_Exp>;
+  currencynames_aggregate?: InputMaybe<Currencyname_Aggregate_Bool_Exp>;
   egggroupnames?: InputMaybe<Egggroupname_Bool_Exp>;
   egggroupnames_aggregate?: InputMaybe<Egggroupname_Aggregate_Bool_Exp>;
   encounterconditionnames?: InputMaybe<Encounterconditionname_Bool_Exp>;
@@ -16830,6 +18634,10 @@ export type Language_Bool_Exp = {
   encountermethodnames_aggregate?: InputMaybe<Encountermethodname_Aggregate_Bool_Exp>;
   evolutiontriggernames?: InputMaybe<Evolutiontriggername_Bool_Exp>;
   evolutiontriggernames_aggregate?: InputMaybe<Evolutiontriggername_Aggregate_Bool_Exp>;
+  evolutionvariabledescriptions?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+  evolutionvariabledescriptions_aggregate?: InputMaybe<Evolutionvariabledescription_Aggregate_Bool_Exp>;
+  evolutionvariablenames?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+  evolutionvariablenames_aggregate?: InputMaybe<Evolutionvariablename_Aggregate_Bool_Exp>;
   generationnames?: InputMaybe<Generationname_Bool_Exp>;
   generationnames_aggregate?: InputMaybe<Generationname_Aggregate_Bool_Exp>;
   growthratedescriptions?: InputMaybe<Growthratedescription_Bool_Exp>;
@@ -16904,6 +18712,8 @@ export type Language_Bool_Exp = {
   pokedexnames_aggregate?: InputMaybe<Pokedexname_Aggregate_Bool_Exp>;
   pokemoncolornames?: InputMaybe<Pokemoncolorname_Bool_Exp>;
   pokemoncolornames_aggregate?: InputMaybe<Pokemoncolorname_Aggregate_Bool_Exp>;
+  pokemonformflavortexts?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+  pokemonformflavortexts_aggregate?: InputMaybe<Pokemonformflavortext_Aggregate_Bool_Exp>;
   pokemonformnames?: InputMaybe<Pokemonformname_Bool_Exp>;
   pokemonformnames_aggregate?: InputMaybe<Pokemonformname_Aggregate_Bool_Exp>;
   pokemonhabitatnames?: InputMaybe<Pokemonhabitatname_Bool_Exp>;
@@ -16961,11 +18771,14 @@ export type Language_Order_By = {
   contesteffecteffecttexts_aggregate?: InputMaybe<Contesteffecteffecttext_Aggregate_Order_By>;
   contesteffectflavortexts_aggregate?: InputMaybe<Contesteffectflavortext_Aggregate_Order_By>;
   contesttypenames_aggregate?: InputMaybe<Contesttypename_Aggregate_Order_By>;
+  currencynames_aggregate?: InputMaybe<Currencyname_Aggregate_Order_By>;
   egggroupnames_aggregate?: InputMaybe<Egggroupname_Aggregate_Order_By>;
   encounterconditionnames_aggregate?: InputMaybe<Encounterconditionname_Aggregate_Order_By>;
   encounterconditionvaluenames_aggregate?: InputMaybe<Encounterconditionvaluename_Aggregate_Order_By>;
   encountermethodnames_aggregate?: InputMaybe<Encountermethodname_Aggregate_Order_By>;
   evolutiontriggernames_aggregate?: InputMaybe<Evolutiontriggername_Aggregate_Order_By>;
+  evolutionvariabledescriptions_aggregate?: InputMaybe<Evolutionvariabledescription_Aggregate_Order_By>;
+  evolutionvariablenames_aggregate?: InputMaybe<Evolutionvariablename_Aggregate_Order_By>;
   generationnames_aggregate?: InputMaybe<Generationname_Aggregate_Order_By>;
   growthratedescriptions_aggregate?: InputMaybe<Growthratedescription_Aggregate_Order_By>;
   id?: InputMaybe<Order_By>;
@@ -17006,6 +18819,7 @@ export type Language_Order_By = {
   pokedexdescriptions_aggregate?: InputMaybe<Pokedexdescription_Aggregate_Order_By>;
   pokedexnames_aggregate?: InputMaybe<Pokedexname_Aggregate_Order_By>;
   pokemoncolornames_aggregate?: InputMaybe<Pokemoncolorname_Aggregate_Order_By>;
+  pokemonformflavortexts_aggregate?: InputMaybe<Pokemonformflavortext_Aggregate_Order_By>;
   pokemonformnames_aggregate?: InputMaybe<Pokemonformname_Aggregate_Order_By>;
   pokemonhabitatnames_aggregate?: InputMaybe<Pokemonhabitatname_Aggregate_Order_By>;
   pokemonshapenames_aggregate?: InputMaybe<Pokemonshapename_Aggregate_Order_By>;
@@ -19507,9 +21321,17 @@ export type Move = {
   movetarget?: Maybe<Movetarget>;
   name: Scalars['String']['output'];
   /** An array relationship */
-  pokemonevolutions: Array<Pokemonevolution>;
+  pokemonevolutionsByKnownMoveId: Array<Pokemonevolution>;
   /** An aggregate relationship */
-  pokemonevolutions_aggregate: Pokemonevolution_Aggregate;
+  pokemonevolutionsByKnownMoveId_aggregate: Pokemonevolution_Aggregate;
+  /** An array relationship */
+  pokemonevolutionsByUsedMoveId: Array<Pokemonevolution>;
+  /** An aggregate relationship */
+  pokemonevolutionsByUsedMoveId_aggregate: Pokemonevolution_Aggregate;
+  /** An array relationship */
+  pokemonformconditions: Array<Pokemonformcondition>;
+  /** An aggregate relationship */
+  pokemonformconditions_aggregate: Pokemonformcondition_Aggregate;
   /** An array relationship */
   pokemonmoves: Array<Pokemonmove>;
   /** An aggregate relationship */
@@ -19731,7 +21553,7 @@ export type MoveMovenames_AggregateArgs = {
 
 
 /** columns and relationships of "pokemon_v2_move" */
-export type MovePokemonevolutionsArgs = {
+export type MovePokemonevolutionsByKnownMoveIdArgs = {
   distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -19741,12 +21563,52 @@ export type MovePokemonevolutionsArgs = {
 
 
 /** columns and relationships of "pokemon_v2_move" */
-export type MovePokemonevolutions_AggregateArgs = {
+export type MovePokemonevolutionsByKnownMoveId_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
   where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_move" */
+export type MovePokemonevolutionsByUsedMoveIdArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_move" */
+export type MovePokemonevolutionsByUsedMoveId_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_move" */
+export type MovePokemonformconditionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_move" */
+export type MovePokemonformconditions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
 };
 
 
@@ -19924,8 +21786,12 @@ export type Move_Bool_Exp = {
   movenames_aggregate?: InputMaybe<Movename_Aggregate_Bool_Exp>;
   movetarget?: InputMaybe<Movetarget_Bool_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
-  pokemonevolutions?: InputMaybe<Pokemonevolution_Bool_Exp>;
-  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
+  pokemonevolutionsByKnownMoveId?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  pokemonevolutionsByKnownMoveId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
+  pokemonevolutionsByUsedMoveId?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  pokemonevolutionsByUsedMoveId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
+  pokemonformconditions?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp>;
   pokemonmoves?: InputMaybe<Pokemonmove_Bool_Exp>;
   pokemonmoves_aggregate?: InputMaybe<Pokemonmove_Aggregate_Bool_Exp>;
   power?: InputMaybe<Int_Comparison_Exp>;
@@ -20046,7 +21912,9 @@ export type Move_Order_By = {
   movenames_aggregate?: InputMaybe<Movename_Aggregate_Order_By>;
   movetarget?: InputMaybe<Movetarget_Order_By>;
   name?: InputMaybe<Order_By>;
-  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
+  pokemonevolutionsByKnownMoveId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
+  pokemonevolutionsByUsedMoveId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Order_By>;
   pokemonmoves_aggregate?: InputMaybe<Pokemonmove_Aggregate_Order_By>;
   power?: InputMaybe<Order_By>;
   pp?: InputMaybe<Order_By>;
@@ -31257,6 +33125,10 @@ export type Pokemon = {
   /** An aggregate relationship */
   pokemonsprites_aggregate: Pokemonsprites_Aggregate;
   /** An array relationship */
+  pokemonstatpasts: Array<Pokemonstatpast>;
+  /** An aggregate relationship */
+  pokemonstatpasts_aggregate: Pokemonstatpast_Aggregate;
+  /** An array relationship */
   pokemonstats: Array<Pokemonstat>;
   /** An aggregate relationship */
   pokemonstats_aggregate: Pokemonstat_Aggregate;
@@ -31453,6 +33325,26 @@ export type PokemonPokemonsprites_AggregateArgs = {
 
 
 /** columns and relationships of "pokemon_v2_pokemon" */
+export type PokemonPokemonstatpastsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemon" */
+export type PokemonPokemonstatpasts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemon" */
 export type PokemonPokemonstatsArgs = {
   distinct_on?: InputMaybe<Array<Pokemonstat_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -31635,6 +33527,8 @@ export type Pokemon_Bool_Exp = {
   pokemonspecy?: InputMaybe<Pokemonspecies_Bool_Exp>;
   pokemonsprites?: InputMaybe<Pokemonsprites_Bool_Exp>;
   pokemonsprites_aggregate?: InputMaybe<Pokemonsprites_Aggregate_Bool_Exp>;
+  pokemonstatpasts?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+  pokemonstatpasts_aggregate?: InputMaybe<Pokemonstatpast_Aggregate_Bool_Exp>;
   pokemonstats?: InputMaybe<Pokemonstat_Bool_Exp>;
   pokemonstats_aggregate?: InputMaybe<Pokemonstat_Aggregate_Bool_Exp>;
   pokemontypepasts?: InputMaybe<Pokemontypepast_Bool_Exp>;
@@ -31709,6 +33603,7 @@ export type Pokemon_Order_By = {
   pokemonmoves_aggregate?: InputMaybe<Pokemonmove_Aggregate_Order_By>;
   pokemonspecy?: InputMaybe<Pokemonspecies_Order_By>;
   pokemonsprites_aggregate?: InputMaybe<Pokemonsprites_Aggregate_Order_By>;
+  pokemonstatpasts_aggregate?: InputMaybe<Pokemonstatpast_Aggregate_Order_By>;
   pokemonstats_aggregate?: InputMaybe<Pokemonstat_Aggregate_Order_By>;
   pokemontypepasts_aggregate?: InputMaybe<Pokemontypepast_Aggregate_Order_By>;
   pokemontypes_aggregate?: InputMaybe<Pokemontype_Aggregate_Order_By>;
@@ -33736,16 +35631,21 @@ export type Pokemonevolution = {
   PokemonspecyByTradeSpeciesId?: Maybe<Pokemonspecies>;
   /** An object relationship */
   TypeByPartyTypeId?: Maybe<Type>;
+  condition_expression: Scalars['String']['output'];
   evolution_item_id?: Maybe<Scalars['Int']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
   evolutiontrigger?: Maybe<Evolutiontrigger>;
+  /** An object relationship */
+  evolved_pokemon_form?: Maybe<Pokemonform>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   evolved_species_id?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
   gender?: Maybe<Gender>;
   gender_id?: Maybe<Scalars['Int']['output']>;
   held_item_id?: Maybe<Scalars['Int']['output']>;
   id: Scalars['Int']['output'];
+  is_default: Scalars['Boolean']['output'];
   /** An object relationship */
   item?: Maybe<Item>;
   known_move_id?: Maybe<Scalars['Int']['output']>;
@@ -33755,21 +35655,40 @@ export type Pokemonevolution = {
   location_id?: Maybe<Scalars['Int']['output']>;
   min_affection?: Maybe<Scalars['Int']['output']>;
   min_beauty?: Maybe<Scalars['Int']['output']>;
+  min_damage_taken?: Maybe<Scalars['Int']['output']>;
   min_happiness?: Maybe<Scalars['Int']['output']>;
   min_level?: Maybe<Scalars['Int']['output']>;
+  min_move_count?: Maybe<Scalars['Int']['output']>;
+  min_steps?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
   move?: Maybe<Move>;
+  nature_bitmask?: Maybe<Scalars['Int']['output']>;
+  near_special_rock: Scalars['Boolean']['output'];
+  needs_multiplayer: Scalars['Boolean']['output'];
   needs_overworld_rain: Scalars['Boolean']['output'];
   party_species_id?: Maybe<Scalars['Int']['output']>;
   party_type_id?: Maybe<Scalars['Int']['output']>;
+  percentage_chance?: Maybe<Scalars['float8']['output']>;
   /** An object relationship */
   pokemonspecy?: Maybe<Pokemonspecies>;
+  /** An object relationship */
+  region?: Maybe<Region>;
+  region_id?: Maybe<Scalars['Int']['output']>;
   relative_physical_stats?: Maybe<Scalars['Int']['output']>;
-  time_of_day?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  required_pokemon_form?: Maybe<Pokemonform>;
+  required_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+  time_of_day: Scalars['String']['output'];
   trade_species_id?: Maybe<Scalars['Int']['output']>;
   turn_upside_down: Scalars['Boolean']['output'];
   /** An object relationship */
   type?: Maybe<Type>;
+  used_move_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  usedmove?: Maybe<Move>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  versiongroup?: Maybe<Versiongroup>;
 };
 
 /** aggregated selection of "pokemon_v2_pokemonevolution" */
@@ -33780,9 +35699,24 @@ export type Pokemonevolution_Aggregate = {
 };
 
 export type Pokemonevolution_Aggregate_Bool_Exp = {
+  avg?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Avg>;
   bool_and?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Bool_And>;
   bool_or?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Bool_Or>;
+  corr?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Corr>;
   count?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Count>;
+  covar_samp?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp>;
+  max?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Max>;
+  min?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Min>;
+  stddev_samp?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Stddev_Samp>;
+  sum?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Sum>;
+  var_samp?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp_Var_Samp>;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Avg = {
+  arguments: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Avg_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
 };
 
 export type Pokemonevolution_Aggregate_Bool_Exp_Bool_And = {
@@ -33799,11 +35733,70 @@ export type Pokemonevolution_Aggregate_Bool_Exp_Bool_Or = {
   predicate: Boolean_Comparison_Exp;
 };
 
+export type Pokemonevolution_Aggregate_Bool_Exp_Corr = {
+  arguments: Pokemonevolution_Aggregate_Bool_Exp_Corr_Arguments;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Corr_Arguments = {
+  X: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Corr_Arguments_Columns;
+  Y: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Corr_Arguments_Columns;
+};
+
 export type Pokemonevolution_Aggregate_Bool_Exp_Count = {
   arguments?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
   filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
   predicate: Int_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp = {
+  arguments: Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp_Arguments;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp_Arguments = {
+  X: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp_Arguments_Columns;
+  Y: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp_Arguments_Columns;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Max = {
+  arguments: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Max_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Min = {
+  arguments: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Min_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Stddev_Samp = {
+  arguments: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Stddev_Samp_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Sum = {
+  arguments: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Sum_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
+};
+
+export type Pokemonevolution_Aggregate_Bool_Exp_Var_Samp = {
+  arguments: Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Var_Samp_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  predicate: Float8_Comparison_Exp;
 };
 
 /** aggregate fields of "pokemon_v2_pokemonevolution" */
@@ -33849,6 +35842,7 @@ export type Pokemonevolution_Avg_Fields = {
   __typename?: 'pokemonevolution_avg_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -33858,18 +35852,28 @@ export type Pokemonevolution_Avg_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Avg_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -33879,12 +35883,21 @@ export type Pokemonevolution_Avg_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "pokemon_v2_pokemonevolution". All fields are combined with a logical 'AND'. */
@@ -33896,14 +35909,18 @@ export type Pokemonevolution_Bool_Exp = {
   _and?: InputMaybe<Array<Pokemonevolution_Bool_Exp>>;
   _not?: InputMaybe<Pokemonevolution_Bool_Exp>;
   _or?: InputMaybe<Array<Pokemonevolution_Bool_Exp>>;
+  condition_expression?: InputMaybe<String_Comparison_Exp>;
   evolution_item_id?: InputMaybe<Int_Comparison_Exp>;
   evolution_trigger_id?: InputMaybe<Int_Comparison_Exp>;
   evolutiontrigger?: InputMaybe<Evolutiontrigger_Bool_Exp>;
+  evolved_pokemon_form?: InputMaybe<Pokemonform_Bool_Exp>;
+  evolved_pokemon_form_id?: InputMaybe<Int_Comparison_Exp>;
   evolved_species_id?: InputMaybe<Int_Comparison_Exp>;
   gender?: InputMaybe<Gender_Bool_Exp>;
   gender_id?: InputMaybe<Int_Comparison_Exp>;
   held_item_id?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  is_default?: InputMaybe<Boolean_Comparison_Exp>;
   item?: InputMaybe<Item_Bool_Exp>;
   known_move_id?: InputMaybe<Int_Comparison_Exp>;
   known_move_type_id?: InputMaybe<Int_Comparison_Exp>;
@@ -33911,25 +35928,42 @@ export type Pokemonevolution_Bool_Exp = {
   location_id?: InputMaybe<Int_Comparison_Exp>;
   min_affection?: InputMaybe<Int_Comparison_Exp>;
   min_beauty?: InputMaybe<Int_Comparison_Exp>;
+  min_damage_taken?: InputMaybe<Int_Comparison_Exp>;
   min_happiness?: InputMaybe<Int_Comparison_Exp>;
   min_level?: InputMaybe<Int_Comparison_Exp>;
+  min_move_count?: InputMaybe<Int_Comparison_Exp>;
+  min_steps?: InputMaybe<Int_Comparison_Exp>;
   move?: InputMaybe<Move_Bool_Exp>;
+  nature_bitmask?: InputMaybe<Int_Comparison_Exp>;
+  near_special_rock?: InputMaybe<Boolean_Comparison_Exp>;
+  needs_multiplayer?: InputMaybe<Boolean_Comparison_Exp>;
   needs_overworld_rain?: InputMaybe<Boolean_Comparison_Exp>;
   party_species_id?: InputMaybe<Int_Comparison_Exp>;
   party_type_id?: InputMaybe<Int_Comparison_Exp>;
+  percentage_chance?: InputMaybe<Float8_Comparison_Exp>;
   pokemonspecy?: InputMaybe<Pokemonspecies_Bool_Exp>;
+  region?: InputMaybe<Region_Bool_Exp>;
+  region_id?: InputMaybe<Int_Comparison_Exp>;
   relative_physical_stats?: InputMaybe<Int_Comparison_Exp>;
+  required_pokemon_form?: InputMaybe<Pokemonform_Bool_Exp>;
+  required_pokemon_form_id?: InputMaybe<Int_Comparison_Exp>;
   time_of_day?: InputMaybe<String_Comparison_Exp>;
   trade_species_id?: InputMaybe<Int_Comparison_Exp>;
   turn_upside_down?: InputMaybe<Boolean_Comparison_Exp>;
   type?: InputMaybe<Type_Bool_Exp>;
+  used_move_id?: InputMaybe<Int_Comparison_Exp>;
+  usedmove?: InputMaybe<Move_Bool_Exp>;
+  version_group_id?: InputMaybe<Int_Comparison_Exp>;
+  versiongroup?: InputMaybe<Versiongroup_Bool_Exp>;
 };
 
 /** aggregate max on columns */
 export type Pokemonevolution_Max_Fields = {
   __typename?: 'pokemonevolution_max_fields';
+  condition_expression?: Maybe<Scalars['String']['output']>;
   evolution_item_id?: Maybe<Scalars['Int']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Int']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   evolved_species_id?: Maybe<Scalars['Int']['output']>;
   gender_id?: Maybe<Scalars['Int']['output']>;
   held_item_id?: Maybe<Scalars['Int']['output']>;
@@ -33939,19 +35973,30 @@ export type Pokemonevolution_Max_Fields = {
   location_id?: Maybe<Scalars['Int']['output']>;
   min_affection?: Maybe<Scalars['Int']['output']>;
   min_beauty?: Maybe<Scalars['Int']['output']>;
+  min_damage_taken?: Maybe<Scalars['Int']['output']>;
   min_happiness?: Maybe<Scalars['Int']['output']>;
   min_level?: Maybe<Scalars['Int']['output']>;
+  min_move_count?: Maybe<Scalars['Int']['output']>;
+  min_steps?: Maybe<Scalars['Int']['output']>;
+  nature_bitmask?: Maybe<Scalars['Int']['output']>;
   party_species_id?: Maybe<Scalars['Int']['output']>;
   party_type_id?: Maybe<Scalars['Int']['output']>;
+  percentage_chance?: Maybe<Scalars['float8']['output']>;
+  region_id?: Maybe<Scalars['Int']['output']>;
   relative_physical_stats?: Maybe<Scalars['Int']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   time_of_day?: Maybe<Scalars['String']['output']>;
   trade_species_id?: Maybe<Scalars['Int']['output']>;
+  used_move_id?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by max() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Max_Order_By = {
+  condition_expression?: InputMaybe<Order_By>;
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -33961,20 +36006,31 @@ export type Pokemonevolution_Max_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   time_of_day?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
 export type Pokemonevolution_Min_Fields = {
   __typename?: 'pokemonevolution_min_fields';
+  condition_expression?: Maybe<Scalars['String']['output']>;
   evolution_item_id?: Maybe<Scalars['Int']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Int']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   evolved_species_id?: Maybe<Scalars['Int']['output']>;
   gender_id?: Maybe<Scalars['Int']['output']>;
   held_item_id?: Maybe<Scalars['Int']['output']>;
@@ -33984,19 +36040,30 @@ export type Pokemonevolution_Min_Fields = {
   location_id?: Maybe<Scalars['Int']['output']>;
   min_affection?: Maybe<Scalars['Int']['output']>;
   min_beauty?: Maybe<Scalars['Int']['output']>;
+  min_damage_taken?: Maybe<Scalars['Int']['output']>;
   min_happiness?: Maybe<Scalars['Int']['output']>;
   min_level?: Maybe<Scalars['Int']['output']>;
+  min_move_count?: Maybe<Scalars['Int']['output']>;
+  min_steps?: Maybe<Scalars['Int']['output']>;
+  nature_bitmask?: Maybe<Scalars['Int']['output']>;
   party_species_id?: Maybe<Scalars['Int']['output']>;
   party_type_id?: Maybe<Scalars['Int']['output']>;
+  percentage_chance?: Maybe<Scalars['float8']['output']>;
+  region_id?: Maybe<Scalars['Int']['output']>;
   relative_physical_stats?: Maybe<Scalars['Int']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   time_of_day?: Maybe<Scalars['String']['output']>;
   trade_species_id?: Maybe<Scalars['Int']['output']>;
+  used_move_id?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by min() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Min_Order_By = {
+  condition_expression?: InputMaybe<Order_By>;
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34006,13 +36073,22 @@ export type Pokemonevolution_Min_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   time_of_day?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** Ordering options when selecting data from "pokemon_v2_pokemonevolution". */
@@ -34021,14 +36097,18 @@ export type Pokemonevolution_Order_By = {
   PokemonspecyByPartySpeciesId?: InputMaybe<Pokemonspecies_Order_By>;
   PokemonspecyByTradeSpeciesId?: InputMaybe<Pokemonspecies_Order_By>;
   TypeByPartyTypeId?: InputMaybe<Type_Order_By>;
+  condition_expression?: InputMaybe<Order_By>;
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
   evolutiontrigger?: InputMaybe<Evolutiontrigger_Order_By>;
+  evolved_pokemon_form?: InputMaybe<Pokemonform_Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender?: InputMaybe<Gender_Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  is_default?: InputMaybe<Order_By>;
   item?: InputMaybe<Item_Order_By>;
   known_move_id?: InputMaybe<Order_By>;
   known_move_type_id?: InputMaybe<Order_By>;
@@ -34036,26 +36116,45 @@ export type Pokemonevolution_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
   move?: InputMaybe<Move_Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
+  near_special_rock?: InputMaybe<Order_By>;
+  needs_multiplayer?: InputMaybe<Order_By>;
   needs_overworld_rain?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
   pokemonspecy?: InputMaybe<Pokemonspecies_Order_By>;
+  region?: InputMaybe<Region_Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form?: InputMaybe<Pokemonform_Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   time_of_day?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
   turn_upside_down?: InputMaybe<Order_By>;
   type?: InputMaybe<Type_Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  usedmove?: InputMaybe<Move_Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
+  versiongroup?: InputMaybe<Versiongroup_Order_By>;
 };
 
 /** select columns of table "pokemon_v2_pokemonevolution" */
 export enum Pokemonevolution_Select_Column {
   /** column name */
+  ConditionExpression = 'condition_expression',
+  /** column name */
   EvolutionItemId = 'evolution_item_id',
   /** column name */
   EvolutionTriggerId = 'evolution_trigger_id',
+  /** column name */
+  EvolvedPokemonFormId = 'evolved_pokemon_form_id',
   /** column name */
   EvolvedSpeciesId = 'evolved_species_id',
   /** column name */
@@ -34064,6 +36163,8 @@ export enum Pokemonevolution_Select_Column {
   HeldItemId = 'held_item_id',
   /** column name */
   Id = 'id',
+  /** column name */
+  IsDefault = 'is_default',
   /** column name */
   KnownMoveId = 'known_move_id',
   /** column name */
@@ -34075,9 +36176,21 @@ export enum Pokemonevolution_Select_Column {
   /** column name */
   MinBeauty = 'min_beauty',
   /** column name */
+  MinDamageTaken = 'min_damage_taken',
+  /** column name */
   MinHappiness = 'min_happiness',
   /** column name */
   MinLevel = 'min_level',
+  /** column name */
+  MinMoveCount = 'min_move_count',
+  /** column name */
+  MinSteps = 'min_steps',
+  /** column name */
+  NatureBitmask = 'nature_bitmask',
+  /** column name */
+  NearSpecialRock = 'near_special_rock',
+  /** column name */
+  NeedsMultiplayer = 'needs_multiplayer',
   /** column name */
   NeedsOverworldRain = 'needs_overworld_rain',
   /** column name */
@@ -34085,17 +36198,39 @@ export enum Pokemonevolution_Select_Column {
   /** column name */
   PartyTypeId = 'party_type_id',
   /** column name */
+  PercentageChance = 'percentage_chance',
+  /** column name */
+  RegionId = 'region_id',
+  /** column name */
   RelativePhysicalStats = 'relative_physical_stats',
+  /** column name */
+  RequiredPokemonFormId = 'required_pokemon_form_id',
   /** column name */
   TimeOfDay = 'time_of_day',
   /** column name */
   TradeSpeciesId = 'trade_species_id',
   /** column name */
-  TurnUpsideDown = 'turn_upside_down'
+  TurnUpsideDown = 'turn_upside_down',
+  /** column name */
+  UsedMoveId = 'used_move_id',
+  /** column name */
+  VersionGroupId = 'version_group_id'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_avg_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Avg_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
 }
 
 /** select "pokemonevolution_aggregate_bool_exp_bool_and_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
 export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  IsDefault = 'is_default',
+  /** column name */
+  NearSpecialRock = 'near_special_rock',
+  /** column name */
+  NeedsMultiplayer = 'needs_multiplayer',
   /** column name */
   NeedsOverworldRain = 'needs_overworld_rain',
   /** column name */
@@ -34105,9 +36240,57 @@ export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_B
 /** select "pokemonevolution_aggregate_bool_exp_bool_or_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
 export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
   /** column name */
+  IsDefault = 'is_default',
+  /** column name */
+  NearSpecialRock = 'near_special_rock',
+  /** column name */
+  NeedsMultiplayer = 'needs_multiplayer',
+  /** column name */
   NeedsOverworldRain = 'needs_overworld_rain',
   /** column name */
   TurnUpsideDown = 'turn_upside_down'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_corr_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Corr_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_covar_samp_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Covar_Samp_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_max_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Max_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_min_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Min_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_stddev_samp_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Stddev_Samp_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_sum_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Sum_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
+}
+
+/** select "pokemonevolution_aggregate_bool_exp_var_samp_arguments_columns" columns of table "pokemon_v2_pokemonevolution" */
+export enum Pokemonevolution_Select_Column_Pokemonevolution_Aggregate_Bool_Exp_Var_Samp_Arguments_Columns {
+  /** column name */
+  PercentageChance = 'percentage_chance'
 }
 
 /** aggregate stddev on columns */
@@ -34115,6 +36298,7 @@ export type Pokemonevolution_Stddev_Fields = {
   __typename?: 'pokemonevolution_stddev_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -34124,18 +36308,28 @@ export type Pokemonevolution_Stddev_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Stddev_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34145,12 +36339,21 @@ export type Pokemonevolution_Stddev_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -34158,6 +36361,7 @@ export type Pokemonevolution_Stddev_Pop_Fields = {
   __typename?: 'pokemonevolution_stddev_pop_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -34167,18 +36371,28 @@ export type Pokemonevolution_Stddev_Pop_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Stddev_Pop_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34188,12 +36402,21 @@ export type Pokemonevolution_Stddev_Pop_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -34201,6 +36424,7 @@ export type Pokemonevolution_Stddev_Samp_Fields = {
   __typename?: 'pokemonevolution_stddev_samp_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -34210,18 +36434,28 @@ export type Pokemonevolution_Stddev_Samp_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Stddev_Samp_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34231,12 +36465,21 @@ export type Pokemonevolution_Stddev_Samp_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
@@ -34244,6 +36487,7 @@ export type Pokemonevolution_Sum_Fields = {
   __typename?: 'pokemonevolution_sum_fields';
   evolution_item_id?: Maybe<Scalars['Int']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Int']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   evolved_species_id?: Maybe<Scalars['Int']['output']>;
   gender_id?: Maybe<Scalars['Int']['output']>;
   held_item_id?: Maybe<Scalars['Int']['output']>;
@@ -34253,18 +36497,28 @@ export type Pokemonevolution_Sum_Fields = {
   location_id?: Maybe<Scalars['Int']['output']>;
   min_affection?: Maybe<Scalars['Int']['output']>;
   min_beauty?: Maybe<Scalars['Int']['output']>;
+  min_damage_taken?: Maybe<Scalars['Int']['output']>;
   min_happiness?: Maybe<Scalars['Int']['output']>;
   min_level?: Maybe<Scalars['Int']['output']>;
+  min_move_count?: Maybe<Scalars['Int']['output']>;
+  min_steps?: Maybe<Scalars['Int']['output']>;
+  nature_bitmask?: Maybe<Scalars['Int']['output']>;
   party_species_id?: Maybe<Scalars['Int']['output']>;
   party_type_id?: Maybe<Scalars['Int']['output']>;
+  percentage_chance?: Maybe<Scalars['float8']['output']>;
+  region_id?: Maybe<Scalars['Int']['output']>;
   relative_physical_stats?: Maybe<Scalars['Int']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Int']['output']>;
   trade_species_id?: Maybe<Scalars['Int']['output']>;
+  used_move_id?: Maybe<Scalars['Int']['output']>;
+  version_group_id?: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Sum_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34274,12 +36528,21 @@ export type Pokemonevolution_Sum_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_pop on columns */
@@ -34287,6 +36550,7 @@ export type Pokemonevolution_Var_Pop_Fields = {
   __typename?: 'pokemonevolution_var_pop_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -34296,18 +36560,28 @@ export type Pokemonevolution_Var_Pop_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Var_Pop_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34317,12 +36591,21 @@ export type Pokemonevolution_Var_Pop_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
@@ -34330,6 +36613,7 @@ export type Pokemonevolution_Var_Samp_Fields = {
   __typename?: 'pokemonevolution_var_samp_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -34339,18 +36623,28 @@ export type Pokemonevolution_Var_Samp_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Var_Samp_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34360,12 +36654,21 @@ export type Pokemonevolution_Var_Samp_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
@@ -34373,6 +36676,7 @@ export type Pokemonevolution_Variance_Fields = {
   __typename?: 'pokemonevolution_variance_fields';
   evolution_item_id?: Maybe<Scalars['Float']['output']>;
   evolution_trigger_id?: Maybe<Scalars['Float']['output']>;
+  evolved_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   evolved_species_id?: Maybe<Scalars['Float']['output']>;
   gender_id?: Maybe<Scalars['Float']['output']>;
   held_item_id?: Maybe<Scalars['Float']['output']>;
@@ -34382,18 +36686,28 @@ export type Pokemonevolution_Variance_Fields = {
   location_id?: Maybe<Scalars['Float']['output']>;
   min_affection?: Maybe<Scalars['Float']['output']>;
   min_beauty?: Maybe<Scalars['Float']['output']>;
+  min_damage_taken?: Maybe<Scalars['Float']['output']>;
   min_happiness?: Maybe<Scalars['Float']['output']>;
   min_level?: Maybe<Scalars['Float']['output']>;
+  min_move_count?: Maybe<Scalars['Float']['output']>;
+  min_steps?: Maybe<Scalars['Float']['output']>;
+  nature_bitmask?: Maybe<Scalars['Float']['output']>;
   party_species_id?: Maybe<Scalars['Float']['output']>;
   party_type_id?: Maybe<Scalars['Float']['output']>;
+  percentage_chance?: Maybe<Scalars['Float']['output']>;
+  region_id?: Maybe<Scalars['Float']['output']>;
   relative_physical_stats?: Maybe<Scalars['Float']['output']>;
+  required_pokemon_form_id?: Maybe<Scalars['Float']['output']>;
   trade_species_id?: Maybe<Scalars['Float']['output']>;
+  used_move_id?: Maybe<Scalars['Float']['output']>;
+  version_group_id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "pokemon_v2_pokemonevolution" */
 export type Pokemonevolution_Variance_Order_By = {
   evolution_item_id?: InputMaybe<Order_By>;
   evolution_trigger_id?: InputMaybe<Order_By>;
+  evolved_pokemon_form_id?: InputMaybe<Order_By>;
   evolved_species_id?: InputMaybe<Order_By>;
   gender_id?: InputMaybe<Order_By>;
   held_item_id?: InputMaybe<Order_By>;
@@ -34403,17 +36717,34 @@ export type Pokemonevolution_Variance_Order_By = {
   location_id?: InputMaybe<Order_By>;
   min_affection?: InputMaybe<Order_By>;
   min_beauty?: InputMaybe<Order_By>;
+  min_damage_taken?: InputMaybe<Order_By>;
   min_happiness?: InputMaybe<Order_By>;
   min_level?: InputMaybe<Order_By>;
+  min_move_count?: InputMaybe<Order_By>;
+  min_steps?: InputMaybe<Order_By>;
+  nature_bitmask?: InputMaybe<Order_By>;
   party_species_id?: InputMaybe<Order_By>;
   party_type_id?: InputMaybe<Order_By>;
+  percentage_chance?: InputMaybe<Order_By>;
+  region_id?: InputMaybe<Order_By>;
   relative_physical_stats?: InputMaybe<Order_By>;
+  required_pokemon_form_id?: InputMaybe<Order_By>;
   trade_species_id?: InputMaybe<Order_By>;
+  used_move_id?: InputMaybe<Order_By>;
+  version_group_id?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "pokemon_v2_pokemonform" */
 export type Pokemonform = {
   __typename?: 'pokemonform';
+  /** An array relationship */
+  PokemonevolutionsByRequiredPokemonFormId: Array<Pokemonevolution>;
+  /** An aggregate relationship */
+  PokemonevolutionsByRequiredPokemonFormId_aggregate: Pokemonevolution_Aggregate;
+  /** An array relationship */
+  PokemonformconditionsByPokemonFormId: Array<Pokemonformcondition>;
+  /** An aggregate relationship */
+  PokemonformconditionsByPokemonFormId_aggregate: Pokemonformcondition_Aggregate;
   form_name: Scalars['String']['output'];
   form_order?: Maybe<Scalars['Int']['output']>;
   id: Scalars['Int']['output'];
@@ -34425,6 +36756,18 @@ export type Pokemonform = {
   /** An object relationship */
   pokemon?: Maybe<Pokemon>;
   pokemon_id?: Maybe<Scalars['Int']['output']>;
+  /** An array relationship */
+  pokemonevolutions: Array<Pokemonevolution>;
+  /** An aggregate relationship */
+  pokemonevolutions_aggregate: Pokemonevolution_Aggregate;
+  /** An array relationship */
+  pokemonformconditions: Array<Pokemonformcondition>;
+  /** An aggregate relationship */
+  pokemonformconditions_aggregate: Pokemonformcondition_Aggregate;
+  /** An array relationship */
+  pokemonformflavortexts: Array<Pokemonformflavortext>;
+  /** An aggregate relationship */
+  pokemonformflavortexts_aggregate: Pokemonformflavortext_Aggregate;
   /** An array relationship */
   pokemonformgenerations: Array<Pokemonformgeneration>;
   /** An aggregate relationship */
@@ -34444,6 +36787,106 @@ export type Pokemonform = {
   version_group_id?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
   versiongroup?: Maybe<Versiongroup>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonevolutionsByRequiredPokemonFormIdArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonevolutionsByRequiredPokemonFormId_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonformconditionsByPokemonFormIdArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonformconditionsByPokemonFormId_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonevolutionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonevolutions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonformconditionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonformconditions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonformflavortextsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonform" */
+export type PokemonformPokemonformflavortexts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
 };
 
 
@@ -34619,6 +37062,10 @@ export type Pokemonform_Avg_Order_By = {
 
 /** Boolean expression to filter rows from the table "pokemon_v2_pokemonform". All fields are combined with a logical 'AND'. */
 export type Pokemonform_Bool_Exp = {
+  PokemonevolutionsByRequiredPokemonFormId?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  PokemonevolutionsByRequiredPokemonFormId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
+  PokemonformconditionsByPokemonFormId?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  PokemonformconditionsByPokemonFormId_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp>;
   _and?: InputMaybe<Array<Pokemonform_Bool_Exp>>;
   _not?: InputMaybe<Pokemonform_Bool_Exp>;
   _or?: InputMaybe<Array<Pokemonform_Bool_Exp>>;
@@ -34632,6 +37079,12 @@ export type Pokemonform_Bool_Exp = {
   order?: InputMaybe<Int_Comparison_Exp>;
   pokemon?: InputMaybe<Pokemon_Bool_Exp>;
   pokemon_id?: InputMaybe<Int_Comparison_Exp>;
+  pokemonevolutions?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
+  pokemonformconditions?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp>;
+  pokemonformflavortexts?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+  pokemonformflavortexts_aggregate?: InputMaybe<Pokemonformflavortext_Aggregate_Bool_Exp>;
   pokemonformgenerations?: InputMaybe<Pokemonformgeneration_Bool_Exp>;
   pokemonformgenerations_aggregate?: InputMaybe<Pokemonformgeneration_Aggregate_Bool_Exp>;
   pokemonformnames?: InputMaybe<Pokemonformname_Bool_Exp>;
@@ -34692,6 +37145,8 @@ export type Pokemonform_Min_Order_By = {
 
 /** Ordering options when selecting data from "pokemon_v2_pokemonform". */
 export type Pokemonform_Order_By = {
+  PokemonevolutionsByRequiredPokemonFormId_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
+  PokemonformconditionsByPokemonFormId_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Order_By>;
   form_name?: InputMaybe<Order_By>;
   form_order?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -34702,6 +37157,9 @@ export type Pokemonform_Order_By = {
   order?: InputMaybe<Order_By>;
   pokemon?: InputMaybe<Pokemon_Order_By>;
   pokemon_id?: InputMaybe<Order_By>;
+  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Order_By>;
+  pokemonformflavortexts_aggregate?: InputMaybe<Pokemonformflavortext_Aggregate_Order_By>;
   pokemonformgenerations_aggregate?: InputMaybe<Pokemonformgeneration_Aggregate_Order_By>;
   pokemonformnames_aggregate?: InputMaybe<Pokemonformname_Aggregate_Order_By>;
   pokemonformsprites_aggregate?: InputMaybe<Pokemonformsprites_Aggregate_Order_By>;
@@ -34885,6 +37343,658 @@ export type Pokemonform_Variance_Order_By = {
   order?: InputMaybe<Order_By>;
   pokemon_id?: InputMaybe<Order_By>;
   version_group_id?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition = {
+  __typename?: 'pokemonformcondition';
+  /** An object relationship */
+  ability?: Maybe<Ability>;
+  ability_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  base_form?: Maybe<Pokemonform>;
+  base_form_id?: Maybe<Scalars['Int']['output']>;
+  form_trigger_id: Scalars['Int']['output'];
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  item?: Maybe<Item>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  move?: Maybe<Move>;
+  move_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  pokemon_form?: Maybe<Pokemonform>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  pokemonformtrigger: Pokemonformtrigger;
+};
+
+/** aggregated selection of "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Aggregate = {
+  __typename?: 'pokemonformcondition_aggregate';
+  aggregate?: Maybe<Pokemonformcondition_Aggregate_Fields>;
+  nodes: Array<Pokemonformcondition>;
+};
+
+export type Pokemonformcondition_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp_Count>;
+};
+
+export type Pokemonformcondition_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Aggregate_Fields = {
+  __typename?: 'pokemonformcondition_aggregate_fields';
+  avg?: Maybe<Pokemonformcondition_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Pokemonformcondition_Max_Fields>;
+  min?: Maybe<Pokemonformcondition_Min_Fields>;
+  stddev?: Maybe<Pokemonformcondition_Stddev_Fields>;
+  stddev_pop?: Maybe<Pokemonformcondition_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Pokemonformcondition_Stddev_Samp_Fields>;
+  sum?: Maybe<Pokemonformcondition_Sum_Fields>;
+  var_pop?: Maybe<Pokemonformcondition_Var_Pop_Fields>;
+  var_samp?: Maybe<Pokemonformcondition_Var_Samp_Fields>;
+  variance?: Maybe<Pokemonformcondition_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Aggregate_Order_By = {
+  avg?: InputMaybe<Pokemonformcondition_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pokemonformcondition_Max_Order_By>;
+  min?: InputMaybe<Pokemonformcondition_Min_Order_By>;
+  stddev?: InputMaybe<Pokemonformcondition_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Pokemonformcondition_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Pokemonformcondition_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Pokemonformcondition_Sum_Order_By>;
+  var_pop?: InputMaybe<Pokemonformcondition_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Pokemonformcondition_Var_Samp_Order_By>;
+  variance?: InputMaybe<Pokemonformcondition_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Pokemonformcondition_Avg_Fields = {
+  __typename?: 'pokemonformcondition_avg_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Avg_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_pokemonformcondition". All fields are combined with a logical 'AND'. */
+export type Pokemonformcondition_Bool_Exp = {
+  _and?: InputMaybe<Array<Pokemonformcondition_Bool_Exp>>;
+  _not?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  _or?: InputMaybe<Array<Pokemonformcondition_Bool_Exp>>;
+  ability?: InputMaybe<Ability_Bool_Exp>;
+  ability_id?: InputMaybe<Int_Comparison_Exp>;
+  base_form?: InputMaybe<Pokemonform_Bool_Exp>;
+  base_form_id?: InputMaybe<Int_Comparison_Exp>;
+  form_trigger_id?: InputMaybe<Int_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  item?: InputMaybe<Item_Bool_Exp>;
+  item_id?: InputMaybe<Int_Comparison_Exp>;
+  move?: InputMaybe<Move_Bool_Exp>;
+  move_id?: InputMaybe<Int_Comparison_Exp>;
+  pokemon_form?: InputMaybe<Pokemonform_Bool_Exp>;
+  pokemon_form_id?: InputMaybe<Int_Comparison_Exp>;
+  pokemonformtrigger?: InputMaybe<Pokemonformtrigger_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Pokemonformcondition_Max_Fields = {
+  __typename?: 'pokemonformcondition_max_fields';
+  ability_id?: Maybe<Scalars['Int']['output']>;
+  base_form_id?: Maybe<Scalars['Int']['output']>;
+  form_trigger_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  move_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Max_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Pokemonformcondition_Min_Fields = {
+  __typename?: 'pokemonformcondition_min_fields';
+  ability_id?: Maybe<Scalars['Int']['output']>;
+  base_form_id?: Maybe<Scalars['Int']['output']>;
+  form_trigger_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  move_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Min_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_pokemonformcondition". */
+export type Pokemonformcondition_Order_By = {
+  ability?: InputMaybe<Ability_Order_By>;
+  ability_id?: InputMaybe<Order_By>;
+  base_form?: InputMaybe<Pokemonform_Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item?: InputMaybe<Item_Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move?: InputMaybe<Move_Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form?: InputMaybe<Pokemonform_Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  pokemonformtrigger?: InputMaybe<Pokemonformtrigger_Order_By>;
+};
+
+/** select columns of table "pokemon_v2_pokemonformcondition" */
+export enum Pokemonformcondition_Select_Column {
+  /** column name */
+  AbilityId = 'ability_id',
+  /** column name */
+  BaseFormId = 'base_form_id',
+  /** column name */
+  FormTriggerId = 'form_trigger_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  ItemId = 'item_id',
+  /** column name */
+  MoveId = 'move_id',
+  /** column name */
+  PokemonFormId = 'pokemon_form_id'
+}
+
+/** aggregate stddev on columns */
+export type Pokemonformcondition_Stddev_Fields = {
+  __typename?: 'pokemonformcondition_stddev_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Stddev_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Pokemonformcondition_Stddev_Pop_Fields = {
+  __typename?: 'pokemonformcondition_stddev_pop_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Stddev_Pop_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Pokemonformcondition_Stddev_Samp_Fields = {
+  __typename?: 'pokemonformcondition_stddev_samp_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Stddev_Samp_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Pokemonformcondition_Sum_Fields = {
+  __typename?: 'pokemonformcondition_sum_fields';
+  ability_id?: Maybe<Scalars['Int']['output']>;
+  base_form_id?: Maybe<Scalars['Int']['output']>;
+  form_trigger_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  item_id?: Maybe<Scalars['Int']['output']>;
+  move_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Sum_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Pokemonformcondition_Var_Pop_Fields = {
+  __typename?: 'pokemonformcondition_var_pop_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Var_Pop_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Pokemonformcondition_Var_Samp_Fields = {
+  __typename?: 'pokemonformcondition_var_samp_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Var_Samp_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Pokemonformcondition_Variance_Fields = {
+  __typename?: 'pokemonformcondition_variance_fields';
+  ability_id?: Maybe<Scalars['Float']['output']>;
+  base_form_id?: Maybe<Scalars['Float']['output']>;
+  form_trigger_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  item_id?: Maybe<Scalars['Float']['output']>;
+  move_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_pokemonformcondition" */
+export type Pokemonformcondition_Variance_Order_By = {
+  ability_id?: InputMaybe<Order_By>;
+  base_form_id?: InputMaybe<Order_By>;
+  form_trigger_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  item_id?: InputMaybe<Order_By>;
+  move_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext = {
+  __typename?: 'pokemonformflavortext';
+  flavor_text: Scalars['String']['output'];
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  language?: Maybe<Language>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  pokemonform?: Maybe<Pokemonform>;
+  /** An object relationship */
+  version?: Maybe<Version>;
+  version_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregated selection of "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Aggregate = {
+  __typename?: 'pokemonformflavortext_aggregate';
+  aggregate?: Maybe<Pokemonformflavortext_Aggregate_Fields>;
+  nodes: Array<Pokemonformflavortext>;
+};
+
+export type Pokemonformflavortext_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Pokemonformflavortext_Aggregate_Bool_Exp_Count>;
+};
+
+export type Pokemonformflavortext_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Aggregate_Fields = {
+  __typename?: 'pokemonformflavortext_aggregate_fields';
+  avg?: Maybe<Pokemonformflavortext_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Pokemonformflavortext_Max_Fields>;
+  min?: Maybe<Pokemonformflavortext_Min_Fields>;
+  stddev?: Maybe<Pokemonformflavortext_Stddev_Fields>;
+  stddev_pop?: Maybe<Pokemonformflavortext_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Pokemonformflavortext_Stddev_Samp_Fields>;
+  sum?: Maybe<Pokemonformflavortext_Sum_Fields>;
+  var_pop?: Maybe<Pokemonformflavortext_Var_Pop_Fields>;
+  var_samp?: Maybe<Pokemonformflavortext_Var_Samp_Fields>;
+  variance?: Maybe<Pokemonformflavortext_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Aggregate_Order_By = {
+  avg?: InputMaybe<Pokemonformflavortext_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pokemonformflavortext_Max_Order_By>;
+  min?: InputMaybe<Pokemonformflavortext_Min_Order_By>;
+  stddev?: InputMaybe<Pokemonformflavortext_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Pokemonformflavortext_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Pokemonformflavortext_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Pokemonformflavortext_Sum_Order_By>;
+  var_pop?: InputMaybe<Pokemonformflavortext_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Pokemonformflavortext_Var_Samp_Order_By>;
+  variance?: InputMaybe<Pokemonformflavortext_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Pokemonformflavortext_Avg_Fields = {
+  __typename?: 'pokemonformflavortext_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_pokemonformflavortext". All fields are combined with a logical 'AND'. */
+export type Pokemonformflavortext_Bool_Exp = {
+  _and?: InputMaybe<Array<Pokemonformflavortext_Bool_Exp>>;
+  _not?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+  _or?: InputMaybe<Array<Pokemonformflavortext_Bool_Exp>>;
+  flavor_text?: InputMaybe<String_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  language?: InputMaybe<Language_Bool_Exp>;
+  language_id?: InputMaybe<Int_Comparison_Exp>;
+  pokemon_form_id?: InputMaybe<Int_Comparison_Exp>;
+  pokemonform?: InputMaybe<Pokemonform_Bool_Exp>;
+  version?: InputMaybe<Version_Bool_Exp>;
+  version_id?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Pokemonformflavortext_Max_Fields = {
+  __typename?: 'pokemonformflavortext_max_fields';
+  flavor_text?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+  version_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Max_Order_By = {
+  flavor_text?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Pokemonformflavortext_Min_Fields = {
+  __typename?: 'pokemonformflavortext_min_fields';
+  flavor_text?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+  version_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Min_Order_By = {
+  flavor_text?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_pokemonformflavortext". */
+export type Pokemonformflavortext_Order_By = {
+  flavor_text?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  language?: InputMaybe<Language_Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  pokemonform?: InputMaybe<Pokemonform_Order_By>;
+  version?: InputMaybe<Version_Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pokemon_v2_pokemonformflavortext" */
+export enum Pokemonformflavortext_Select_Column {
+  /** column name */
+  FlavorText = 'flavor_text',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  LanguageId = 'language_id',
+  /** column name */
+  PokemonFormId = 'pokemon_form_id',
+  /** column name */
+  VersionId = 'version_id'
+}
+
+/** aggregate stddev on columns */
+export type Pokemonformflavortext_Stddev_Fields = {
+  __typename?: 'pokemonformflavortext_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Pokemonformflavortext_Stddev_Pop_Fields = {
+  __typename?: 'pokemonformflavortext_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Pokemonformflavortext_Stddev_Samp_Fields = {
+  __typename?: 'pokemonformflavortext_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Pokemonformflavortext_Sum_Fields = {
+  __typename?: 'pokemonformflavortext_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  language_id?: Maybe<Scalars['Int']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Int']['output']>;
+  version_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Pokemonformflavortext_Var_Pop_Fields = {
+  __typename?: 'pokemonformflavortext_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Pokemonformflavortext_Var_Samp_Fields = {
+  __typename?: 'pokemonformflavortext_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Pokemonformflavortext_Variance_Fields = {
+  __typename?: 'pokemonformflavortext_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  language_id?: Maybe<Scalars['Float']['output']>;
+  pokemon_form_id?: Maybe<Scalars['Float']['output']>;
+  version_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_pokemonformflavortext" */
+export type Pokemonformflavortext_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  language_id?: InputMaybe<Order_By>;
+  pokemon_form_id?: InputMaybe<Order_By>;
+  version_id?: InputMaybe<Order_By>;
 };
 
 /** columns and relationships of "pokemon_v2_pokemonformgeneration" */
@@ -35657,6 +38767,155 @@ export type Pokemonformsprites_Variance_Fields = {
 export type Pokemonformsprites_Variance_Order_By = {
   id?: InputMaybe<Order_By>;
   pokemon_form_id?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "pokemon_v2_pokemonformtrigger" */
+export type Pokemonformtrigger = {
+  __typename?: 'pokemonformtrigger';
+  id: Scalars['Int']['output'];
+  name: Scalars['String']['output'];
+  /** An array relationship */
+  pokemonformconditions: Array<Pokemonformcondition>;
+  /** An aggregate relationship */
+  pokemonformconditions_aggregate: Pokemonformcondition_Aggregate;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonformtrigger" */
+export type PokemonformtriggerPokemonformconditionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_pokemonformtrigger" */
+export type PokemonformtriggerPokemonformconditions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+/** aggregated selection of "pokemon_v2_pokemonformtrigger" */
+export type Pokemonformtrigger_Aggregate = {
+  __typename?: 'pokemonformtrigger_aggregate';
+  aggregate?: Maybe<Pokemonformtrigger_Aggregate_Fields>;
+  nodes: Array<Pokemonformtrigger>;
+};
+
+/** aggregate fields of "pokemon_v2_pokemonformtrigger" */
+export type Pokemonformtrigger_Aggregate_Fields = {
+  __typename?: 'pokemonformtrigger_aggregate_fields';
+  avg?: Maybe<Pokemonformtrigger_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Pokemonformtrigger_Max_Fields>;
+  min?: Maybe<Pokemonformtrigger_Min_Fields>;
+  stddev?: Maybe<Pokemonformtrigger_Stddev_Fields>;
+  stddev_pop?: Maybe<Pokemonformtrigger_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Pokemonformtrigger_Stddev_Samp_Fields>;
+  sum?: Maybe<Pokemonformtrigger_Sum_Fields>;
+  var_pop?: Maybe<Pokemonformtrigger_Var_Pop_Fields>;
+  var_samp?: Maybe<Pokemonformtrigger_Var_Samp_Fields>;
+  variance?: Maybe<Pokemonformtrigger_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_pokemonformtrigger" */
+export type Pokemonformtrigger_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Pokemonformtrigger_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Pokemonformtrigger_Avg_Fields = {
+  __typename?: 'pokemonformtrigger_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_pokemonformtrigger". All fields are combined with a logical 'AND'. */
+export type Pokemonformtrigger_Bool_Exp = {
+  _and?: InputMaybe<Array<Pokemonformtrigger_Bool_Exp>>;
+  _not?: InputMaybe<Pokemonformtrigger_Bool_Exp>;
+  _or?: InputMaybe<Array<Pokemonformtrigger_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  pokemonformconditions?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Bool_Exp>;
+};
+
+/** aggregate max on columns */
+export type Pokemonformtrigger_Max_Fields = {
+  __typename?: 'pokemonformtrigger_max_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type Pokemonformtrigger_Min_Fields = {
+  __typename?: 'pokemonformtrigger_min_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_pokemonformtrigger". */
+export type Pokemonformtrigger_Order_By = {
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  pokemonformconditions_aggregate?: InputMaybe<Pokemonformcondition_Aggregate_Order_By>;
+};
+
+/** select columns of table "pokemon_v2_pokemonformtrigger" */
+export enum Pokemonformtrigger_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** aggregate stddev on columns */
+export type Pokemonformtrigger_Stddev_Fields = {
+  __typename?: 'pokemonformtrigger_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Pokemonformtrigger_Stddev_Pop_Fields = {
+  __typename?: 'pokemonformtrigger_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Pokemonformtrigger_Stddev_Samp_Fields = {
+  __typename?: 'pokemonformtrigger_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate sum on columns */
+export type Pokemonformtrigger_Sum_Fields = {
+  __typename?: 'pokemonformtrigger_sum_fields';
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Pokemonformtrigger_Var_Pop_Fields = {
+  __typename?: 'pokemonformtrigger_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Pokemonformtrigger_Var_Samp_Fields = {
+  __typename?: 'pokemonformtrigger_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Pokemonformtrigger_Variance_Fields = {
+  __typename?: 'pokemonformtrigger_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
 };
 
 /** columns and relationships of "pokemon_v2_pokemonformtype" */
@@ -40005,6 +43264,334 @@ export type Pokemonstat_Variance_Order_By = {
   stat_id?: InputMaybe<Order_By>;
 };
 
+/** columns and relationships of "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast = {
+  __typename?: 'pokemonstatpast';
+  base_stat: Scalars['Int']['output'];
+  effort: Scalars['Int']['output'];
+  /** An object relationship */
+  generation?: Maybe<Generation>;
+  generation_id?: Maybe<Scalars['Int']['output']>;
+  id: Scalars['Int']['output'];
+  /** An object relationship */
+  pokemon?: Maybe<Pokemon>;
+  pokemon_id?: Maybe<Scalars['Int']['output']>;
+  /** An object relationship */
+  stat?: Maybe<Stat>;
+  stat_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregated selection of "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Aggregate = {
+  __typename?: 'pokemonstatpast_aggregate';
+  aggregate?: Maybe<Pokemonstatpast_Aggregate_Fields>;
+  nodes: Array<Pokemonstatpast>;
+};
+
+export type Pokemonstatpast_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Pokemonstatpast_Aggregate_Bool_Exp_Count>;
+};
+
+export type Pokemonstatpast_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Aggregate_Fields = {
+  __typename?: 'pokemonstatpast_aggregate_fields';
+  avg?: Maybe<Pokemonstatpast_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Pokemonstatpast_Max_Fields>;
+  min?: Maybe<Pokemonstatpast_Min_Fields>;
+  stddev?: Maybe<Pokemonstatpast_Stddev_Fields>;
+  stddev_pop?: Maybe<Pokemonstatpast_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Pokemonstatpast_Stddev_Samp_Fields>;
+  sum?: Maybe<Pokemonstatpast_Sum_Fields>;
+  var_pop?: Maybe<Pokemonstatpast_Var_Pop_Fields>;
+  var_samp?: Maybe<Pokemonstatpast_Var_Samp_Fields>;
+  variance?: Maybe<Pokemonstatpast_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Aggregate_Order_By = {
+  avg?: InputMaybe<Pokemonstatpast_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pokemonstatpast_Max_Order_By>;
+  min?: InputMaybe<Pokemonstatpast_Min_Order_By>;
+  stddev?: InputMaybe<Pokemonstatpast_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Pokemonstatpast_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Pokemonstatpast_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Pokemonstatpast_Sum_Order_By>;
+  var_pop?: InputMaybe<Pokemonstatpast_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Pokemonstatpast_Var_Samp_Order_By>;
+  variance?: InputMaybe<Pokemonstatpast_Variance_Order_By>;
+};
+
+/** aggregate avg on columns */
+export type Pokemonstatpast_Avg_Fields = {
+  __typename?: 'pokemonstatpast_avg_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Avg_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pokemon_v2_pokemonstatpast". All fields are combined with a logical 'AND'. */
+export type Pokemonstatpast_Bool_Exp = {
+  _and?: InputMaybe<Array<Pokemonstatpast_Bool_Exp>>;
+  _not?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+  _or?: InputMaybe<Array<Pokemonstatpast_Bool_Exp>>;
+  base_stat?: InputMaybe<Int_Comparison_Exp>;
+  effort?: InputMaybe<Int_Comparison_Exp>;
+  generation?: InputMaybe<Generation_Bool_Exp>;
+  generation_id?: InputMaybe<Int_Comparison_Exp>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  pokemon?: InputMaybe<Pokemon_Bool_Exp>;
+  pokemon_id?: InputMaybe<Int_Comparison_Exp>;
+  stat?: InputMaybe<Stat_Bool_Exp>;
+  stat_id?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Pokemonstatpast_Max_Fields = {
+  __typename?: 'pokemonstatpast_max_fields';
+  base_stat?: Maybe<Scalars['Int']['output']>;
+  effort?: Maybe<Scalars['Int']['output']>;
+  generation_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  pokemon_id?: Maybe<Scalars['Int']['output']>;
+  stat_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by max() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Max_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Pokemonstatpast_Min_Fields = {
+  __typename?: 'pokemonstatpast_min_fields';
+  base_stat?: Maybe<Scalars['Int']['output']>;
+  effort?: Maybe<Scalars['Int']['output']>;
+  generation_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  pokemon_id?: Maybe<Scalars['Int']['output']>;
+  stat_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Min_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pokemon_v2_pokemonstatpast". */
+export type Pokemonstatpast_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation?: InputMaybe<Generation_Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon?: InputMaybe<Pokemon_Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat?: InputMaybe<Stat_Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pokemon_v2_pokemonstatpast" */
+export enum Pokemonstatpast_Select_Column {
+  /** column name */
+  BaseStat = 'base_stat',
+  /** column name */
+  Effort = 'effort',
+  /** column name */
+  GenerationId = 'generation_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PokemonId = 'pokemon_id',
+  /** column name */
+  StatId = 'stat_id'
+}
+
+/** aggregate stddev on columns */
+export type Pokemonstatpast_Stddev_Fields = {
+  __typename?: 'pokemonstatpast_stddev_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Stddev_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Pokemonstatpast_Stddev_Pop_Fields = {
+  __typename?: 'pokemonstatpast_stddev_pop_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Stddev_Pop_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Pokemonstatpast_Stddev_Samp_Fields = {
+  __typename?: 'pokemonstatpast_stddev_samp_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Stddev_Samp_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Pokemonstatpast_Sum_Fields = {
+  __typename?: 'pokemonstatpast_sum_fields';
+  base_stat?: Maybe<Scalars['Int']['output']>;
+  effort?: Maybe<Scalars['Int']['output']>;
+  generation_id?: Maybe<Scalars['Int']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  pokemon_id?: Maybe<Scalars['Int']['output']>;
+  stat_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Sum_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_pop on columns */
+export type Pokemonstatpast_Var_Pop_Fields = {
+  __typename?: 'pokemonstatpast_var_pop_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Var_Pop_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Pokemonstatpast_Var_Samp_Fields = {
+  __typename?: 'pokemonstatpast_var_samp_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Var_Samp_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Pokemonstatpast_Variance_Fields = {
+  __typename?: 'pokemonstatpast_variance_fields';
+  base_stat?: Maybe<Scalars['Float']['output']>;
+  effort?: Maybe<Scalars['Float']['output']>;
+  generation_id?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  pokemon_id?: Maybe<Scalars['Float']['output']>;
+  stat_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "pokemon_v2_pokemonstatpast" */
+export type Pokemonstatpast_Variance_Order_By = {
+  base_stat?: InputMaybe<Order_By>;
+  effort?: InputMaybe<Order_By>;
+  generation_id?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  pokemon_id?: InputMaybe<Order_By>;
+  stat_id?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "pokemon_v2_pokemontype" */
 export type Pokemontype = {
   __typename?: 'pokemontype';
@@ -40664,6 +44251,14 @@ export type Query_Root = {
   contesttypename: Array<Contesttypename>;
   /** fetch aggregated fields from the table: "pokemon_v2_contesttypename" */
   contesttypename_aggregate: Contesttypename_Aggregate;
+  /** fetch data from the table: "pokemon_v2_currency" */
+  currency: Array<Currency>;
+  /** fetch aggregated fields from the table: "pokemon_v2_currency" */
+  currency_aggregate: Currency_Aggregate;
+  /** fetch data from the table: "pokemon_v2_currencyname" */
+  currencyname: Array<Currencyname>;
+  /** fetch aggregated fields from the table: "pokemon_v2_currencyname" */
+  currencyname_aggregate: Currencyname_Aggregate;
   /** fetch data from the table: "pokemon_v2_egggroup" */
   egggroup: Array<Egggroup>;
   /** fetch aggregated fields from the table: "pokemon_v2_egggroup" */
@@ -40720,6 +44315,18 @@ export type Query_Root = {
   evolutiontriggername: Array<Evolutiontriggername>;
   /** fetch aggregated fields from the table: "pokemon_v2_evolutiontriggername" */
   evolutiontriggername_aggregate: Evolutiontriggername_Aggregate;
+  /** fetch data from the table: "pokemon_v2_evolutionvariable" */
+  evolutionvariable: Array<Evolutionvariable>;
+  /** fetch aggregated fields from the table: "pokemon_v2_evolutionvariable" */
+  evolutionvariable_aggregate: Evolutionvariable_Aggregate;
+  /** fetch data from the table: "pokemon_v2_evolutionvariabledescription" */
+  evolutionvariabledescription: Array<Evolutionvariabledescription>;
+  /** fetch aggregated fields from the table: "pokemon_v2_evolutionvariabledescription" */
+  evolutionvariabledescription_aggregate: Evolutionvariabledescription_Aggregate;
+  /** fetch data from the table: "pokemon_v2_evolutionvariablename" */
+  evolutionvariablename: Array<Evolutionvariablename>;
+  /** fetch aggregated fields from the table: "pokemon_v2_evolutionvariablename" */
+  evolutionvariablename_aggregate: Evolutionvariablename_Aggregate;
   /** fetch data from the table: "pokemon_v2_experience" */
   experience: Array<Experience>;
   /** fetch aggregated fields from the table: "pokemon_v2_experience" */
@@ -40804,6 +44411,12 @@ export type Query_Root = {
   itempocketname: Array<Itempocketname>;
   /** fetch aggregated fields from the table: "pokemon_v2_itempocketname" */
   itempocketname_aggregate: Itempocketname_Aggregate;
+  /** fetch data from the table: "pokemon_v2_itemprice" */
+  itemprice: Array<Itemprice>;
+  /** fetch aggregated fields from the table: "pokemon_v2_itemprice" */
+  itemprice_aggregate: Itemprice_Aggregate;
+  /** fetch data from the table: "pokemon_v2_itemprice" using primary key columns */
+  itemprice_by_pk?: Maybe<Itemprice>;
   /** An array relationship */
   itemsprites: Array<Itemsprites>;
   /** An aggregate relationship */
@@ -41052,6 +44665,14 @@ export type Query_Root = {
   pokemonform: Array<Pokemonform>;
   /** fetch aggregated fields from the table: "pokemon_v2_pokemonform" */
   pokemonform_aggregate: Pokemonform_Aggregate;
+  /** fetch data from the table: "pokemon_v2_pokemonformcondition" */
+  pokemonformcondition: Array<Pokemonformcondition>;
+  /** fetch aggregated fields from the table: "pokemon_v2_pokemonformcondition" */
+  pokemonformcondition_aggregate: Pokemonformcondition_Aggregate;
+  /** fetch data from the table: "pokemon_v2_pokemonformflavortext" */
+  pokemonformflavortext: Array<Pokemonformflavortext>;
+  /** fetch aggregated fields from the table: "pokemon_v2_pokemonformflavortext" */
+  pokemonformflavortext_aggregate: Pokemonformflavortext_Aggregate;
   /** fetch data from the table: "pokemon_v2_pokemonformgeneration" */
   pokemonformgeneration: Array<Pokemonformgeneration>;
   /** fetch aggregated fields from the table: "pokemon_v2_pokemonformgeneration" */
@@ -41064,6 +44685,10 @@ export type Query_Root = {
   pokemonformsprites: Array<Pokemonformsprites>;
   /** An aggregate relationship */
   pokemonformsprites_aggregate: Pokemonformsprites_Aggregate;
+  /** fetch data from the table: "pokemon_v2_pokemonformtrigger" */
+  pokemonformtrigger: Array<Pokemonformtrigger>;
+  /** fetch aggregated fields from the table: "pokemon_v2_pokemonformtrigger" */
+  pokemonformtrigger_aggregate: Pokemonformtrigger_Aggregate;
   /** fetch data from the table: "pokemon_v2_pokemonformtype" */
   pokemonformtype: Array<Pokemonformtype>;
   /** fetch aggregated fields from the table: "pokemon_v2_pokemonformtype" */
@@ -41120,6 +44745,10 @@ export type Query_Root = {
   pokemonstat: Array<Pokemonstat>;
   /** fetch aggregated fields from the table: "pokemon_v2_pokemonstat" */
   pokemonstat_aggregate: Pokemonstat_Aggregate;
+  /** fetch data from the table: "pokemon_v2_pokemonstatpast" */
+  pokemonstatpast: Array<Pokemonstatpast>;
+  /** fetch aggregated fields from the table: "pokemon_v2_pokemonstatpast" */
+  pokemonstatpast_aggregate: Pokemonstatpast_Aggregate;
   /** fetch data from the table: "pokemon_v2_pokemontype" */
   pokemontype: Array<Pokemontype>;
   /** fetch aggregated fields from the table: "pokemon_v2_pokemontype" */
@@ -41559,6 +45188,42 @@ export type Query_RootContesttypename_AggregateArgs = {
 };
 
 
+export type Query_RootCurrencyArgs = {
+  distinct_on?: InputMaybe<Array<Currency_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currency_Order_By>>;
+  where?: InputMaybe<Currency_Bool_Exp>;
+};
+
+
+export type Query_RootCurrency_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Currency_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currency_Order_By>>;
+  where?: InputMaybe<Currency_Bool_Exp>;
+};
+
+
+export type Query_RootCurrencynameArgs = {
+  distinct_on?: InputMaybe<Array<Currencyname_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currencyname_Order_By>>;
+  where?: InputMaybe<Currencyname_Bool_Exp>;
+};
+
+
+export type Query_RootCurrencyname_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Currencyname_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Currencyname_Order_By>>;
+  where?: InputMaybe<Currencyname_Bool_Exp>;
+};
+
+
 export type Query_RootEgggroupArgs = {
   distinct_on?: InputMaybe<Array<Egggroup_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -41808,6 +45473,60 @@ export type Query_RootEvolutiontriggername_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Evolutiontriggername_Order_By>>;
   where?: InputMaybe<Evolutiontriggername_Bool_Exp>;
+};
+
+
+export type Query_RootEvolutionvariableArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariable_Order_By>>;
+  where?: InputMaybe<Evolutionvariable_Bool_Exp>;
+};
+
+
+export type Query_RootEvolutionvariable_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariable_Order_By>>;
+  where?: InputMaybe<Evolutionvariable_Bool_Exp>;
+};
+
+
+export type Query_RootEvolutionvariabledescriptionArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariabledescription_Order_By>>;
+  where?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+};
+
+
+export type Query_RootEvolutionvariabledescription_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariabledescription_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariabledescription_Order_By>>;
+  where?: InputMaybe<Evolutionvariabledescription_Bool_Exp>;
+};
+
+
+export type Query_RootEvolutionvariablenameArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariablename_Order_By>>;
+  where?: InputMaybe<Evolutionvariablename_Bool_Exp>;
+};
+
+
+export type Query_RootEvolutionvariablename_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariablename_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariablename_Order_By>>;
+  where?: InputMaybe<Evolutionvariablename_Bool_Exp>;
 };
 
 
@@ -42186,6 +45905,29 @@ export type Query_RootItempocketname_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Itempocketname_Order_By>>;
   where?: InputMaybe<Itempocketname_Bool_Exp>;
+};
+
+
+export type Query_RootItempriceArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+export type Query_RootItemprice_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+export type Query_RootItemprice_By_PkArgs = {
+  id: Scalars['Int']['input'];
 };
 
 
@@ -43305,6 +47047,42 @@ export type Query_RootPokemonform_AggregateArgs = {
 };
 
 
+export type Query_RootPokemonformconditionArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonformcondition_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformcondition_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformcondition_Order_By>>;
+  where?: InputMaybe<Pokemonformcondition_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonformflavortextArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonformflavortext_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+};
+
+
 export type Query_RootPokemonformgenerationArgs = {
   distinct_on?: InputMaybe<Array<Pokemonformgeneration_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -43356,6 +47134,24 @@ export type Query_RootPokemonformsprites_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokemonformsprites_Order_By>>;
   where?: InputMaybe<Pokemonformsprites_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonformtriggerArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformtrigger_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformtrigger_Order_By>>;
+  where?: InputMaybe<Pokemonformtrigger_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonformtrigger_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformtrigger_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformtrigger_Order_By>>;
+  where?: InputMaybe<Pokemonformtrigger_Bool_Exp>;
 };
 
 
@@ -43608,6 +47404,24 @@ export type Query_RootPokemonstat_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokemonstat_Order_By>>;
   where?: InputMaybe<Pokemonstat_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonstatpastArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+};
+
+
+export type Query_RootPokemonstatpast_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
 };
 
 
@@ -43972,6 +47786,10 @@ export type Region = {
   /** An aggregate relationship */
   pokedexes_aggregate: Pokedex_Aggregate;
   /** An array relationship */
+  pokemonevolutions: Array<Pokemonevolution>;
+  /** An aggregate relationship */
+  pokemonevolutions_aggregate: Pokemonevolution_Aggregate;
+  /** An array relationship */
   regionnames: Array<Regionname>;
   /** An aggregate relationship */
   regionnames_aggregate: Regionname_Aggregate;
@@ -44039,6 +47857,26 @@ export type RegionPokedexes_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokedex_Order_By>>;
   where?: InputMaybe<Pokedex_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_region" */
+export type RegionPokemonevolutionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_region" */
+export type RegionPokemonevolutions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
 };
 
 
@@ -44131,6 +47969,8 @@ export type Region_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   pokedexes?: InputMaybe<Pokedex_Bool_Exp>;
   pokedexes_aggregate?: InputMaybe<Pokedex_Aggregate_Bool_Exp>;
+  pokemonevolutions?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
   regionnames?: InputMaybe<Regionname_Bool_Exp>;
   regionnames_aggregate?: InputMaybe<Regionname_Aggregate_Bool_Exp>;
   versiongroupregions?: InputMaybe<Versiongroupregion_Bool_Exp>;
@@ -44159,6 +47999,7 @@ export type Region_Order_By = {
   locations_aggregate?: InputMaybe<Location_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
   pokedexes_aggregate?: InputMaybe<Pokedex_Aggregate_Order_By>;
+  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
   regionnames_aggregate?: InputMaybe<Regionname_Aggregate_Order_By>;
   versiongroupregions_aggregate?: InputMaybe<Versiongroupregion_Aggregate_Order_By>;
 };
@@ -44498,6 +48339,10 @@ export type Stat = {
   /** An aggregate relationship */
   natures_aggregate: Nature_Aggregate;
   /** An array relationship */
+  pokemonstatpasts: Array<Pokemonstatpast>;
+  /** An aggregate relationship */
+  pokemonstatpasts_aggregate: Pokemonstatpast_Aggregate;
+  /** An array relationship */
   pokemonstats: Array<Pokemonstat>;
   /** An aggregate relationship */
   pokemonstats_aggregate: Pokemonstat_Aggregate;
@@ -44585,6 +48430,26 @@ export type StatNatures_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Nature_Order_By>>;
   where?: InputMaybe<Nature_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_stat" */
+export type StatPokemonstatpastsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_stat" */
+export type StatPokemonstatpasts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonstatpast_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonstatpast_Order_By>>;
+  where?: InputMaybe<Pokemonstatpast_Bool_Exp>;
 };
 
 
@@ -44733,6 +48598,8 @@ export type Stat_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   natures?: InputMaybe<Nature_Bool_Exp>;
   natures_aggregate?: InputMaybe<Nature_Aggregate_Bool_Exp>;
+  pokemonstatpasts?: InputMaybe<Pokemonstatpast_Bool_Exp>;
+  pokemonstatpasts_aggregate?: InputMaybe<Pokemonstatpast_Aggregate_Bool_Exp>;
   pokemonstats?: InputMaybe<Pokemonstat_Bool_Exp>;
   pokemonstats_aggregate?: InputMaybe<Pokemonstat_Aggregate_Bool_Exp>;
   statnames?: InputMaybe<Statname_Bool_Exp>;
@@ -44785,6 +48652,7 @@ export type Stat_Order_By = {
   movemetastatchanges_aggregate?: InputMaybe<Movemetastatchange_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
   natures_aggregate?: InputMaybe<Nature_Aggregate_Order_By>;
+  pokemonstatpasts_aggregate?: InputMaybe<Pokemonstatpast_Aggregate_Order_By>;
   pokemonstats_aggregate?: InputMaybe<Pokemonstat_Aggregate_Order_By>;
   statnames_aggregate?: InputMaybe<Statname_Aggregate_Order_By>;
 };
@@ -45176,6 +49044,48 @@ export type Statname_Variance_Order_By = {
   id?: InputMaybe<Order_By>;
   language_id?: InputMaybe<Order_By>;
   stat_id?: InputMaybe<Order_By>;
+};
+
+export type Subscription_Root = {
+  __typename?: 'subscription_root';
+  /** fetch data from the table: "pokemon_v2_itemprice" */
+  itemprice: Array<Itemprice>;
+  /** fetch aggregated fields from the table: "pokemon_v2_itemprice" */
+  itemprice_aggregate: Itemprice_Aggregate;
+  /** fetch data from the table: "pokemon_v2_itemprice" using primary key columns */
+  itemprice_by_pk?: Maybe<Itemprice>;
+  /** fetch data from the table in a streaming manner: "pokemon_v2_itemprice" */
+  itemprice_stream: Array<Itemprice>;
+};
+
+
+export type Subscription_RootItempriceArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+export type Subscription_RootItemprice_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+export type Subscription_RootItemprice_By_PkArgs = {
+  id: Scalars['Int']['input'];
+};
+
+
+export type Subscription_RootItemprice_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Itemprice_Stream_Cursor_Input>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
 };
 
 /** columns and relationships of "pokemon_v2_supercontestcombo" */
@@ -47628,6 +51538,10 @@ export type Version = {
   locationareaencounterrates_aggregate: Locationareaencounterrate_Aggregate;
   name: Scalars['String']['output'];
   /** An array relationship */
+  pokemonformflavortexts: Array<Pokemonformflavortext>;
+  /** An aggregate relationship */
+  pokemonformflavortexts_aggregate: Pokemonformflavortext_Aggregate;
+  /** An array relationship */
   pokemongameindices: Array<Pokemongameindex>;
   /** An aggregate relationship */
   pokemongameindices_aggregate: Pokemongameindex_Aggregate;
@@ -47686,6 +51600,26 @@ export type VersionLocationareaencounterrates_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Locationareaencounterrate_Order_By>>;
   where?: InputMaybe<Locationareaencounterrate_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_version" */
+export type VersionPokemonformflavortextsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_version" */
+export type VersionPokemonformflavortexts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonformflavortext_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonformflavortext_Order_By>>;
+  where?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
 };
 
 
@@ -47848,6 +51782,8 @@ export type Version_Bool_Exp = {
   locationareaencounterrates?: InputMaybe<Locationareaencounterrate_Bool_Exp>;
   locationareaencounterrates_aggregate?: InputMaybe<Locationareaencounterrate_Aggregate_Bool_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  pokemonformflavortexts?: InputMaybe<Pokemonformflavortext_Bool_Exp>;
+  pokemonformflavortexts_aggregate?: InputMaybe<Pokemonformflavortext_Aggregate_Bool_Exp>;
   pokemongameindices?: InputMaybe<Pokemongameindex_Bool_Exp>;
   pokemongameindices_aggregate?: InputMaybe<Pokemongameindex_Aggregate_Bool_Exp>;
   pokemonitems?: InputMaybe<Pokemonitem_Bool_Exp>;
@@ -47896,6 +51832,7 @@ export type Version_Order_By = {
   id?: InputMaybe<Order_By>;
   locationareaencounterrates_aggregate?: InputMaybe<Locationareaencounterrate_Aggregate_Order_By>;
   name?: InputMaybe<Order_By>;
+  pokemonformflavortexts_aggregate?: InputMaybe<Pokemonformflavortext_Aggregate_Order_By>;
   pokemongameindices_aggregate?: InputMaybe<Pokemongameindex_Aggregate_Order_By>;
   pokemonitems_aggregate?: InputMaybe<Pokemonitem_Aggregate_Order_By>;
   pokemonspeciesflavortexts_aggregate?: InputMaybe<Pokemonspeciesflavortext_Aggregate_Order_By>;
@@ -48020,6 +51957,10 @@ export type Versiongroup = {
   encounterslots: Array<Encounterslot>;
   /** An aggregate relationship */
   encounterslots_aggregate: Encounterslot_Aggregate;
+  /** An array relationship */
+  evolutionvariables: Array<Evolutionvariable>;
+  /** An aggregate relationship */
+  evolutionvariables_aggregate: Evolutionvariable_Aggregate;
   /** An object relationship */
   generation?: Maybe<Generation>;
   generation_id?: Maybe<Scalars['Int']['output']>;
@@ -48028,6 +51969,10 @@ export type Versiongroup = {
   itemflavortexts: Array<Itemflavortext>;
   /** An aggregate relationship */
   itemflavortexts_aggregate: Itemflavortext_Aggregate;
+  /** An array relationship */
+  itemprices: Array<Itemprice>;
+  /** An aggregate relationship */
+  itemprices_aggregate: Itemprice_Aggregate;
   /** An array relationship */
   machines: Array<Machine>;
   /** An aggregate relationship */
@@ -48050,6 +51995,10 @@ export type Versiongroup = {
   pokedexversiongroups: Array<Pokedexversiongroup>;
   /** An aggregate relationship */
   pokedexversiongroups_aggregate: Pokedexversiongroup_Aggregate;
+  /** An array relationship */
+  pokemonevolutions: Array<Pokemonevolution>;
+  /** An aggregate relationship */
+  pokemonevolutions_aggregate: Pokemonevolution_Aggregate;
   /** An array relationship */
   pokemonforms: Array<Pokemonform>;
   /** An aggregate relationship */
@@ -48134,6 +52083,26 @@ export type VersiongroupEncounterslots_AggregateArgs = {
 
 
 /** columns and relationships of "pokemon_v2_versiongroup" */
+export type VersiongroupEvolutionvariablesArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariable_Order_By>>;
+  where?: InputMaybe<Evolutionvariable_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_versiongroup" */
+export type VersiongroupEvolutionvariables_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Evolutionvariable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Evolutionvariable_Order_By>>;
+  where?: InputMaybe<Evolutionvariable_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_versiongroup" */
 export type VersiongroupItemflavortextsArgs = {
   distinct_on?: InputMaybe<Array<Itemflavortext_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -48150,6 +52119,26 @@ export type VersiongroupItemflavortexts_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Itemflavortext_Order_By>>;
   where?: InputMaybe<Itemflavortext_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_versiongroup" */
+export type VersiongroupItempricesArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_versiongroup" */
+export type VersiongroupItemprices_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Itemprice_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Itemprice_Order_By>>;
+  where?: InputMaybe<Itemprice_Bool_Exp>;
 };
 
 
@@ -48250,6 +52239,26 @@ export type VersiongroupPokedexversiongroups_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pokedexversiongroup_Order_By>>;
   where?: InputMaybe<Pokedexversiongroup_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_versiongroup" */
+export type VersiongroupPokemonevolutionsArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pokemon_v2_versiongroup" */
+export type VersiongroupPokemonevolutions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pokemonevolution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pokemonevolution_Order_By>>;
+  where?: InputMaybe<Pokemonevolution_Bool_Exp>;
 };
 
 
@@ -48434,11 +52443,15 @@ export type Versiongroup_Bool_Exp = {
   abilityflavortexts_aggregate?: InputMaybe<Abilityflavortext_Aggregate_Bool_Exp>;
   encounterslots?: InputMaybe<Encounterslot_Bool_Exp>;
   encounterslots_aggregate?: InputMaybe<Encounterslot_Aggregate_Bool_Exp>;
+  evolutionvariables?: InputMaybe<Evolutionvariable_Bool_Exp>;
+  evolutionvariables_aggregate?: InputMaybe<Evolutionvariable_Aggregate_Bool_Exp>;
   generation?: InputMaybe<Generation_Bool_Exp>;
   generation_id?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
   itemflavortexts?: InputMaybe<Itemflavortext_Bool_Exp>;
   itemflavortexts_aggregate?: InputMaybe<Itemflavortext_Aggregate_Bool_Exp>;
+  itemprices?: InputMaybe<Itemprice_Bool_Exp>;
+  itemprices_aggregate?: InputMaybe<Itemprice_Aggregate_Bool_Exp>;
   machines?: InputMaybe<Machine_Bool_Exp>;
   machines_aggregate?: InputMaybe<Machine_Aggregate_Bool_Exp>;
   movechanges?: InputMaybe<Movechange_Bool_Exp>;
@@ -48451,6 +52464,8 @@ export type Versiongroup_Bool_Exp = {
   order?: InputMaybe<Int_Comparison_Exp>;
   pokedexversiongroups?: InputMaybe<Pokedexversiongroup_Bool_Exp>;
   pokedexversiongroups_aggregate?: InputMaybe<Pokedexversiongroup_Aggregate_Bool_Exp>;
+  pokemonevolutions?: InputMaybe<Pokemonevolution_Bool_Exp>;
+  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Bool_Exp>;
   pokemonforms?: InputMaybe<Pokemonform_Bool_Exp>;
   pokemonforms_aggregate?: InputMaybe<Pokemonform_Aggregate_Bool_Exp>;
   pokemonmoves?: InputMaybe<Pokemonmove_Bool_Exp>;
@@ -48502,10 +52517,12 @@ export type Versiongroup_Order_By = {
   abilitychanges_aggregate?: InputMaybe<Abilitychange_Aggregate_Order_By>;
   abilityflavortexts_aggregate?: InputMaybe<Abilityflavortext_Aggregate_Order_By>;
   encounterslots_aggregate?: InputMaybe<Encounterslot_Aggregate_Order_By>;
+  evolutionvariables_aggregate?: InputMaybe<Evolutionvariable_Aggregate_Order_By>;
   generation?: InputMaybe<Generation_Order_By>;
   generation_id?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   itemflavortexts_aggregate?: InputMaybe<Itemflavortext_Aggregate_Order_By>;
+  itemprices_aggregate?: InputMaybe<Itemprice_Aggregate_Order_By>;
   machines_aggregate?: InputMaybe<Machine_Aggregate_Order_By>;
   movechanges_aggregate?: InputMaybe<Movechange_Aggregate_Order_By>;
   moveeffectchanges_aggregate?: InputMaybe<Moveeffectchange_Aggregate_Order_By>;
@@ -48513,6 +52530,7 @@ export type Versiongroup_Order_By = {
   name?: InputMaybe<Order_By>;
   order?: InputMaybe<Order_By>;
   pokedexversiongroups_aggregate?: InputMaybe<Pokedexversiongroup_Aggregate_Order_By>;
+  pokemonevolutions_aggregate?: InputMaybe<Pokemonevolution_Aggregate_Order_By>;
   pokemonforms_aggregate?: InputMaybe<Pokemonform_Aggregate_Order_By>;
   pokemonmoves_aggregate?: InputMaybe<Pokemonmove_Aggregate_Order_By>;
   versiongroupmovelearnmethods_aggregate?: InputMaybe<Versiongroupmovelearnmethod_Aggregate_Order_By>;

@@ -170,8 +170,9 @@ should lean on previews rather than repeated pushes to production.
 
 Each phase gets its own implementation plan.
 
-1. SvelteKit skeleton. Scaffold, Tailwind 4, biome, adapter-netlify, the
-   GraphQL codegen setup, and a working build. No features yet.
+1. SvelteKit skeleton. Scaffold, biome, vitest, adapter-netlify, the GraphQL
+   codegen setup, the design system wired into the root layout, and a working
+   build. No features yet.
 2. UI design and build. Not a port. The existing 68 shadcn components are
    discarded. A Fable subagent owns the visual design and delivers a
    researched design system in plain CSS, reviewed as a static style guide

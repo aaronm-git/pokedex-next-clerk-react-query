@@ -1,4 +1,5 @@
 <script lang="ts">
+import { flushSync } from "svelte";
 import { goto } from "$app/navigation";
 import { resolve } from "$app/paths";
 import Deck from "$lib/components/device/Deck.svelte";
@@ -68,7 +69,15 @@ function jump(index: number) {
   // and moves the reading position in one go. The hash link alone does not:
   // the router scrolls the window to the hash, and the LCD is an overflow
   // container inside it that stays put.
+  //
+  // Moving the cursor makes the menu item take focus (focus follows the
+  // cursor, Menu.svelte), but on the next effect flush, which would land
+  // after the heading was focused and pull focus and the scroll back up.
+  // That happens whenever the click did not focus the link first: Safari
+  // and Firefox on macOS, or a click without a mousedown. Flushing here
+  // lets that effect run now, so the heading is focused last and stays.
   nav.index = index;
+  flushSync();
   document.getElementById(SECTIONS[index].id)?.focus();
 }
 

@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { goto } from "$app/navigation";
 import { createDeck } from "$lib/components/nav/deck.svelte";
 import { TRAINER } from "$lib/fixtures/trainer";
+import { padNo } from "$lib/pokemon/format";
 import DeckHarness from "$lib/testing/DeckHarness.svelte";
 import Page from "./+page.svelte";
 
@@ -66,9 +67,19 @@ describe("search", () => {
     renderPage();
     await userEvent.click(screen.getByRole("tab", { name: "Owned" }));
 
-    expect(numbers()).toEqual(
-      TRAINER.owned.map((id) => String(id).padStart(3, "0")),
-    );
+    expect(numbers()).toEqual(TRAINER.owned.map(padNo));
+  });
+
+  it("counts matches against the tab's pool, not the whole dex", async () => {
+    renderPage();
+    await userEvent.click(screen.getByRole("tab", { name: "Owned" }));
+    await type("char");
+
+    // Charmander and Charmeleon are owned, Charizard is not.
+    expect(numbers()).toEqual(["004", "005"]);
+    expect(
+      screen.getByText(`2 of ${TRAINER.owned.length} match "char"`),
+    ).toBeInTheDocument();
   });
 
   it("moves the cursor down on the deck", async () => {

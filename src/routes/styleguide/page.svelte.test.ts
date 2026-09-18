@@ -236,6 +236,20 @@ describe("styleguide", () => {
     expect(document.activeElement).toBe(document.getElementById("components"));
   });
 
+  it("keeps focus on the heading when the click did not focus the link first", async () => {
+    // Safari and Firefox on macOS do not focus a link on mousedown, so the
+    // cursor is still on Palette when the click lands. The index change must
+    // not let focus-follows-cursor pull focus back to the menu item.
+    renderPage();
+    await tick();
+    expect(tocCurrent()).toBe("Palette");
+
+    screen.getByRole("link", { name: "Components" }).click();
+    await tick();
+    expect(tocCurrent()).toBe("Components");
+    expect(document.activeElement).toBe(document.getElementById("components"));
+  });
+
   it("keeps the demo menus off the deck", async () => {
     const user = userEvent.setup();
     const { deck } = renderPage();

@@ -1,6 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
+import { padNo } from "$lib/pokemon/format";
 import Ball from "../display/Ball.svelte";
 import { focusWhenCurrent } from "../nav/focus.svelte";
 
@@ -28,8 +29,9 @@ let {
 // A row is a link or a button, never a div (components.css, "Dex row").
 const tag = $derived(href ? "a" : "button");
 
-// Gen 1 always shows three digits: 001, 025, 151.
-const no = $derived(String(number).padStart(3, "0"));
+// The number is data; how it reads on screen is format.ts's decision, shared
+// with every screen that prints a dex number.
+const no = $derived(padNo(number));
 </script>
 
 <svelte:element

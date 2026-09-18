@@ -112,7 +112,7 @@ const hints = $derived([
     {/if}
     {#if needle !== ""}
       <p class="t-label-xs t-mid">
-        {rows.length} of {POKEMON.length} match "{query}"
+        {rows.length} of {pool.length} match "{query}"
       </p>
     {/if}
   </Stack>

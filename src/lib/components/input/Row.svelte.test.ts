@@ -2,6 +2,7 @@ import { render } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import { createRawSnippet } from "svelte";
 import { describe, expect, it, vi } from "vitest";
+import { padNo } from "$lib/pokemon/format";
 import Row from "./Row.svelte";
 
 const props = { number: 1, name: "Bulbasaur" };
@@ -50,15 +51,16 @@ describe("Row", () => {
     expect(el).toHaveClass("dex-row");
   });
 
-  it("zero-pads the number to three digits", () => {
+  it("shows the number the way padNo formats it", () => {
+    // One implementation of the three-digit dex number: format.ts owns it and
+    // Row calls it, so a change there shows up here without a second copy.
     const no = (number: number) =>
       render(Row, { props: { number, name: "x" } }).container.querySelector(
         ".dex-row__no",
       )?.textContent;
 
     expect(no(7)).toBe("007");
-    expect(no(25)).toBe("025");
-    expect(no(151)).toBe("151");
+    for (const n of [7, 25, 151]) expect(no(n)).toBe(padNo(n));
   });
 
   it("fills the ball when owned", () => {

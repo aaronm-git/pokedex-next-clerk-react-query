@@ -69,8 +69,9 @@ Everything else on this page is a suggestion.
 - No data fetching. No `@tanstack/svelte-query`. No network calls. Fixtures only.
 - WCAG AA. Every interactive element is reachable and operable by keyboard, and every control has an accessible name.
 - Respect `prefers-reduced-motion`; the design system already defines the tokens for it.
-- Commit messages end with:
-  `Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>`
+- Commit messages end with a `Co-Authored-By:` line naming **the model that
+  actually wrote the commit**, e.g. `Co-Authored-By: Claude Fable 5.1
+  <noreply@anthropic.com>`. Do not sign as a model that did not write it.
 
 ## Markup source of truth
 
@@ -114,6 +115,10 @@ check, for each child's files:
 2. No `<style>` block contains a literal colour, `px`, `rem`, `ms` or `s` value.
 3. Svelte 5 idioms only; no `export let`, `createEventDispatcher` or `<slot>`.
 4. The component's test asserts behaviour or rendered structure, not that a mock was called.
+5. No caller passes a literal value through `style=`. The layout primitives spread
+   `...rest`, which includes `style`, so `<Stack style="color: red">` lands a
+   literal on the element and routes around the no-literals rule. `style` carrying
+   data (`--value:NN`) or token values (`calc(var(--tile)*8)`) is fine. Grep for it.
 5. The markup matches the style guide section it came from.
 
 A parent that reports DONE without having run those five checks has not finished

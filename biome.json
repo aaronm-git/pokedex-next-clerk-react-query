@@ -54,6 +54,15 @@
           }
         }
       }
+    },
+    {
+      "includes": [".agents/**"],
+      "formatter": {
+        "enabled": false
+      },
+      "linter": {
+        "enabled": false
+      }
     }
   ]
 }

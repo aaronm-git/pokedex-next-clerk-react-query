@@ -18,9 +18,10 @@ const pct = $derived(
   max > 0 ? Math.min(100, Math.max(0, (value / max) * 100)) : 0,
 );
 
-// Absolute base-stat thresholds, not percentages. Base stats rarely pass
-// 150, so a share of 255 would paint nearly every bar red.
-const level = $derived(value < 60 ? "low" : value < 100 ? "mid" : undefined);
+// The design system's HP bar rule (components.css, "Stat bar"): green
+// above 50% of max, yellow above 20%, red at or below. Derived from the
+// same percentage that drives the fill, so colour and width always agree.
+const level = $derived(pct > 50 ? undefined : pct > 20 ? "mid" : "low");
 </script>
 
 <div

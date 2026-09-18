@@ -49,27 +49,34 @@ describe("StatBar", () => {
     ).toBe("0");
   });
 
-  it("marks low below 60, mid below 100, and nothing at 100 or above", () => {
-    const low = render(StatBar, { props: { label: "Spd", value: 59 } });
-    expect(low.container.firstElementChild).toHaveAttribute(
-      "data-level",
-      "low",
-    );
+  it("derives the level from the percentage: red to 20%, yellow to 50%, green above", () => {
+    // max = 100 so value and percentage read the same.
+    const level = (value: number) =>
+      (
+        render(StatBar, { props: { label: "Spd", value, max: 100 } }).container
+          .firstElementChild as HTMLElement
+      ).getAttribute("data-level");
 
-    const mid = render(StatBar, { props: { label: "Spd", value: 60 } });
-    expect(mid.container.firstElementChild).toHaveAttribute(
-      "data-level",
-      "mid",
-    );
+    expect(level(0)).toBe("low");
+    expect(level(20)).toBe("low");
+    expect(level(21)).toBe("mid");
+    expect(level(50)).toBe("mid");
+    expect(level(51)).toBeNull();
+    expect(level(100)).toBeNull();
+  });
 
-    const midTop = render(StatBar, { props: { label: "Spd", value: 99 } });
-    expect(midTop.container.firstElementChild).toHaveAttribute(
-      "data-level",
-      "mid",
-    );
+  it("applies the thresholds against the default max of 255", () => {
+    // 51 / 255 = 20% exactly, still red; 128 / 255 is just over 50%, green.
+    const level = (value: number) =>
+      (
+        render(StatBar, { props: { label: "HP", value } }).container
+          .firstElementChild as HTMLElement
+      ).getAttribute("data-level");
 
-    const high = render(StatBar, { props: { label: "Spd", value: 100 } });
-    expect(high.container.firstElementChild).not.toHaveAttribute("data-level");
+    expect(level(51)).toBe("low");
+    expect(level(52)).toBe("mid");
+    expect(level(127)).toBe("mid");
+    expect(level(128)).toBeNull();
   });
 
   it("uses name for the accessible name when given", () => {

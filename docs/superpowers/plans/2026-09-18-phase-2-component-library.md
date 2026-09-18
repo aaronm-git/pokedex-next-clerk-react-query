@@ -63,7 +63,7 @@ Everything else on this page is a suggestion.
 - **Plain CSS only.** No Tailwind, no CSS-in-JS, no utility framework, no component library.
 - **Never modify, move or delete anything under `src/lib/styles/` or `docs/design/`.** Signed-off design output. If a needed style is missing, escalate; do not add it.
 - **Scoped `<style>` blocks are for arrangement, never appearance.** A block may position or space things using `var(--token)` values only. A literal colour, `px`, `rem` or duration inside a component `<style>` is a defect. New visual treatments escalate.
-- **Every class name must already exist** in `device.css`, `components.css` or `type.css`. An invented class is a silent no-op and is the single most likely failure in this phase. Grep before writing.
+- **Every class name must already exist** somewhere under `src/lib/styles/`. That includes `base.css`, which carries utilities like `visually-hidden`, not only `components.css`, `device.css` and `type.css`. An invented class is a silent no-op and is the single most likely failure in this phase. Grep before writing.
 - Svelte 5 runes only: `$props()`, `$state()`, `$derived()`, `$effect()`, callback props, `Snippet` with `{@render}`. Never `export let`, `createEventDispatcher` or `<slot>`.
 - Package manager is pnpm. Never npm.
 - No data fetching. No `@tanstack/svelte-query`. No network calls. Fixtures only.

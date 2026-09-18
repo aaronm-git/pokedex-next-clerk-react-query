@@ -1,4 +1,4 @@
-import { graphql } from "@/src/graphql";
+import { graphql } from "$lib/graphql";
 
 export const POKEMON_ID_PAGE_QUERY = graphql(`
   query SearchPokemonById($id: Int!) {

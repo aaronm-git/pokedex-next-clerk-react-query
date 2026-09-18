@@ -10,10 +10,13 @@
     "includes": [
       "**",
       "!node_modules",
-      "!.next",
-      "!dist",
+      "!.svelte-kit",
       "!build",
-      "!src/graphql/"
+      "!.netlify",
+      "!src/lib/graphql",
+      "!schema.graphql",
+      "!src/lib/styles",
+      "!docs/design"
     ]
   },
   "formatter": {
@@ -28,10 +31,6 @@
       "suspicious": {
         "noUnknownAtRules": "off"
       }
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
     }
   },
   "assist": {
@@ -40,5 +39,17 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/*.svelte"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ]
 }

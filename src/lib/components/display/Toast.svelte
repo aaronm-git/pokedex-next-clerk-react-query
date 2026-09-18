@@ -1,0 +1,15 @@
+<script lang="ts">
+import type { Snippet } from "svelte";
+import type { HTMLAttributes } from "svelte/elements";
+
+let {
+  children,
+  ...rest
+}: {
+  children: Snippet;
+} & HTMLAttributes<HTMLDivElement> = $props();
+</script>
+
+<div {...rest} class={["dex-toast", rest.class]} role={rest.role ?? "status"}>
+  {@render children()}
+</div>

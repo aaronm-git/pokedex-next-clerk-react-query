@@ -108,8 +108,11 @@ async function remove(index: number) {
   />
   <!-- Last in the body so it sits on the LCD's bottom edge, below the hints,
        where the mockup puts it. It is sticky, so it stays there as the list
-       scrolls. -->
+       scrolls. Keyed on the name so a second removal remounts it: the slide
+       replays and the dismiss timer starts over. -->
   {#if removed}
-    <Toast>Removed {removed}</Toast>
+    {#key removed}
+      <Toast ondismiss={() => (removed = undefined)}>Removed {removed}</Toast>
+    {/key}
   {/if}
 </ScreenBody>

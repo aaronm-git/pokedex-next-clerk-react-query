@@ -1,8 +1,9 @@
 import { render, screen } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import { tick } from "svelte";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { goto } from "$app/navigation";
+import { TOAST_DURATION_MS } from "$lib/components/display/Toast.svelte";
 import { createDeck } from "$lib/components/nav/deck.svelte";
 import DeckHarness from "$lib/testing/DeckHarness.svelte";
 import Page from "./+page.svelte";
@@ -26,6 +27,10 @@ const toast = () => screen.queryByRole("status");
 
 beforeEach(() => {
   vi.mocked(goto).mockClear();
+});
+
+afterEach(() => {
+  vi.useRealTimers();
 });
 
 describe("favorites", () => {
@@ -59,6 +64,24 @@ describe("favorites", () => {
     await tick();
     expect(current()).toHaveTextContent("Gengar");
     expect(removeButton()).toHaveAccessibleName("Remove Gengar");
+  });
+
+  it("takes the toast down on its own after a while", async () => {
+    vi.useFakeTimers();
+    const { deck } = renderPage();
+    await tick();
+
+    deck.press("select");
+    await tick();
+    expect(toast()).toHaveTextContent("Removed Pikachu");
+
+    vi.advanceTimersByTime(TOAST_DURATION_MS - 1);
+    await tick();
+    expect(toast()).toHaveTextContent("Removed Pikachu");
+
+    vi.advanceTimersByTime(1);
+    await tick();
+    expect(toast()).not.toBeInTheDocument();
   });
 
   it("removes the current row from the button and shows the toast", async () => {

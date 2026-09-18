@@ -26,7 +26,8 @@ onDeck((button) => {
     class="t-center"
     style="justify-items:center;padding-top:var(--space-4)"
   >
-    <Sprite lg src={spriteUrl(25)} alt="Pikachu" />
+    <!-- The hero is the largest paint on the one prerendered route. -->
+    <Sprite lg eager src={spriteUrl(25)} alt="Pikachu" />
     <h1 class="t-label-xl">Pokédex</h1>
     <p class="t-body">
       A Kanto Pokédex you can carry in your pocket. Browse 151 entries, read

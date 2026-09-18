@@ -24,6 +24,18 @@ describe("Sprite", () => {
     expect(img).not.toHaveAttribute("height");
   });
 
+  it("loads eagerly with high priority when asked, and lazily otherwise", () => {
+    const lazy = render(Sprite, { props });
+    const lazyImg = lazy.container.querySelector("img") as HTMLImageElement;
+    expect(lazyImg).toHaveAttribute("loading", "lazy");
+    expect(lazyImg).not.toHaveAttribute("fetchpriority");
+
+    const eager = render(Sprite, { props: { ...props, eager: true } });
+    const eagerImg = eager.container.querySelector("img") as HTMLImageElement;
+    expect(eagerImg).toHaveAttribute("loading", "eager");
+    expect(eagerImg).toHaveAttribute("fetchpriority", "high");
+  });
+
   it("adds the lg and inverted modifiers when asked", () => {
     const { container } = render(Sprite, {
       props: { ...props, lg: true, inverted: true },

@@ -1,7 +1,7 @@
 import { render } from "@testing-library/svelte";
 import { createRawSnippet } from "svelte";
-import { describe, expect, it } from "vitest";
-import Toast from "./Toast.svelte";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import Toast, { TOAST_DURATION_MS } from "./Toast.svelte";
 
 const children = createRawSnippet(() => ({
   render: () => "Added Pikachu to favorites",
@@ -25,6 +25,50 @@ describe("Toast", () => {
     });
 
     expect(container.firstElementChild).toHaveAttribute("role", "alert");
+  });
+
+  describe("dismissal", () => {
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("asks to be dismissed once the default duration has passed, not before", () => {
+      vi.useFakeTimers();
+      const ondismiss = vi.fn();
+      render(Toast, { props: { children, ondismiss } });
+
+      vi.advanceTimersByTime(TOAST_DURATION_MS - 1);
+      expect(ondismiss).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(1);
+      expect(ondismiss).toHaveBeenCalledTimes(1);
+    });
+
+    it("takes a caller's duration", () => {
+      vi.useFakeTimers();
+      const ondismiss = vi.fn();
+      render(Toast, { props: { children, ondismiss, duration: 500 } });
+
+      vi.advanceTimersByTime(499);
+      expect(ondismiss).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(1);
+      expect(ondismiss).toHaveBeenCalledTimes(1);
+    });
+
+    it("cancels the dismiss when it unmounts first", () => {
+      vi.useFakeTimers();
+      const ondismiss = vi.fn();
+      const { unmount } = render(Toast, { props: { children, ondismiss } });
+
+      unmount();
+      vi.advanceTimersByTime(TOAST_DURATION_MS * 2);
+      expect(ondismiss).not.toHaveBeenCalled();
+    });
+
+    it("sets no timer without a handler", () => {
+      vi.useFakeTimers();
+      render(Toast, { props: { children } });
+      expect(vi.getTimerCount()).toBe(0);
+    });
   });
 
   it("passes rest attributes and extra classes through", () => {

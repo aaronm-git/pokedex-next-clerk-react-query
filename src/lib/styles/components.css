@@ -40,6 +40,13 @@
   margin: calc(var(--border-1) + var(--border-gap));
   padding: var(--space-3) var(--space-4);
 }
+/* The gap between the two rules shows the screen, so on the inverted panel
+   the outer rule flips to white (18.53:1 on black). The inner rule stays ink
+   on the paper card, 15.15:1. */
+.gb-screen--inverted .dex-box,
+.dex-box--inverted .dex-box {
+  outline-color: var(--lcd-white);
+}
 .dex-box--thick {
   border-width: var(--border-2);
 }
@@ -272,8 +279,11 @@
 .dex-btn--start:hover {
   --btn-bg: var(--bezel-light);
 }
+/* aria-pressed is listed here too: the generic .dex-btn[aria-pressed] rule is
+   (0,2,0) and would otherwise beat the 3-dot travel with its 2-dot one. */
 .dex-btn--start:active,
-.dex-btn--start.is-pressed {
+.dex-btn--start.is-pressed,
+.dex-btn--start[aria-pressed="true"] {
   transform: translateY(calc(var(--dot) * 3));
   box-shadow:
     inset 0 var(--dot) 0 0 var(--rubber-dark),
@@ -707,11 +717,14 @@
 }
 
 /* ---- Notice and toast ---------------------------------------------------- */
+/* A notice is a white card on either panel, so it names its own ink (16.61:1);
+   inherited from the inverted screen it would be white on white. */
 .dex-notice {
   display: grid;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background: var(--lcd-white);
+  color: var(--lcd-ink);
   border: var(--border-2) solid currentColor;
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -866,8 +879,16 @@
   gap: var(--space-4);
   align-content: start;
 }
+/* The screen is 22 tiles, 20 inside the glass, and the gap is one tile, so
+   auto-fit gives floor(21 / (min + 1)) columns: an 8-tile minimum is two
+   across, a 6-tile minimum is three, and 3 x 6 + 2 fills the 20 exactly.
+   The 3-up minimum is also floored at two display ems, because Jersey
+   numerals are 54px at every dot while tiles scale: at dot 2 a 6-tile cell
+   is 96px and a 3-digit card value (66px plus 40px of card chrome) does not
+   fit, so the grid falls back to two across there and goes three across at
+   dot 3, where a 6-tile cell is 144px. */
 .dex-grid--2 { grid-template-columns: repeat(auto-fit, minmax(calc(var(--tile) * 8), 1fr)); }
-.dex-grid--3 { grid-template-columns: repeat(auto-fit, minmax(calc(var(--tile) * 8), 1fr)); }
+.dex-grid--3 { grid-template-columns: repeat(auto-fit, minmax(max(calc(var(--tile) * 6), calc(var(--text-display) * 2)), 1fr)); }
 .dex-stack   { display: grid; gap: var(--space-3); align-content: start; grid-template-columns: minmax(0, 1fr); }
 .dex-stack--tight { gap: var(--space-1); }
 .dex-cluster { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }

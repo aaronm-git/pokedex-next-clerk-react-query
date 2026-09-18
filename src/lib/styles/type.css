@@ -77,6 +77,15 @@ p {
 .t-ink   { color: var(--lcd-ink); }
 .t-red   { color: var(--sig-red); }
 .t-blue  { color: var(--sig-blue); }
+/* On the inverted panel mid is 2.73:1 on black, red 4.01:1 and blue 3.62:1.
+   Light is 10.13:1; the LED red and Water blue keep the hue at 5.46:1 and
+   5.95:1. Paired the way components.css pairs its inverted overrides. */
+.gb-screen--inverted .t-mid,
+.dex-box--inverted .t-mid   { color: var(--lcd-light); }
+.gb-screen--inverted .t-red,
+.dex-box--inverted .t-red   { color: var(--led-on); }
+.gb-screen--inverted .t-blue,
+.dex-box--inverted .t-blue  { color: var(--type-water); }
 .t-center { text-align: center; }
 .t-right  { text-align: right; }
 .t-nowrap { white-space: nowrap; }
